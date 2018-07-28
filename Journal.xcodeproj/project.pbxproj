@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6910B22B210C4B8500135457 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B22A210C4B8500135457 /* Entry.swift */; };
+		6910B233210C57D700135457 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B232210C57D700135457 /* JournalTests.swift */; };
 		69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E215AB2102F1730075C96E /* AppDelegate.swift */; };
 		69E215AE2102F1730075C96E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E215AD2102F1730075C96E /* ViewController.swift */; };
 		69E215B12102F1730075C96E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69E215AF2102F1730075C96E /* Main.storyboard */; };
@@ -15,8 +16,21 @@
 		69E215B62102F1740075C96E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69E215B42102F1740075C96E /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6910B235210C57D700135457 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69E215A02102F1730075C96E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69E215A72102F1730075C96E;
+			remoteInfo = Journal;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6910B22A210C4B8500135457 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		6910B230210C57D700135457 /* JournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JournalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6910B232210C57D700135457 /* JournalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalTests.swift; sourceTree = "<group>"; };
+		6910B234210C57D700135457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E215A82102F1730075C96E /* Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Journal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E215AB2102F1730075C96E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69E215AD2102F1730075C96E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +41,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6910B22D210C57D700135457 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69E215A52102F1730075C96E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,10 +66,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6910B231210C57D700135457 /* JournalTests */ = {
+			isa = PBXGroup;
+			children = (
+				6910B232210C57D700135457 /* JournalTests.swift */,
+				6910B234210C57D700135457 /* Info.plist */,
+			);
+			path = JournalTests;
+			sourceTree = "<group>";
+		};
 		69E2159F2102F1730075C96E = {
 			isa = PBXGroup;
 			children = (
 				69E215AA2102F1730075C96E /* Journal */,
+				6910B231210C57D700135457 /* JournalTests */,
 				69E215A92102F1730075C96E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				69E215A82102F1730075C96E /* Journal.app */,
+				6910B230210C57D700135457 /* JournalTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,6 +150,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6910B22F210C57D700135457 /* JournalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6910B239210C57D700135457 /* Build configuration list for PBXNativeTarget "JournalTests" */;
+			buildPhases = (
+				6910B22C210C57D700135457 /* Sources */,
+				6910B22D210C57D700135457 /* Frameworks */,
+				6910B22E210C57D700135457 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6910B236210C57D700135457 /* PBXTargetDependency */,
+			);
+			name = JournalTests;
+			productName = JournalTests;
+			productReference = 6910B230210C57D700135457 /* JournalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		69E215A72102F1730075C96E /* Journal */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69E215BA2102F1740075C96E /* Build configuration list for PBXNativeTarget "Journal" */;
@@ -145,6 +195,10 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Jinseo Yoon";
 				TargetAttributes = {
+					6910B22F210C57D700135457 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 69E215A72102F1730075C96E;
+					};
 					69E215A72102F1730075C96E = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -164,11 +218,19 @@
 			projectRoot = "";
 			targets = (
 				69E215A72102F1730075C96E /* Journal */,
+				6910B22F210C57D700135457 /* JournalTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6910B22E210C57D700135457 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69E215A62102F1730075C96E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +244,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6910B22C210C57D700135457 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6910B233210C57D700135457 /* JournalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69E215A42102F1730075C96E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,6 +263,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6910B236210C57D700135457 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69E215A72102F1730075C96E /* Journal */;
+			targetProxy = 6910B235210C57D700135457 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		69E215AF2102F1730075C96E /* Main.storyboard */ = {
@@ -214,6 +292,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6910B237210C57D700135457 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JournalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jinseo.yoon.JournalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Journal.app/Journal";
+			};
+			name = Debug;
+		};
+		6910B238210C57D700135457 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JournalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jinseo.yoon.JournalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Journal.app/Journal";
+			};
+			name = Release;
+		};
 		69E215B82102F1740075C96E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -365,6 +481,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6910B239210C57D700135457 /* Build configuration list for PBXNativeTarget "JournalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6910B237210C57D700135457 /* Debug */,
+				6910B238210C57D700135457 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		69E215A32102F1730075C96E /* Build configuration list for PBXProject "Journal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
