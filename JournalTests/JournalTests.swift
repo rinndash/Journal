@@ -7,32 +7,17 @@
 //
 
 import XCTest
-
-class Entry {
-    let id: Int
-    let createdAt: Date
-    var text: String
-    
-    init(id: Int, createdAt: Date, text: String) {
-        self.id = id
-        self.createdAt = createdAt
-        self.text = text
-    }
-}
+@testable import Journal
 
 class JournalTests: XCTestCase {
-    func test_엔트리의_테스트를_수정한다() {
+    func testEditEntryText() {
         // Setup
-        let entry = Entry(id: 0, createdAt: Date(), text: "첫 번째 일기") 
+        let entry = Entry(id: 0, createdAt: Date(), text: "첫 번째 일기")
         
         // Run
-        entry.text = "첫 번째 수정"
+        entry.text = "첫 번째 테스트"
         
         // Verify
-        XCTAssertEqual(entry.text, "첫 번째 수정")
-    }
-    
-    func test_한글로_테스트가_가능한가요() {
-        
+        XCTAssertEqual(entry.text, "첫 번째 테스트")
     }
 }
