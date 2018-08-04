@@ -20,4 +20,22 @@ class JournalTests: XCTestCase {
         // Verify
         XCTAssertEqual(entry.text, "첫 번째 테스트")
     }
+    
+    func testAddEntryToJournal() {
+        // Setup
+        let journal = InMemoryJournal()
+        let newEntry = Entry(id: 1, createdAt: Date(), text: "일기")
+        
+        // Run
+        journal.add(newEntry)
+        
+        // Verify
+        let entryInJournal: Entry? = journal.entry(with: 1)
+        
+        XCTAssertEqual(entryInJournal, .some(newEntry))
+        XCTAssertTrue(entryInJournal === newEntry) // ===는 클래스만 사용할 수 있는 
+        XCTAssertTrue(entryInJournal?.isIdentical(to: newEntry) == true)
+    }
 }
+
+// 인터페이스 검증을 TDD로 하는 과정
