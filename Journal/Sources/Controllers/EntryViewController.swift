@@ -39,6 +39,7 @@ class EntryViewController: UIViewController {
         journal.add(entry)
         
         textView.resignFirstResponder()
+        textView.isUserInteractionEnabled = false
     }
 }
 
