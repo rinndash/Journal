@@ -44,6 +44,17 @@ class EntryViewController: UIViewController {
         textView.resignFirstResponder()
         textView.isUserInteractionEnabled = false
         button.setTitle("수정하기", for: .normal)
+        button.removeTarget(self, action: nil, for: .touchUpInside)
+        button.addTarget(self, action: #selector(editEntry), for: .touchUpInside)
+    }
+    
+    @objc func editEntry() {
+        textView.isUserInteractionEnabled = true
+        button.setTitle("저장하기", for: .normal)
+        button.removeTarget(self, action: nil, for: .touchUpInside)
+        button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
+        
+        textView.becomeFirstResponder()
     }
 }
 
