@@ -37,6 +37,8 @@ class EntryViewController: UIViewController {
     @IBAction func saveEntry(_ sender: Any) {
         let entry: Entry = Entry(text: textView.text)
         journal.add(entry)
+        
+        textView.resignFirstResponder()
     }
 }
 
