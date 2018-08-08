@@ -29,16 +29,15 @@ class EntryViewController: UIViewController {
         
         textView.text = "첫 번째 일기"
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
-        
-        button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        textView.becomeFirstResponder()
+        
+        updateSubviews(for: true)
     }
     
-    @objc func saveEntry() {
+    @objc private func saveEntry() {
         if let oldEntry = self.editingEntry {
             oldEntry.text = textView.text
             journal.update(oldEntry)
@@ -48,19 +47,30 @@ class EntryViewController: UIViewController {
             editingEntry = newEntry
         }
         
-        textView.isUserInteractionEnabled = false
-        button.setTitle("수정하기", for: .normal)
-        button.removeTarget(self, action: nil, for: .touchUpInside)
-        button.addTarget(self, action: #selector(editEntry), for: .touchUpInside)
-        textView.resignFirstResponder()
+        updateSubviews(for: false)
     }
     
-    @objc func editEntry() {
-        textView.isUserInteractionEnabled = true
-        button.setTitle("저장하기", for: .normal)
-        button.removeTarget(self, action: nil, for: .touchUpInside)
-        button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
-        textView.becomeFirstResponder()
+    @objc private func editEntry() {
+        updateSubviews(for: true)
+    }
+    
+    private func updateSubviews(for isEditing: Bool) {
+        if isEditing {
+            textView.isUserInteractionEnabled = true
+            textView.becomeFirstResponder()
+            
+            button.setTitle("저장하기", for: .normal)
+            button.removeTarget(self, action: nil, for: .touchUpInside)
+            button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
+            
+        } else {
+            textView.isUserInteractionEnabled = false
+            textView.resignFirstResponder()
+            
+            button.setTitle("수정하기", for: .normal)
+            button.removeTarget(self, action: nil, for: .touchUpInside)
+            button.addTarget(self, action: #selector(editEntry), for: .touchUpInside)
+        }
     }
 }
 
