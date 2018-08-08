@@ -22,6 +22,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     
     private let journal: Journal = InMemoryJournal()
+    private var editingEntry: Entry?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +39,20 @@ class EntryViewController: UIViewController {
     }
     
     @objc func saveEntry() {
-        let entry: Entry = Entry(text: textView.text)
-        journal.add(entry)
+        if let oldEntry = self.editingEntry {
+            oldEntry.text = textView.text
+            journal.update(oldEntry)
+        } else {
+            let newEntry: Entry = Entry(text: textView.text)
+            journal.add(newEntry)
+            editingEntry = newEntry
+        }
         
-        textView.resignFirstResponder()
         textView.isUserInteractionEnabled = false
         button.setTitle("수정하기", for: .normal)
         button.removeTarget(self, action: nil, for: .touchUpInside)
         button.addTarget(self, action: #selector(editEntry), for: .touchUpInside)
+        textView.resignFirstResponder()
     }
     
     @objc func editEntry() {
@@ -53,7 +60,6 @@ class EntryViewController: UIViewController {
         button.setTitle("저장하기", for: .normal)
         button.removeTarget(self, action: nil, for: .touchUpInside)
         button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
-        
         textView.becomeFirstResponder()
     }
 }
