@@ -20,6 +20,8 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     
+    private let journal: Journal = InMemoryJournal()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,8 @@ class EntryViewController: UIViewController {
     }
     
     @IBAction func saveEntry(_ sender: Any) {
-        print("엔트리 저장")
+        let entry: Entry = Entry(id: 0, createdAt: Date(), text: textView.text)
+        journal.add(entry)
     }
 }
 
