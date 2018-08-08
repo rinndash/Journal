@@ -26,5 +26,9 @@ class EntryViewController: UIViewController {
         textView.text = "첫 번째 일기"
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
     }
+    
+    @IBAction func saveEntry(_ sender: Any) {
+        print("엔트리 저장")
+    }
 }
 
