@@ -31,7 +31,7 @@
                                         <rect key="frame" x="267" y="63" width="100" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="lng-2x-I2X"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="lng-2x-I2X"/>
                                         </constraints>
                                         <state key="normal" title="저장하기"/>
                                     </button>
@@ -43,6 +43,7 @@
                                     <constraint firstItem="FEM-sw-EIX" firstAttribute="leading" secondItem="zhx-dB-24f" secondAttribute="leading" constant="8" id="OSq-Y4-6vW"/>
                                     <constraint firstAttribute="trailing" secondItem="nfO-gO-2c2" secondAttribute="trailing" constant="8" id="jLV-Lo-EU1"/>
                                     <constraint firstAttribute="height" constant="100" id="qbL-7f-kPx"/>
+                                    <constraint firstItem="nfO-gO-2c2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FEM-sw-EIX" secondAttribute="trailing" constant="8" id="xM4-Qi-sRP"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="32w-Rl-nFS">
@@ -66,6 +67,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dateLabel" destination="FEM-sw-EIX" id="1ME-hc-adL"/>
                         <outlet property="textView" destination="32w-Rl-nFS" id="vdn-v5-l3r"/>
                     </connections>
                 </viewController>
