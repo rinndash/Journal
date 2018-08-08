@@ -135,4 +135,21 @@ class JournalTests: XCTestCase {
         expect(entries.count).to(equal(3))
         expect(entries).to(equal([today, yesterDay, dayBeforeYesterday]))
     }
+    
+    func test_엔트리의_개수를_반환한다() {
+        // Setup
+        let journal = InMemoryJournal()
+        
+        // Verify
+        expect(journal.numberOfEntries).to(equal(0))
+        
+        journal.add(Entry.dayBeforeYesterday)
+        expect(journal.numberOfEntries).to(equal(1))
+        
+        journal.add(Entry.yesterDay)
+        expect(journal.numberOfEntries).to(equal(2))
+        
+        journal.add(Entry.today)
+        expect(journal.numberOfEntries).to(equal(3))
+    }
 }
