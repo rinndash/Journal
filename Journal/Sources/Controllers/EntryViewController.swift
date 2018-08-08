@@ -19,6 +19,7 @@ extension DateFormatter {
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var button: UIButton!
     
     private let journal: Journal = InMemoryJournal()
     
@@ -27,6 +28,8 @@ class EntryViewController: UIViewController {
         
         textView.text = "첫 번째 일기"
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
+        
+        button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,12 +37,13 @@ class EntryViewController: UIViewController {
         textView.becomeFirstResponder()
     }
     
-    @IBAction func saveEntry(_ sender: Any) {
+    @objc func saveEntry() {
         let entry: Entry = Entry(text: textView.text)
         journal.add(entry)
         
         textView.resignFirstResponder()
         textView.isUserInteractionEnabled = false
+        button.setTitle("수정하기", for: .normal)
     }
 }
 
