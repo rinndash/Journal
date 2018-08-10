@@ -74,8 +74,7 @@ class EntryViewController: UIViewController {
 
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var button: UIBarButtonItem!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     
     private let journal: Journal = InMemoryJournal()
@@ -85,7 +84,7 @@ class EntryViewController: UIViewController {
         super.viewDidLoad()
         
         textView.text = code
-        dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
+        title = DateFormatter.entryDateFormatter.string(from: Date())
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -143,15 +142,17 @@ class EntryViewController: UIViewController {
             textView.isEditable = true
             textView.becomeFirstResponder()
             
-            button.setTitle("저장하기", for: .normal)
-            button.addTarget(self, action: #selector(saveEntry(_:)), for: .touchUpInside)
+            button.title = "저장하기"
+            button.target = self
+            button.action = #selector(saveEntry(_:))
             
         } else {
             textView.isEditable = false
             textView.resignFirstResponder()
             
-            button.setTitle("수정하기", for: .normal)
-            button.addTarget(self, action: #selector(editEntry), for: .touchUpInside)
+            button.title = "수정하기"
+            button.target = self
+            button.action = #selector(editEntry)
         }
     }
 }
