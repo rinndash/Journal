@@ -138,22 +138,11 @@ class EntryViewController: UIViewController {
     }
     
     private func updateSubviews(for isEditing: Bool) {
-        if isEditing {
-            textView.isEditable = true
-            textView.becomeFirstResponder()
-            
-            button.title = "저장하기"
-            button.target = self
-            button.action = #selector(saveEntry(_:))
-            
-        } else {
-            textView.isEditable = false
-            textView.resignFirstResponder()
-            
-            button.title = "수정하기"
-            button.target = self
-            button.action = #selector(editEntry)
-        }
+        button.image = isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
+        button.target = self
+        button.action = isEditing ? #selector(saveEntry(_:)) : #selector(editEntry)
+        
+        textView.isEditable = isEditing
+        _ = isEditing ? textView.becomeFirstResponder() : textView.resignFirstResponder()
     }
 }
-
