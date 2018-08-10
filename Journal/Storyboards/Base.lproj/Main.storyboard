@@ -28,11 +28,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfO-gO-2c2">
-                                        <rect key="frame" x="267" y="63" width="100" height="30"/>
+                                        <rect key="frame" x="315" y="63" width="52" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="lng-2x-I2X"/>
-                                        </constraints>
                                         <state key="normal" title="저장하기"/>
                                     </button>
                                 </subviews>
@@ -43,7 +40,7 @@
                                     <constraint firstItem="FEM-sw-EIX" firstAttribute="leading" secondItem="zhx-dB-24f" secondAttribute="leading" constant="8" id="OSq-Y4-6vW"/>
                                     <constraint firstAttribute="trailing" secondItem="nfO-gO-2c2" secondAttribute="trailing" constant="8" id="jLV-Lo-EU1"/>
                                     <constraint firstAttribute="height" constant="100" id="qbL-7f-kPx"/>
-                                    <constraint firstItem="nfO-gO-2c2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FEM-sw-EIX" secondAttribute="trailing" constant="8" id="xM4-Qi-sRP"/>
+                                    <constraint firstItem="FEM-sw-EIX" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="nfO-gO-2c2" secondAttribute="leading" constant="-8" id="xM4-Qi-sRP"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="32w-Rl-nFS">

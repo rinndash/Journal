@@ -121,7 +121,7 @@ class EntryViewController: UIViewController {
         )
     }
     
-    @objc private func saveEntry() {
+    @objc private func saveEntry(_ sender: Any) {
         if let oldEntry = self.editingEntry {
             oldEntry.text = textView.text
             journal.update(oldEntry)
@@ -144,15 +144,13 @@ class EntryViewController: UIViewController {
             textView.becomeFirstResponder()
             
             button.setTitle("저장하기", for: .normal)
-            button.removeTarget(self, action: nil, for: .touchUpInside)
-            button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
+            button.addTarget(self, action: #selector(saveEntry(_:)), for: .touchUpInside)
             
         } else {
             textView.isEditable = false
             textView.resignFirstResponder()
             
             button.setTitle("수정하기", for: .normal)
-            button.removeTarget(self, action: nil, for: .touchUpInside)
             button.addTarget(self, action: #selector(editEntry), for: .touchUpInside)
         }
     }
