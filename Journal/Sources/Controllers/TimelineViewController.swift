@@ -16,7 +16,7 @@ class TimelineViewController: UIViewController {
         
         title = "Journal"
         
-        let journal = InMemoryJournal()
+        let journal = InMemoryEntryRepository()
         entryCountLabel.text = "엔트리 수: \(journal.numberOfEntries)"
     }
 }
