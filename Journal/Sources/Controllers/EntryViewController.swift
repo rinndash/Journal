@@ -108,7 +108,7 @@ class EntryViewController: UIViewController {
     
     private func updateSubviews(for isEditing: Bool) {
         if isEditing {
-            textView.isUserInteractionEnabled = true
+            textView.isEditable = true
             textView.becomeFirstResponder()
             
             button.setTitle("저장하기", for: .normal)
@@ -116,7 +116,7 @@ class EntryViewController: UIViewController {
             button.addTarget(self, action: #selector(saveEntry), for: .touchUpInside)
             
         } else {
-            textView.isUserInteractionEnabled = false
+            textView.isEditable = false
             textView.resignFirstResponder()
             
             button.setTitle("수정하기", for: .normal)
