@@ -96,15 +96,45 @@ class EntryViewController: UIViewController {
     @objc private func keyboardWillShow(note: Notification) {
         guard
             let userInfo = note.userInfo,
-            let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue
+            let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue,
+            let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
+            let animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt
             else { return }
         
         let keyboardHeight: CGFloat = keyboardFrameValue.cgRectValue.height
-        textViewBottomConstraint.constant = -keyboardHeight
+        let animationOption = UIViewAnimationOptions(rawValue: animationCurve)
+        
+        UIView.animate(
+            withDuration: duration,
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.textViewBottomConstraint.constant = -keyboardHeight
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
     }
     
     @objc private func keyboardWillHide(note: Notification) {
-        textViewBottomConstraint.constant = 0
+        guard
+            let userInfo = note.userInfo,
+            let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
+            let animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt
+            else { return }
+        
+        let animationOption = UIViewAnimationOptions(rawValue: animationCurve)
+        
+        UIView.animate(
+            withDuration: duration,
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.textViewBottomConstraint.constant = 0
+                self.view.layoutIfNeeded()
+        },
+            completion: nil
+        )
     }
     
     @objc private func saveEntry() {
