@@ -17,16 +17,6 @@ extension UIImage {
         gradientLayer.startPoint = horizontally ? CGPoint(x: 0.0, y: 0.5) : CGPoint(x: 0.5, y: 0.0)
         gradientLayer.endPoint = horizontally ? CGPoint(x: 1.0, y: 0.5) : CGPoint(x: 0.5, y: 1.0)
         
-        /*
-         if horizontally {
-         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
-         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-         } else {
-         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-         }
-         */
-        
         UIGraphicsBeginImageContext(gradientLayer.bounds.size)
         gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
