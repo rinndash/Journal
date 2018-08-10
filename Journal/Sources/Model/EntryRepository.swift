@@ -58,3 +58,7 @@ class InMemoryEntryRepository: EntryRepository {
         return Array(result) 
     }
 }
+
+extension InMemoryEntryRepository {
+    static let shared: InMemoryEntryRepository = InMemoryEntryRepository()
+}
