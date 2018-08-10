@@ -29,10 +29,6 @@ class EntryViewController: UIViewController {
         
         textView.text = "첫 번째 일기"
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         updateSubviews(for: true)
     }
