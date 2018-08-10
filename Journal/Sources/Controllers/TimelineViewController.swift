@@ -21,6 +21,15 @@ class TimelineViewController: UIViewController {
             if let vc = segue.destination as? EntryViewController {
                 vc.environment = environment
             }
+            
+        case .some("showEntry"):
+            if
+                let vc = segue.destination as? EntryViewController,
+                let selectedIP = tableview.indexPathForSelectedRow {
+                
+                vc.environment = environment
+                vc.entry = entries[selectedIP.row]
+            }
         default:
             break
         }

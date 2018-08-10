@@ -22,13 +22,17 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     
     var environment: Environment!
-    private var editingEntry: Entry?
+    var entry: Entry?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView.text = ""
-        title = DateFormatter.entryDateFormatter.string(from: Date())
+        textView.text = entry?.text
+        let date = entry?.createdAt ?? Date()
+        title = DateFormatter.entryDateFormatter.string(from: date)
+        button.image = entry == nil
+            ? #imageLiteral(resourceName: "baseline_save_white_24pt")
+            : #imageLiteral(resourceName: "baseline_edit_white_24pt")
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -36,7 +40,7 @@ class EntryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateSubviews(for: true)
+        updateSubviews(for: entry == nil)
     }
     
     @objc private func handleKeyboardAppearance(note: Notification) {
@@ -65,13 +69,13 @@ class EntryViewController: UIViewController {
     }
     
     @objc private func saveEntry(_ sender: Any) {
-        if let oldEntry = self.editingEntry {
+        if let oldEntry = self.entry {
             oldEntry.text = textView.text
             environment.entryRepository.update(oldEntry)
         } else {
             let newEntry: Entry = Entry(text: textView.text)
             environment.entryRepository.add(newEntry)
-            editingEntry = newEntry
+            entry = newEntry
         }
         
         updateSubviews(for: false)
