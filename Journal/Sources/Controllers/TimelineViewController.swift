@@ -31,7 +31,10 @@ class TimelineViewController: UIViewController {
         
         title = "Journal"
         tableview.dataSource = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         entries = environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
         tableview.reloadData()
     }
