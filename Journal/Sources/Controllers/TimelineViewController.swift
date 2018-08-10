@@ -13,7 +13,16 @@ class TimelineViewController: UIViewController {
     
     var environment: Environment!
     
-    private var entries: [Entry] = []
+    private var dates: [Date] = []
+    private var entries: [Entry] {
+        return environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
+    }
+    private func entries(for day: Date) -> [Entry] {
+        return entries.filter { $0.createdAt.hmsRemoved == day }
+    }
+    private func entry(for indexPath: IndexPath) -> Entry {
+        return entries(for: dates[indexPath.section])[indexPath.row]
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -28,7 +37,7 @@ class TimelineViewController: UIViewController {
                 let selectedIP = tableview.indexPathForSelectedRow {
                 
                 vc.environment = environment
-                vc.entry = entries[selectedIP.row]
+                vc.entry = entry(for: selectedIP)
             }
         default:
             break
@@ -44,35 +53,33 @@ class TimelineViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        entries = environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
+        
+        dates = entries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
         tableview.reloadData()
     }
     
     @IBAction func returnToTimeline(segue: UIStoryboardSegue) { }
 }
 
-extension TimelineViewController {
-    func datesWithEntry() -> [Date] {
-        return entries
-            .sorted { $0.createdAt > $1.createdAt }
-            .compactMap { Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: $0.createdAt) }
-            .unique()
-    }
-}
-
 extension TimelineViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return datesWithEntry().count
+        return dates.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return DateFormatter.entryDateFormatter.string(from: dates[section])
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return entries.count
+        return entries(for: dates[section]).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath)
+        let entry = self.entry(for: indexPath)
         
-        let entry = entries[indexPath.row]
         cell.textLabel?.text = "\(entry.text)"
         cell.detailTextLabel?.text = DateFormatter.entryDateFormatter.string(from: entry.createdAt)
         
