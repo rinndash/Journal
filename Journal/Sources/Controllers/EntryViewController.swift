@@ -86,18 +86,17 @@ class EntryViewController: UIViewController {
         
         textView.text = code
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
         updateSubviews(for: true)
     }
     
-    @objc private func keyboardWillShow(note: Notification) {
+    @objc private func handleKeyboardAppearance(note: Notification) {
         guard
             let userInfo = note.userInfo,
             let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue,
@@ -105,7 +104,9 @@ class EntryViewController: UIViewController {
             let animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt
             else { return }
         
-        let keyboardHeight: CGFloat = keyboardFrameValue.cgRectValue.height
+        let keyboardHeight: CGFloat = note.name == Notification.Name.UIKeyboardWillShow
+            ? keyboardFrameValue.cgRectValue.height
+            : 0
         let animationOption = UIViewAnimationOptions(rawValue: animationCurve)
         
         UIView.animate(
@@ -116,27 +117,6 @@ class EntryViewController: UIViewController {
                 self.textViewBottomConstraint.constant = -keyboardHeight
                 self.view.layoutIfNeeded()
             },
-            completion: nil
-        )
-    }
-    
-    @objc private func keyboardWillHide(note: Notification) {
-        guard
-            let userInfo = note.userInfo,
-            let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
-            let animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt
-            else { return }
-        
-        let animationOption = UIViewAnimationOptions(rawValue: animationCurve)
-        
-        UIView.animate(
-            withDuration: duration,
-            delay: 0.0,
-            options: animationOption,
-            animations: {
-                self.textViewBottomConstraint.constant = 0
-                self.view.layoutIfNeeded()
-        },
             completion: nil
         )
     }
