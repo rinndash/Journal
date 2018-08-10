@@ -11,12 +11,26 @@ import UIKit
 class TimelineViewController: UIViewController {
     @IBOutlet weak var entryCountLabel: UILabel!
     
+    var environment: Environment!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case .some("addEntry"):
+            if let vc = segue.destination as? EntryViewController {
+                vc.environment = environment
+            }
+        default:
+            break
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Journal"
         
-        let journal = InMemoryEntryRepository()
-        entryCountLabel.text = "엔트리 수: \(journal.numberOfEntries)"
+        entryCountLabel.text = environment.entryRepository.numberOfEntries > 0
+            ? "엔트리 수: \(environment.entryRepository.numberOfEntries)"
+            : "엔트리 없음"
     }
 }

@@ -13,7 +13,7 @@
         <!--Timeline View Controller-->
         <scene sceneID="OZl-DP-LDX">
             <objects>
-                <viewController id="hNd-Ea-LR9" customClass="TimelineViewController" customModule="Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TimelineViewController" id="hNd-Ea-LR9" customClass="TimelineViewController" customModule="Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4ve-zk-Eac">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,7 @@
                     <navigationItem key="navigationItem" id="b2a-cq-gar">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xDG-TC-99X">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="5WF-xg-ldN"/>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="addEntry" id="5WF-xg-ldN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

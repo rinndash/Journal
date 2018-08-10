@@ -77,7 +77,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var button: UIBarButtonItem!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     
-    private let journal: EntryRepository = InMemoryEntryRepository()
+    var environment: Environment!
     private var editingEntry: Entry?
     
     override func viewDidLoad() {
@@ -123,10 +123,10 @@ class EntryViewController: UIViewController {
     @objc private func saveEntry(_ sender: Any) {
         if let oldEntry = self.editingEntry {
             oldEntry.text = textView.text
-            journal.update(oldEntry)
+            environment.entryRepository.update(oldEntry)
         } else {
             let newEntry: Entry = Entry(text: textView.text)
-            journal.add(newEntry)
+            environment.entryRepository.add(newEntry)
             editingEntry = newEntry
         }
         
