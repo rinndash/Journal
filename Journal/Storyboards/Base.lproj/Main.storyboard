@@ -70,6 +70,7 @@
                         <outlet property="button" destination="nfO-gO-2c2" id="0pz-77-THj"/>
                         <outlet property="dateLabel" destination="FEM-sw-EIX" id="1ME-hc-adL"/>
                         <outlet property="textView" destination="32w-Rl-nFS" id="vdn-v5-l3r"/>
+                        <outlet property="textViewBottomConstraint" destination="VIt-X0-vjF" id="2KX-28-IYt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -16,7 +16,7 @@ extension DateFormatter {
     }()
 }
 
-private let loremIpsum = """
+private let code = """
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -76,6 +76,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     
     private let journal: Journal = InMemoryJournal()
     private var editingEntry: Entry?
@@ -83,10 +84,27 @@ class EntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView.text = loremIpsum
+        textView.text = code
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
         updateSubviews(for: true)
+    }
+    
+    @objc private func keyboardWillShow(note: Notification) {
+        guard
+            let userInfo = note.userInfo,
+            let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue
+            else { return }
+        
+        let keyboardHeight: CGFloat = keyboardFrameValue.cgRectValue.height
+        textViewBottomConstraint.constant = -keyboardHeight
+    }
+    
+    @objc private func keyboardWillHide(note: Notification) {
+        textViewBottomConstraint.constant = 0
     }
     
     @objc private func saveEntry() {
