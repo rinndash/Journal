@@ -14,6 +14,13 @@ extension DateFormatter {
         df.dateFormat = "yyyy. M. dd. EEE"
         return df
     }()
+    
+    static var timeFormatter: DateFormatter = {
+        let df = DateFormatter.init()
+        df.dateStyle = .none
+        df.timeStyle = .short
+        return df
+    }()
 }
 
 extension Date {

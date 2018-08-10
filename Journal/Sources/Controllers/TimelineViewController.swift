@@ -77,12 +77,39 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath)
+        let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
         let entry = self.entry(for: indexPath)
         
-        cell.textLabel?.text = "\(entry.text)"
-        cell.detailTextLabel?.text = DateFormatter.entryDateFormatter.string(from: entry.createdAt)
+        cell.entryTextLabel.text = "\(entry.text)"
+        cell.detailTextLabel?.text = DateFormatter.timeFormatter.string(from: entry.createdAt)
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .normal, title:  nil) { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//            guard let `self` = self else { success(false); return }
+//
+//            let date = self.environment.entryRepository.datesWithEntry()[indexPath.section]
+//            let entries = self.environment.entryRepository.entries(of: date)
+//            self.environment.entryRepository.delete(entries[indexPath.row])
+//
+//            UIView.animate(withDuration: 0.3) {
+//                tableView.beginUpdates()
+//                if entries.count == 1 {
+//                    tableView.deleteSections(IndexSet.init(integer: indexPath.section), with: .automatic)
+//                } else {
+//                    tableView.deleteRows(at: [indexPath], with: .automatic)
+//                }
+//                tableView.endUpdates()
+//            }
+//
+//            success(true)
+//        }
+//
+//        deleteAction.image = #imageLiteral(resourceName: "baseline_delete_white_24pt")
+//        deleteAction.backgroundColor = UIColor.gradientEnd
+//
+//        return UISwipeActionsConfiguration(actions: [deleteAction])
+//    }
 }
