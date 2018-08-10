@@ -9,10 +9,14 @@
 import UIKit
 
 class TimelineViewController: UIViewController {
-
+    @IBOutlet weak var entryCountLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Journal"
+        
+        let journal = InMemoryJournal()
+        entryCountLabel.text = "엔트리 수: \(journal.numberOfEntries)"
     }
 }

@@ -17,7 +17,19 @@
                     <view key="view" contentMode="scaleToFill" id="4ve-zk-Eac">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MO9-sO-GaY">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MO9-sO-GaY" firstAttribute="centerX" secondItem="4ve-zk-Eac" secondAttribute="centerX" id="Hz2-K4-ZQQ"/>
+                            <constraint firstItem="MO9-sO-GaY" firstAttribute="centerY" secondItem="4ve-zk-Eac" secondAttribute="centerY" id="gY4-co-oVX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6F6-xY-X8z"/>
                     </view>
                     <navigationItem key="navigationItem" id="b2a-cq-gar">
@@ -27,6 +39,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="entryCountLabel" destination="MO9-sO-GaY" id="fXg-kO-AOz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lUL-83-Qc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
