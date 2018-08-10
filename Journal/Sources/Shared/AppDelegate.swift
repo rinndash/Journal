@@ -27,7 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navViewController = window?.rootViewController as? UINavigationController,
             let timelineViewController = navViewController.topViewController as? TimelineViewController
             else { return }
-        timelineViewController.environment = Environment()
+        
+        let entries: [Entry] = (1...50).map { number in
+            let text = "\(number)일째 일기"
+            return Entry(text: text)
+        }
+        let entryRepo = InMemoryEntryRepository(entries: entries)
+        timelineViewController.environment = Environment(entryRepository: entryRepo)
     }
     
     private func customizeNavigationBar() {
