@@ -28,6 +28,10 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Journal"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         entryCountLabel.text = environment.entryRepository.numberOfEntries > 0
             ? "엔트리 수: \(environment.entryRepository.numberOfEntries)"
