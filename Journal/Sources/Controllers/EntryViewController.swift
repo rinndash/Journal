@@ -86,6 +86,10 @@ class EntryViewController: UIViewController {
         
         textView.text = code
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
