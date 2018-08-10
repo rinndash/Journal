@@ -28,10 +28,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let timelineViewController = navViewController.topViewController as? TimelineViewController
             else { return }
         
-        let entries: [Entry] = (1...50).map { number in
-            let text = "\(number)일째 일기"
-            return Entry(text: text)
-        }
+        let entries: [Entry] = [
+            // 오늘
+            Entry(createdAt: Date.before(0), text: "오늘 일기"),
+            Entry(createdAt: Date.before(0), text: "오늘 일기"),
+            Entry(createdAt: Date.before(0), text: "오늘 일기"),
+            
+            // 어제
+            Entry(createdAt: Date.before(1), text: "어제 일기"),
+            Entry(createdAt: Date.before(1), text: "어제 일기"),
+            Entry(createdAt: Date.before(1), text: "어제 일기"),
+            Entry(createdAt: Date.before(1), text: "어제 일기"),
+            Entry(createdAt: Date.before(1), text: "어제 일기"),
+            Entry(createdAt: Date.before(1), text: "어제 일기"),
+            
+            // 3일 전
+            Entry(createdAt: Date.before(3), text: "3일 전 일기"),
+            Entry(createdAt: Date.before(3), text: "3일 전 일기")
+        ]
         let entryRepo = InMemoryEntryRepository(entries: entries)
         timelineViewController.environment = Environment(entryRepository: entryRepo)
     }

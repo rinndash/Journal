@@ -51,7 +51,20 @@ class TimelineViewController: UIViewController {
     @IBAction func returnToTimeline(segue: UIStoryboardSegue) { }
 }
 
+extension TimelineViewController {
+    func datesWithEntry() -> [Date] {
+        return entries
+            .sorted { $0.createdAt > $1.createdAt }
+            .compactMap { Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: $0.createdAt) }
+            .unique()
+    }
+}
+
 extension TimelineViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return datesWithEntry().count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entries.count
     }

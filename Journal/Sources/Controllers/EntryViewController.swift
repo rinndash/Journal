@@ -8,14 +8,6 @@
 
 import UIKit
 
-extension DateFormatter {
-    static var entryDateFormatter: DateFormatter = {
-        let df = DateFormatter.init()
-        df.dateFormat = "yyyy. M. dd. EEE"
-        return df
-    }()
-}
-
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIBarButtonItem!
