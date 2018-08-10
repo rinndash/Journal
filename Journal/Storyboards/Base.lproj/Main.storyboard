@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -102,15 +103,25 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="bdy-1J-ocW">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="dku-Xw-QlP"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" id="dku-Xw-QlP"/>
+                            <barButtonItem title="Item" image="baseline_delete_white_24pt" id="qRh-4l-dip">
+                                <connections>
+                                    <action selector="removeEntry:" destination="BYZ-38-t0r" id="TPz-WK-dci"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="button" destination="dku-Xw-QlP" id="glc-B6-wBH"/>
                         <outlet property="textView" destination="32w-Rl-nFS" id="vdn-v5-l3r"/>
                         <outlet property="textViewBottomConstraint" destination="VIt-X0-vjF" id="2KX-28-IYt"/>
+                        <outlet property="trashIcon" destination="qRh-4l-dip" id="cZ9-mS-hdd"/>
+                        <segue destination="ypj-Ec-ibS" kind="unwind" identifier="returnToTimeline" unwindAction="returnToTimelineWithSegue:" id="t8H-vE-w2Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="ypj-Ec-ibS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1034" y="134"/>
         </scene>
@@ -133,6 +144,9 @@
             <point key="canvasLocation" x="-740" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="baseline_delete_white_24pt" width="24" height="24"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="q4r-Zk-HJj"/>
     </inferredMetricsTieBreakers>

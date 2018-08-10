@@ -47,6 +47,8 @@ class TimelineViewController: UIViewController {
         entries = environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
         tableview.reloadData()
     }
+    
+    @IBAction func returnToTimeline(segue: UIStoryboardSegue) { }
 }
 
 extension TimelineViewController: UITableViewDataSource {

@@ -20,9 +20,11 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIBarButtonItem!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var trashIcon: UIBarButtonItem!
     
     var environment: Environment!
     var entry: Entry?
+    var hasEntry: Bool { return entry != nil }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +32,10 @@ class EntryViewController: UIViewController {
         textView.text = entry?.text
         let date = entry?.createdAt ?? Date()
         title = DateFormatter.entryDateFormatter.string(from: date)
-        button.image = entry == nil
-            ? #imageLiteral(resourceName: "baseline_save_white_24pt")
-            : #imageLiteral(resourceName: "baseline_edit_white_24pt")
+        button.image = hasEntry
+            ? #imageLiteral(resourceName: "baseline_edit_white_24pt")
+            : #imageLiteral(resourceName: "baseline_save_white_24pt")
+        trashIcon.isEnabled = hasEntry
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -76,6 +79,7 @@ class EntryViewController: UIViewController {
             let newEntry: Entry = Entry(text: textView.text)
             environment.entryRepository.add(newEntry)
             entry = newEntry
+            trashIcon.isEnabled = true
         }
         
         updateSubviews(for: false)
@@ -83,6 +87,12 @@ class EntryViewController: UIViewController {
     
     @objc private func editEntry() {
         updateSubviews(for: true)
+    }
+    
+    @IBAction func removeEntry(_ sender: Any) {
+        guard let entryToRemove = entry else { return }
+        environment.entryRepository.remove(entryToRemove)
+        navigationController?.popViewController(animated: true)
     }
     
     private func updateSubviews(for isEditing: Bool) {
