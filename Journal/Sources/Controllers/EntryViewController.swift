@@ -87,10 +87,9 @@ class EntryViewController: UIViewController {
 """
 
 class EntryViewController: UIViewController {
-    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var button: UIBarButtonItem!
     
     let journal: Journal = InMemoryJournal()
     private var editingEntry: Entry?
@@ -98,14 +97,9 @@ class EntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
+        title = DateFormatter.entryDateFormatter.string(from: Date())
         textView.text = code
-        
-        button.addTarget(self, 
-                         action: #selector(saveEntry(_:)), 
-                         for: .touchUpInside
-        )
-        
+                        
         NotificationCenter.default
             .addObserver(self, 
                          selector: #selector(handleKeyboardAppearance(_:)), 
@@ -149,7 +143,7 @@ class EntryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        textView.becomeFirstResponder()
+        updateSubviews(for: true)
     }
     
     @objc func saveEntry(_ sender: Any) {
@@ -170,25 +164,16 @@ class EntryViewController: UIViewController {
     }
     
     fileprivate func updateSubviews(for isEditing: Bool) {
-        if isEditing {
-            textView.isEditable = true
-            textView.becomeFirstResponder()
-            
-            button.setTitle("저장하기", for: .normal)
-            button.removeTarget(self, action: nil, for: .touchUpInside)
-            button.addTarget(self, 
-                             action: #selector(saveEntry(_:)), 
-                             for: .touchUpInside)
-        } else {
-            textView.isEditable = false
-            textView.resignFirstResponder()
-            
-            button.setTitle("수정하기", for: .normal)
-            button.removeTarget(self, action: nil, for: .touchUpInside)
-            button.addTarget(self, 
-                             action: #selector(editEntry(_:)), 
-                             for: .touchUpInside)
-        }        
+        textView.isEditable = true
+        _ = isEditing
+            ? textView.becomeFirstResponder()
+            : textView.resignFirstResponder()
+        
+        button.image = isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
+        button.target = self
+        button.action = isEditing 
+            ? #selector(saveEntry(_:))
+            : #selector(editEntry(_:))       
     }
 }
 
