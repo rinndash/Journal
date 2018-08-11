@@ -9,11 +9,11 @@
 import Foundation
 
 class Entry {
-    let id: Int
+    let id: UUID
     let createdAt: Date
     var text: String
     
-    init(id: Int, createdAt: Date, text: String) {
+    init(id: UUID = UUID(), createdAt: Date = Date(), text: String) {
         self.id = id
         self.createdAt = createdAt
         self.text = text
