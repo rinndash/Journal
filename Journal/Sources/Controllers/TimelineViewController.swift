@@ -90,9 +90,7 @@ extension TimelineViewController: UITableViewDataSource {
 
 extension TimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title:  nil) { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            guard let `self` = self else { success(false); return }
-            
+        let deleteAction = UIContextualAction(style: .normal, title:  nil) { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let date = self.dates[indexPath.section]
             let entries = self.entries(for: date)
             self.environment.entryRepository.remove(entries[indexPath.row])
