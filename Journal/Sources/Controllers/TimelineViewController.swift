@@ -49,6 +49,7 @@ class TimelineViewController: UIViewController {
         
         title = "Journal"
         tableview.dataSource = self
+        tableview.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,31 +86,35 @@ extension TimelineViewController: UITableViewDataSource {
         
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let deleteAction = UIContextualAction(style: .normal, title:  nil) { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-//            guard let `self` = self else { success(false); return }
-//
-//            let date = self.environment.entryRepository.datesWithEntry()[indexPath.section]
-//            let entries = self.environment.entryRepository.entries(of: date)
-//            self.environment.entryRepository.delete(entries[indexPath.row])
-//
-//            UIView.animate(withDuration: 0.3) {
-//                tableView.beginUpdates()
-//                if entries.count == 1 {
-//                    tableView.deleteSections(IndexSet.init(integer: indexPath.section), with: .automatic)
-//                } else {
-//                    tableView.deleteRows(at: [indexPath], with: .automatic)
-//                }
-//                tableView.endUpdates()
-//            }
-//
-//            success(true)
-//        }
-//
-//        deleteAction.image = #imageLiteral(resourceName: "baseline_delete_white_24pt")
-//        deleteAction.backgroundColor = UIColor.gradientEnd
-//
-//        return UISwipeActionsConfiguration(actions: [deleteAction])
-//    }
+}
+
+extension TimelineViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title:  nil) { [weak self] (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            guard let `self` = self else { success(false); return }
+            
+            let date = self.dates[indexPath.section]
+            let entries = self.entries(for: date)
+            self.environment.entryRepository.remove(entries[indexPath.row])
+            if entries.count == 1 { self.dates = self.dates.filter { $0 != date } }
+            
+            UIView.animate(withDuration: 0.3) {
+                tableView.beginUpdates()
+                if entries.count == 1 {        
+                    tableView.deleteSections(IndexSet.init(integer: indexPath.section), with: .automatic)
+                } else {
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+                tableView.endUpdates()
+            }
+            
+            success(true)
+        }
+        
+        deleteAction.image = #imageLiteral(resourceName: "baseline_delete_white_24pt")
+        deleteAction.backgroundColor = UIColor.gradientEnd
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
 }
