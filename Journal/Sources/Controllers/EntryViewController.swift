@@ -52,10 +52,12 @@ class EntryViewController: UIViewController {
             editingEntry = entry
         }
         
+        print("저장")
         updateSubviews(for: false)
     }
     
     @objc func editEntry(_ sender: Any) {
+        print("수정")
         updateSubviews(for: true)
     }
     
@@ -65,6 +67,7 @@ class EntryViewController: UIViewController {
             textView.becomeFirstResponder()
             
             button.setTitle("저장하기", for: .normal)
+            button.removeTarget(self, action: nil, for: .touchUpInside)
             button.addTarget(self, 
                              action: #selector(saveEntry(_:)), 
                              for: .touchUpInside)
@@ -73,6 +76,7 @@ class EntryViewController: UIViewController {
             textView.resignFirstResponder()
             
             button.setTitle("수정하기", for: .normal)
+            button.removeTarget(self, action: nil, for: .touchUpInside)
             button.addTarget(self, 
                              action: #selector(editEntry(_:)), 
                              for: .touchUpInside)
