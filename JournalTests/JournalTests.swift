@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import Journal
 
 extension Entry {
@@ -26,7 +27,7 @@ class JournalTests: XCTestCase {
         entry.text = "첫 번째 테스트"
         
         // Verify
-        XCTAssertEqual(entry.text, "첫 번째 테스트")
+        expect(entry.text) == "첫 번째 테스트"
     }
     
     func testAddEntryToJournal() {
@@ -40,9 +41,9 @@ class JournalTests: XCTestCase {
         // Verify
         let entryInJournal: Entry? = journal.entry(with: newEntry.id)
         
-        XCTAssertEqual(entryInJournal, .some(newEntry))
-        // XCTAssertTrue(entryInJournal === newEntry)
-        XCTAssertTrue(entryInJournal?.isIdentical(to: newEntry) == true)
+        expect(entryInJournal) == newEntry
+        expect(entryInJournal) === newEntry
+        expect(entryInJournal?.isIdentical(to: newEntry)).to(beTrue())
     }
     
     func testGetEntryWithId() {
@@ -54,8 +55,8 @@ class JournalTests: XCTestCase {
         let entry = journal.entry(with: oldEntry.id)
         
         // Verify
-        XCTAssertEqual(entry, .some(oldEntry))
-        XCTAssertTrue(entry?.isIdentical(to: oldEntry) == true)
+        expect(entry) == oldEntry
+        expect(entry?.isIdentical(to: oldEntry)).to(beTrue())
     }
     
     func testUpdateEntry() {
@@ -83,8 +84,8 @@ class JournalTests: XCTestCase {
         journal.remove(oldEntry)
         
         // Verify
-        let entry = journal.entry(with: oldEntry.id) 
-        XCTAssertEqual(entry, nil)
+        let entry = journal.entry(with: oldEntry.id)
+        expect(entry).to(beNil())
     }
     
     func test_최근_순으로_엔트리를_불러올_수_있다() {
@@ -100,7 +101,7 @@ class JournalTests: XCTestCase {
         
         // Verify 
         XCTAssertEqual(entries.count, 3)
-        XCTAssertEqual(entries, [today, yesterDay, dayBeforeYesterday])
+        expect(entries).to(equal([today, yesterDay, dayBeforeYesterday]))
     }
     
     func test_요청한_엔트리의_수만큼_최신_순으로_반환한다() {
