@@ -8,7 +8,12 @@
 
 import Foundation
 
-class Entry {
+protocol EntryType: Identifiable, Equatable {
+    var createdAt: Date { get }
+    var text: String { get set }
+}
+
+class Entry: EntryType {
     let id: Int
     let createdAt: Date
     var text: String
@@ -20,9 +25,7 @@ class Entry {
     }
 }
 
-extension Entry: Identifiable { }
-
-extension Entry: Equatable { 
+extension Entry { 
     static func ==(lhs: Entry, rhs: Entry) -> Bool {
         return lhs.id == rhs.id
             && lhs.createdAt == rhs.createdAt
