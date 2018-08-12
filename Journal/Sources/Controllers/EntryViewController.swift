@@ -92,6 +92,7 @@ class EntryViewController: UIViewController {
     let dateLabel: UILabel = UILabel()
     let textView: UITextView = UITextView()
     let button: UIButton = UIButton(type: .system)
+    var headerViewHeightConstraint: Constraint!
     var textViewBottomConstraint: Constraint!
     
     let journal: Journal = InMemoryJournal()
@@ -122,6 +123,11 @@ class EntryViewController: UIViewController {
                          object: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textView.becomeFirstResponder()
+    }
+    
     private func addSubviews() {
         headerView.addSubview(dateLabel)
         headerView.addSubview(button)
@@ -143,7 +149,7 @@ class EntryViewController: UIViewController {
         
         headerView.snp.makeConstraints {
             $0.leading.top.trailing.equalToSuperview()
-            $0.height.equalTo(100)
+            headerViewHeightConstraint = $0.height.equalTo(100).constraint
         }
         
         textView.snp.makeConstraints {
@@ -165,6 +171,9 @@ class EntryViewController: UIViewController {
         let keyboardHeight = isKeyboardWillShow  
             ? keyboardFrame.cgRectValue.height
             : 0
+        let headerHeight = isKeyboardWillShow
+            ? 50
+            : 100
         
         let animationOption = UIViewAnimationOptions.init(rawValue: curve)
         
@@ -173,6 +182,7 @@ class EntryViewController: UIViewController {
             delay: 0.0, 
             options: animationOption, 
             animations: {
+                self.headerViewHeightConstraint.update(offset: headerHeight)
                 self.textViewBottomConstraint.update(offset: -keyboardHeight) 
                 self.view.layoutIfNeeded()
             }, 
@@ -191,16 +201,17 @@ class EntryViewController: UIViewController {
         }
         
         updateSubviews(for: false)
+        textView.resignFirstResponder()
     }
     
     @objc func editEntry(_ sender: Any) {
         updateSubviews(for: true)
+        textView.becomeFirstResponder()
     }
     
     fileprivate func updateSubviews(for isEditing: Bool) {
         if isEditing {
             textView.isEditable = true
-            textView.becomeFirstResponder()
             
             button.setTitle("저장하기", for: .normal)
             button.removeTarget(self, action: nil, for: .touchUpInside)
@@ -209,7 +220,6 @@ class EntryViewController: UIViewController {
                              for: .touchUpInside)
         } else {
             textView.isEditable = false
-            textView.resignFirstResponder()
             
             button.setTitle("수정하기", for: .normal)
             button.removeTarget(self, action: nil, for: .touchUpInside)
