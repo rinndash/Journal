@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension DateFormatter {
     static var entryDateFormatter: DateFormatter = { () -> DateFormatter in
@@ -87,10 +88,11 @@ class EntryViewController: UIViewController {
 """
 
 class EntryViewController: UIViewController {
-    var dateLabel: UILabel!
-    var textView: UITextView!
-    var button: UIButton!
-    var textViewBottomConstraint: NSLayoutConstraint!
+    let headerView: UIView = UIView()
+    let dateLabel: UILabel = UILabel()
+    let textView: UITextView = UITextView()
+    let button: UIButton = UIButton(type: .system)
+    var textViewBottomConstraint: Constraint!
     
     let journal: Journal = InMemoryJournal()
     private var editingEntry: Entry?
@@ -98,13 +100,14 @@ class EntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addSubviews()
+        layout()
+        
+        headerView.backgroundColor = UIColor.yellow
         dateLabel.text = DateFormatter.entryDateFormatter.string(from: Date())
         textView.text = code
         
-        button.addTarget(self, 
-                         action: #selector(saveEntry(_:)), 
-                         for: .touchUpInside
-        )
+        updateSubviews(for: true)
         
         NotificationCenter.default
             .addObserver(self, 
@@ -117,6 +120,37 @@ class EntryViewController: UIViewController {
                          selector: #selector(handleKeyboardAppearance(_:)), 
                          name: NSNotification.Name.UIKeyboardWillHide, 
                          object: nil)
+    }
+    
+    private func addSubviews() {
+        headerView.addSubview(dateLabel)
+        headerView.addSubview(button)
+        view.addSubview(headerView)
+        view.addSubview(textView)
+    }
+    
+    private func layout() {
+        dateLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(8)
+            $0.bottom.equalToSuperview().inset(8)
+            $0.trailing.lessThanOrEqualTo(button.snp.leading).inset(8)
+        }
+        
+        button.snp.makeConstraints {
+            $0.centerY.equalTo(dateLabel)
+            $0.trailing.equalToSuperview().inset(8)
+        }
+        
+        headerView.snp.makeConstraints {
+            $0.leading.top.trailing.equalToSuperview()
+            $0.height.equalTo(100)
+        }
+        
+        textView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            textViewBottomConstraint = $0.bottom.equalToSuperview().constraint
+        }
     }
     
     @objc func handleKeyboardAppearance(_ note: Notification) {
@@ -139,19 +173,13 @@ class EntryViewController: UIViewController {
             delay: 0.0, 
             options: animationOption, 
             animations: {
-                self.textViewBottomConstraint.constant = -keyboardHeight
+                self.textViewBottomConstraint.update(offset: -keyboardHeight) 
                 self.view.layoutIfNeeded()
             }, 
             completion: nil
         )
     }
         
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        textView.becomeFirstResponder()
-    }
-    
     @objc func saveEntry(_ sender: Any) {
         if let editing = editingEntry {
             editing.text = textView.text
