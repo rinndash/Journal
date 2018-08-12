@@ -87,10 +87,10 @@ class EntryViewController: UIViewController {
 """
 
 class EntryViewController: UIViewController {
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
+    var dateLabel: UILabel!
+    var textView: UITextView!
+    var button: UIButton!
+    var textViewBottomConstraint: NSLayoutConstraint!
     
     let journal: Journal = InMemoryJournal()
     private var editingEntry: Entry?
