@@ -15,28 +15,67 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var trashIcon: UIBarButtonItem!
     
     var viewModel: EntryViewControllerModel!
-    var environment: Environment!
-    var entry: Entry?
-    var hasEntry: Bool { return entry != nil }
+    
+    private func updateSubviews() {
+        trashIcon.isEnabled = viewModel.trashIconEnabled
+        
+        button.image = viewModel.buttonImage
+        button.target = self
+        button.action = viewModel.isEditing ? #selector(saveEntry(_:)) : #selector(editEntry)
+        
+        textView.isEditable = viewModel.textViewEditable
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView.text = entry?.text
-        let date = entry?.createdAt ?? Date()
-        title = DateFormatter.entryDateFormatter.string(from: date)
-        button.image = hasEntry
-            ? #imageLiteral(resourceName: "baseline_edit_white_24pt")
-            : #imageLiteral(resourceName: "baseline_save_white_24pt")
-        trashIcon.isEnabled = hasEntry
+        textView.text = viewModel.textViewText
+        title = viewModel.title
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        if viewModel.hasEntry == false { viewModel.startEditing() }
+        updateSubviews()
+        
+        registerNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateSubviews(for: entry == nil)
+        if viewModel.isEditing { textView.becomeFirstResponder() }
+    }
+    
+    @objc private func saveEntry(_ sender: Any) {
+        viewModel.completeEditing(with: textView.text)
+        updateSubviews()
+        textView.resignFirstResponder()
+    }
+    
+    @objc private func editEntry() {
+        viewModel.startEditing()
+        updateSubviews()
+        textView.becomeFirstResponder()
+    }
+    
+    @IBAction func removeEntry(_ sender: Any) {
+        guard viewModel.hasEntry else { return }
+        
+        let alertController = UIAlertController.init(title: "일기를 제거하겠습니까?", message: "이 작업은 되돌릴 수 없습니다", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "확인", style: .destructive) { (action) in
+            self.viewModel.removeEntry()
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension EntryViewController {
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAppearance(note:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
     @objc private func handleKeyboardAppearance(note: Notification) {
@@ -59,51 +98,8 @@ class EntryViewController: UIViewController {
             animations: {
                 self.textViewBottomConstraint.constant = -keyboardHeight
                 self.view.layoutIfNeeded()
-            },
+        },
             completion: nil
         )
-    }
-    
-    @objc private func saveEntry(_ sender: Any) {
-        if let oldEntry = self.entry {
-            oldEntry.text = textView.text
-            environment.entryRepository.update(oldEntry)
-        } else {
-            let newEntry: Entry = Entry(text: textView.text)
-            environment.entryRepository.add(newEntry)
-            entry = newEntry
-            trashIcon.isEnabled = true
-        }
-        
-        updateSubviews(for: false)
-    }
-    
-    @objc private func editEntry() {
-        updateSubviews(for: true)
-    }
-    
-    @IBAction func removeEntry(_ sender: Any) {
-        guard let entryToRemove = entry else { return }
-        
-        let alertController = UIAlertController.init(title: "일기를 제거하겠습니까?", message: "이 작업은 되돌릴 수 없습니다", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "확인", style: .destructive) { (action) in
-            self.environment.entryRepository.remove(entryToRemove)
-            self.navigationController?.popViewController(animated: true)
-        }
-        alertController.addAction(deleteAction)
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    private func updateSubviews(for isEditing: Bool) {
-        button.image = isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
-        button.target = self
-        button.action = isEditing ? #selector(saveEntry(_:)) : #selector(editEntry)
-        
-        textView.isEditable = isEditing
-        _ = isEditing ? textView.becomeFirstResponder() : textView.resignFirstResponder()
     }
 }
