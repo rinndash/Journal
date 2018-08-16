@@ -8,7 +8,19 @@
 
 import UIKit
 
+struct EntryTableViewCellModel {
+    let entryText: String
+    let createdDateText: String
+}
+
 class EntryTableViewCell: UITableViewCell {
     @IBOutlet weak var entryTextLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
+    var viewModel: EntryTableViewCellModel? {
+        didSet {
+            entryTextLabel.text = viewModel?.entryText
+            timeLabel.text = viewModel?.createdDateText
+        }
+    }
 }

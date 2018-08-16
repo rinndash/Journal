@@ -20,6 +20,7 @@ class TimelineViewController: UIViewController {
     private func entries(for day: Date) -> [Entry] {
         return entries.filter { $0.createdAt.hmsRemoved == day }
     }
+    
     private func entry(for indexPath: IndexPath) -> Entry {
         return entries(for: dates[indexPath.section])[indexPath.row]
     }
@@ -81,8 +82,8 @@ extension TimelineViewController: UITableViewDataSource {
         let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
         let entry = self.entry(for: indexPath)
         
-        cell.entryTextLabel.text = "\(entry.text)"
-        cell.detailTextLabel?.text = DateFormatter.timeFormatter.string(from: entry.createdAt)
+        let viewModel = EntryTableViewCellModel(entryText: entry.text, createdDateText: DateFormatter.timeFormatter.string(from: entry.createdAt))
+        cell.viewModel = viewModel
         
         return cell
     }
