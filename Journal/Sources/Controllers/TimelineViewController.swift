@@ -29,7 +29,7 @@ class TimelineViewController: UIViewController {
         switch segue.identifier {
         case .some("addEntry"):
             if let vc = segue.destination as? EntryViewController {
-                vc.environment = environment
+                vc.viewModel = EntryViewControllerModel(environment: environment)
             }
             
         case .some("showEntry"):
@@ -37,8 +37,7 @@ class TimelineViewController: UIViewController {
                 let vc = segue.destination as? EntryViewController,
                 let selectedIP = tableview.indexPathForSelectedRow {
                 
-                vc.environment = environment
-                vc.entry = entry(for: selectedIP)
+                vc.viewModel = EntryViewControllerModel(environment: environment, entry: entry(for: selectedIP))
             }
         default:
             break

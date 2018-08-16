@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TimelineViewModel {
+class TimelineViewControllerModel {
     let environment: Environment
     
     private var dates: [Date] = []
@@ -26,8 +26,4 @@ class TimelineViewModel {
     init(environment: Environment) {
         self.environment = environment
     }
-}
-
-extension TimelineViewModel {
-    
 }

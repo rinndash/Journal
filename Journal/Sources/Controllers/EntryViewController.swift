@@ -14,6 +14,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var trashIcon: UIBarButtonItem!
     
+    var viewModel: EntryViewControllerModel!
     var environment: Environment!
     var entry: Entry?
     var hasEntry: Bool { return entry != nil }
