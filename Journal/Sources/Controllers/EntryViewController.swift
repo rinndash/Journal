@@ -83,8 +83,18 @@ class EntryViewController: UIViewController {
     
     @IBAction func removeEntry(_ sender: Any) {
         guard let entryToRemove = entry else { return }
-        environment.entryRepository.remove(entryToRemove)
-        navigationController?.popViewController(animated: true)
+        
+        let alertController = UIAlertController.init(title: "일기를 제거하겠습니까?", message: "이 작업은 되돌릴 수 없습니다", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "확인", style: .destructive) { (action) in
+            self.environment.entryRepository.remove(entryToRemove)
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     private func updateSubviews(for isEditing: Bool) {
