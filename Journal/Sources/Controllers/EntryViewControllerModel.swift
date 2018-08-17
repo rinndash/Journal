@@ -50,9 +50,10 @@ class EntryViewControllerModel {
         isEditing = false
     }
     
-    func removeEntry() {
-        guard let entryToRemove = entry else { return }
+    func removeEntry() -> Entry? {
+        guard let entryToRemove = entry else { return nil }
         self.environment.entryRepository.remove(entryToRemove)
         self.entry = nil
+        return entryToRemove
     }
 }

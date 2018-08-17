@@ -30,6 +30,7 @@ class TimelineViewController: UIViewController {
         case .some("addEntry"):
             if let vc = segue.destination as? EntryViewController {
                 vc.viewModel = EntryViewControllerModel(environment: environment)
+                vc.delegate = self
             }
             
         case .some("showEntry"):
@@ -38,6 +39,7 @@ class TimelineViewController: UIViewController {
                 let selectedIP = tableview.indexPathForSelectedRow {
                 
                 vc.viewModel = EntryViewControllerModel(environment: environment, entry: entry(for: selectedIP))
+                vc.delegate = self
             }
         default:
             break
@@ -62,6 +64,12 @@ class TimelineViewController: UIViewController {
     }
     
     @IBAction func returnToTimeline(segue: UIStoryboardSegue) { }
+}
+
+extension TimelineViewController: EntryViewControllerDelegate {
+    func didRemoveEntry(_ entry: Entry) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension TimelineViewController: UITableViewDataSource {
