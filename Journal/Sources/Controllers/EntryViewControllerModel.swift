@@ -18,21 +18,18 @@ class EntryViewControllerModel {
     }
     
     var hasEntry: Bool { return entry != nil }
-    private(set) var isEditing: Bool = false
+    var trashIconEnabled: Bool { return hasEntry }
     
     var title: String {
-        let date = entry?.createdAt ?? Date()
+        let date = entry?.createdAt ?? environment.now()
         return DateFormatter.entryDateFormatter.string(from: date)
     }
     
     var textViewText: String? { return entry?.text }
+    
+    private(set) var isEditing: Bool = false
     var textViewEditable: Bool { return isEditing }
-    
-    var buttonImage: UIImage {
-        return isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
-    }
-    
-    var trashIconEnabled: Bool { return hasEntry }
+    var buttonImage: UIImage { return isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt") }
     
     func startEditing() {
         isEditing = true

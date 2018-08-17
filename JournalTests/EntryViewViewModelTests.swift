@@ -7,29 +7,111 @@
 //
 
 import XCTest
+import Nimble
+@testable import Journal
 
 class EntryViewViewModelTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testHasEntry() {
+        // Setup
+        let environment = Environment()
+        let entry = Entry(text: "일기")
+        
+        // Run
+        let entryHasViewModel = EntryViewControllerModel(environment: environment, entry: entry)
+        let noEntryViewModel = EntryViewControllerModel(environment: environment)
+        
+        // Verify
+        expect(entryHasViewModel.hasEntry) == true
+        expect(noEntryViewModel.hasEntry) == false
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testTextViewTextReturnsEntryText() {
+        // Setup
+        let environment = Environment()
+        let entry = Entry(text: "일기")
+        
+        // Run
+        let entryHasViewModel = EntryViewControllerModel(environment: environment, entry: entry)
+        let noEntryViewModel = EntryViewControllerModel(environment: environment)
+        
+        // Verify
+        expect(entryHasViewModel.textViewText) == "일기"
+        expect(noEntryViewModel.textViewText).to(beNil())
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testTitleWhenEntryExists() {
+        // Setup
+        let environment = Environment()
+        let createdAt: Date = Date()
+        let entry = Entry(createdAt: createdAt, text: "일기")
+        
+        // Run
+        let viewModel = EntryViewControllerModel(environment: environment, entry: entry)
+        
+        // Verify
+        expect(viewModel.title) == DateFormatter.entryDateFormatter.string(from: createdAt)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testTitleWhenEntryIsNil() {
+        let now: Date = Date()
+        let environment = Environment(now: { now })
+        
+        // Run
+        let viewModel = EntryViewControllerModel(environment: environment)
+        
+        // Verify
+        expect(viewModel.title) == DateFormatter.entryDateFormatter.string(from: now)
     }
     
+    func testTrashIconEnabledWhenEntryExists() {
+        let environment = Environment()
+        let entry = Entry(text: "일기")
+        
+        // Run
+        let viewModel = EntryViewControllerModel(environment: environment, entry: entry)
+        
+        // Verify
+        expect(viewModel.trashIconEnabled) == true
+    }
+    
+    func testTrashIconDisabledWhenEntryIsNil() {
+        let environment = Environment()
+        
+        // Run
+        let viewModel = EntryViewControllerModel(environment: environment)
+        
+        // Verify
+        expect(viewModel.trashIconEnabled) == false
+    }
+    
+    func testUpdateOfEditingPropertiesWhenStartEditing() {
+        // Setup
+        let viewModel = EntryViewControllerModel(environment: Environment())
+        
+        expect(viewModel.isEditing) == false
+        expect(viewModel.textViewEditable) == false
+        expect(viewModel.buttonImage) == #imageLiteral(resourceName: "baseline_edit_white_24pt")
+        
+        // Run
+        viewModel.startEditing()
+        
+        // Verify
+        expect(viewModel.isEditing) == true
+        expect(viewModel.textViewEditable) == true
+        expect(viewModel.buttonImage) == #imageLiteral(resourceName: "baseline_save_white_24pt")
+    }
+    
+    func testUpdateOfEditingPropertiesWhenCompleteEditing() {
+        // Setup
+        let viewModel = EntryViewControllerModel(environment: Environment())
+        viewModel.startEditing()
+        
+        // Run
+        viewModel.completeEditing(with: "수정 끝")
+        
+        // Verify
+        expect(viewModel.isEditing) == false
+        expect(viewModel.textViewEditable) == false
+        expect(viewModel.buttonImage) == #imageLiteral(resourceName: "baseline_edit_white_24pt")
+    }
 }
