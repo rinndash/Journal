@@ -11,25 +11,13 @@ import UIKit
 class TimelineViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     
-    var environment: Environment!
-    
-    private var dates: [Date] = []
-    private var entries: [Entry] {
-        return environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
-    }
-    private func entries(for day: Date) -> [Entry] {
-        return entries.filter { $0.createdAt.hmsRemoved == day }
-    }
-    
-    private func entry(for indexPath: IndexPath) -> Entry {
-        return entries(for: dates[indexPath.section])[indexPath.row]
-    }
+    var viewModel: TimelineViewControllerModel!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case .some("addEntry"):
             if let vc = segue.destination as? EntryViewController {
-                vc.viewModel = EntryViewControllerModel(environment: environment)
+                vc.viewModel = viewModel.newEntryViewViewModel()
                 vc.delegate = self
             }
             
@@ -37,8 +25,7 @@ class TimelineViewController: UIViewController {
             if
                 let vc = segue.destination as? EntryViewController,
                 let selectedIP = tableview.indexPathForSelectedRow {
-                
-                vc.viewModel = EntryViewControllerModel(environment: environment, entry: entry(for: selectedIP))
+                vc.viewModel = viewModel.entryViewModel(for: selectedIP)
                 vc.delegate = self
             }
         default:
@@ -56,14 +43,8 @@ class TimelineViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        dates = entries
-            .compactMap { $0.createdAt.hmsRemoved }
-            .unique()
         tableview.reloadData()
     }
-    
-    @IBAction func returnToTimeline(segue: UIStoryboardSegue) { }
 }
 
 extension TimelineViewController: EntryViewControllerDelegate {
@@ -74,24 +55,20 @@ extension TimelineViewController: EntryViewControllerDelegate {
 
 extension TimelineViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dates.count
+        return viewModel.numberOfDates
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return DateFormatter.entryDateFormatter.string(from: dates[section])
+        return viewModel.headerTitle(of: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return entries(for: dates[section]).count
+        return viewModel.numberOfItems(of: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
-        let entry = self.entry(for: indexPath)
-        
-        let viewModel = EntryTableViewCellModel(entry: entry)
-        cell.viewModel = viewModel
-        
+        cell.viewModel = viewModel.entryTableViewCellModel(for: indexPath)
         return cell
     }
 }
@@ -99,14 +76,12 @@ extension TimelineViewController: UITableViewDataSource {
 extension TimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title:  nil) { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let date = self.dates[indexPath.section]
-            let entries = self.entries(for: date)
-            self.environment.entryRepository.remove(entries[indexPath.row])
-            if entries.count == 1 { self.dates = self.dates.filter { $0 != date } }
+            let isLastEntryInSection = self.viewModel.numberOfItems(of: indexPath.section) == 1
+            self.viewModel.removeEntry(at: indexPath)
             
             UIView.animate(withDuration: 0.3) {
                 tableView.beginUpdates()
-                if entries.count == 1 {        
+                if isLastEntryInSection {
                     tableView.deleteSections(IndexSet.init(integer: indexPath.section), with: .automatic)
                 } else {
                     tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -122,5 +97,4 @@ extension TimelineViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-
 }

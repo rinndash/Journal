@@ -46,7 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Entry(createdAt: Date.before(3), text: "3일 전 일기")
         ]
         let entryRepo = InMemoryEntryRepository(entries: entries)
-        timelineViewController.environment = Environment(entryRepository: entryRepo)
+        let env = Environment(entryRepository: entryRepo)
+        
+        timelineViewController.viewModel = TimelineViewControllerModel(environment: env)
     }
     
     private func customizeNavigationBar() {
