@@ -16,6 +16,7 @@ struct EntryTableViewCellModel {
 class EntryTableViewCell: UITableViewCell {
     @IBOutlet weak var entryTextLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var ampmLabel: UILabel!
     
     var viewModel: EntryTableViewCellModel? {
         didSet {
