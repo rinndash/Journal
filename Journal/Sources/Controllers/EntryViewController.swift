@@ -66,9 +66,8 @@ class EntryViewController: UIViewController {
         
         let alertController = UIAlertController.init(title: "일기를 제거하겠습니까?", message: "이 작업은 되돌릴 수 없습니다", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "확인", style: .destructive) { (action) in
-            if let removedEntry = self.viewModel.removeEntry() {
-                self.delegate?.didRemoveEntry(removedEntry)
-            }
+            guard let removedEntry = self.viewModel.removeEntry() else { return }
+            self.delegate?.didRemoveEntry(removedEntry)
         }
         alertController.addAction(deleteAction)
         
