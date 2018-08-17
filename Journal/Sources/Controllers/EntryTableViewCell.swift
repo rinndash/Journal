@@ -9,8 +9,11 @@
 import UIKit
 
 struct EntryTableViewCellModel {
-    let entryText: String
-    let createdDateText: String
+    let entry: Entry
+    
+    var entryText: String { return entry.text }
+    var createdDateText: String { return DateFormatter.timeFormatter.string(from: entry.createdAt) }
+    var ampmText: String { return DateFormatter.ampmFormatter.string(from: entry.createdAt) }
 }
 
 class EntryTableViewCell: UITableViewCell {
@@ -22,6 +25,7 @@ class EntryTableViewCell: UITableViewCell {
         didSet {
             entryTextLabel.text = viewModel?.entryText
             timeLabel.text = viewModel?.createdDateText
+            ampmLabel.text = viewModel?.ampmText
         }
     }
 }

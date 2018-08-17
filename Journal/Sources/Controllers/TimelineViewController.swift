@@ -89,7 +89,7 @@ extension TimelineViewController: UITableViewDataSource {
         let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
         let entry = self.entry(for: indexPath)
         
-        let viewModel = EntryTableViewCellModel(entryText: entry.text, createdDateText: DateFormatter.timeFormatter.string(from: entry.createdAt))
+        let viewModel = EntryTableViewCellModel(entry: entry)
         cell.viewModel = viewModel
         
         return cell
