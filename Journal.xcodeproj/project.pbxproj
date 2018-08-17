@@ -15,6 +15,7 @@
 		2E367319211E568200B026D5 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E367318211E568200B026D5 /* EntryTableViewCell.swift */; };
 		2E76EB512125C4C400FE8415 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76EB502125C4C400FE8415 /* TimelineViewModel.swift */; };
 		2E76EB552125C86500FE8415 /* EntryViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76EB542125C86500FE8415 /* EntryViewControllerModel.swift */; };
+		2E76EB572127232A00FE8415 /* EntryViewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76EB562127232A00FE8415 /* EntryViewViewModelTests.swift */; };
 		6910B22B210C4B8500135457 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B22A210C4B8500135457 /* Entry.swift */; };
 		6910B233210C57D700135457 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B232210C57D700135457 /* JournalTests.swift */; };
 		69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* EntryRepository.swift */; };
@@ -47,6 +48,7 @@
 		2E367318211E568200B026D5 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		2E76EB502125C4C400FE8415 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		2E76EB542125C86500FE8415 /* EntryViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewControllerModel.swift; sourceTree = "<group>"; };
+		2E76EB562127232A00FE8415 /* EntryViewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewViewModelTests.swift; sourceTree = "<group>"; };
 		59E50C4E552C9DF409E1D18D /* Pods_JournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JournalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA70B66400EDEFFA300FDE /* Pods-Journal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Journal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Journal/Pods-Journal.release.xcconfig"; sourceTree = "<group>"; };
 		5C8F253A7E49CDAC4C3464CA /* Pods-JournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JournalTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JournalTests/Pods-JournalTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				6910B232210C57D700135457 /* JournalTests.swift */,
 				6910B234210C57D700135457 /* Info.plist */,
 				2E367313211DFDF200B026D5 /* TimelineViewControllerTests.swift */,
+				2E76EB562127232A00FE8415 /* EntryViewViewModelTests.swift */,
 			);
 			path = JournalTests;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			files = (
 				6910B233210C57D700135457 /* JournalTests.swift in Sources */,
 				2E367314211DFDF200B026D5 /* TimelineViewControllerTests.swift in Sources */,
+				2E76EB572127232A00FE8415 /* EntryViewViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

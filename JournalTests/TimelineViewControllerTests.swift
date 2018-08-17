@@ -18,28 +18,5 @@ class TimelineViewControllerTests: XCTestCase {
         vc = storyboard.instantiateViewController(withIdentifier: "TimelineViewController") as! TimelineViewController
         _ = vc.view // loadView()와 viewDidLoad()를 강제로 호출
     }
-    
-    func testEntryCountLabelTextWhenNoEntry() {
-        // Setup
-        vc.environment = Environment()
-        
-        // Run
-        vc.viewWillAppear(false)
-        
-        // Verify
-        expect(self.vc.entryCountLabel.text) == "엔트리 없음"
-    }
-    
-    func testEntryCountLabelTextWhenEntryExists() {
-        // Setup
-        let repository = InMemoryEntryRepository(entries: [Entry.dayBeforeYesterday, Entry.yesterDay, Entry.today])
-        vc.environment = Environment(entryRepository: repository)
-        
-        // Run
-        vc.viewWillAppear(false)
-        
-        // Verify
-        expect(self.vc.entryCountLabel.text) == "엔트리 수: 3"
-    }
 }
 
