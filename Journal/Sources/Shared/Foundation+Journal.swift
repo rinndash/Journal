@@ -17,8 +17,13 @@ extension DateFormatter {
     
     static var timeFormatter: DateFormatter = {
         let df = DateFormatter.init()
-        df.dateStyle = .none
-        df.timeStyle = .short
+        df.dateFormat = "hh:mm"
+        return df
+    }()
+    
+    static var ampmFormatter: DateFormatter = {
+        let df = DateFormatter.init()
+        df.dateFormat = "a"
         return df
     }()
 }
