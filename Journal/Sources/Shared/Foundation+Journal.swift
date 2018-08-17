@@ -17,7 +17,7 @@ extension DateFormatter {
     
     static var timeFormatter: DateFormatter = {
         let df = DateFormatter.init()
-        df.dateFormat = "hh:mm"
+        df.dateFormat = "h:mm"
         return df
     }()
     

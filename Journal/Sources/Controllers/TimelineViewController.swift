@@ -36,7 +36,7 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Journal"
+        title = viewModel.title
         tableview.dataSource = self
         tableview.delegate = self
     }

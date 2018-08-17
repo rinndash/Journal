@@ -34,6 +34,8 @@ class TimelineViewControllerModel {
             .unique()
     }
     
+    var title: String { return "Journal" }
+    
     var numberOfDates: Int { return dates.count }
     
     func headerTitle(of section: Int) -> String {
