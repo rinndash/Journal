@@ -15,6 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
+        customizeNavigationBar()
+        
+        if 
+            let navigationController = window?.rootViewController as? UINavigationController,
+            let timelineViewController = navigationController.topViewController as? TimelineViewController {
+            let repo = InMemoryEntryRepository(entries: [
+                Entry(text: "일기 1"),
+                Entry(text: "일기 2"),
+                Entry(text: "일기 3"),
+                ]
+            )
+            timelineViewController.environment = Environment(
+                entryRepository: repo
+            )
+        }
+        
+        return true
+    }
+    
+    private func customizeNavigationBar() {
         if let navigationController = window?.rootViewController as? UINavigationController {
             navigationController.navigationBar.prefersLargeTitles = true
             navigationController.navigationBar.barStyle = .black
@@ -23,8 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let bgImage = UIImage.gradientImage(with: [.gradientStart, .gradientEnd], size: CGSize(width: UIScreen.main.bounds.width, height: 1))
             navigationController.navigationBar.barTintColor = UIColor(patternImage: bgImage!)
         }
-        
-        return true
     }
 }
 
