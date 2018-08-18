@@ -10,8 +10,9 @@
 		6910B22B210C4B8500135457 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B22A210C4B8500135457 /* Entry.swift */; };
 		6910B233210C57D700135457 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B232210C57D700135457 /* JournalTests.swift */; };
 		69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */; };
-		69B8C03C21143B3F0052A28F /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* Journal.swift */; };
+		69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* EntryRepository.swift */; };
 		69B8C0422115408B0052A28F /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C0412115408B0052A28F /* Identifiable.swift */; };
+		69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EA2127AA2B00974BAE /* TimelineViewController.swift */; };
 		69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E215AB2102F1730075C96E /* AppDelegate.swift */; };
 		69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E215AD2102F1730075C96E /* EntryViewController.swift */; };
 		69E215B12102F1730075C96E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69E215AF2102F1730075C96E /* Main.storyboard */; };
@@ -40,8 +41,9 @@
 		6910B232210C57D700135457 /* JournalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalTests.swift; sourceTree = "<group>"; };
 		6910B234210C57D700135457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Journal.swift"; sourceTree = "<group>"; };
-		69B8C03B21143B3F0052A28F /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		69B8C03B21143B3F0052A28F /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		69B8C0412115408B0052A28F /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		69D175EA2127AA2B00974BAE /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		69E215A82102F1730075C96E /* Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Journal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E215AB2102F1730075C96E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69E215AD2102F1730075C96E /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
@@ -87,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				6910B22A210C4B8500135457 /* Entry.swift */,
-				69B8C03B21143B3F0052A28F /* Journal.swift */,
+				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				69E215AD2102F1730075C96E /* EntryViewController.swift */,
+				69D175EA2127AA2B00974BAE /* TimelineViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -380,8 +383,9 @@
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
+				69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */,
 				69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */,
-				69B8C03C21143B3F0052A28F /* Journal.swift in Sources */,
+				69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

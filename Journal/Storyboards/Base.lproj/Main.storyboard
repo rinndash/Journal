@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104.8" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1156" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iiH-wY-S9j">
@@ -59,12 +59,49 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="F0q-A9-Pcs"/>
+                        <segue destination="dup-Pv-iEj" kind="relationship" relationship="rootViewController" id="hpg-Am-wRY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iP2-UA-anr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+            <point key="canvasLocation" x="-678" y="134"/>
+        </scene>
+        <!--Timeline View Controller-->
+        <scene sceneID="yxj-am-E3x">
+            <objects>
+                <viewController id="dup-Pv-iEj" customClass="TimelineViewController" customModule="Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HiE-xZ-QPO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeL-x4-KFf">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TeL-x4-KFf" firstAttribute="centerY" secondItem="HiE-xZ-QPO" secondAttribute="centerY" id="rb2-FJ-lwI"/>
+                            <constraint firstItem="TeL-x4-KFf" firstAttribute="centerX" secondItem="HiE-xZ-QPO" secondAttribute="centerX" id="uxa-gV-bRU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tC7-Z9-HAV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="TGg-Yn-VGC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bVL-dL-JTo">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" id="DdP-WM-d0T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="entryCountLabel" destination="TeL-x4-KFf" id="3cz-K2-flf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DEu-8C-bwR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="247" y="134"/>
         </scene>
     </scenes>
 </document>
