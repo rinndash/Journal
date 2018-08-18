@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             timelineViewController.environment = Environment(
                 entryRepository: repo
             )
+            
         }
         
         return true
