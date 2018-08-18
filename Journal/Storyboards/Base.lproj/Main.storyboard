@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,10 +37,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="dWW-HA-RQy">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="ggE-CH-sBc"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" id="ggE-CH-sBc"/>
+                            <barButtonItem title="Item" image="baseline_delete_white_24pt" id="ZgL-md-SqJ">
+                                <connections>
+                                    <action selector="removeEntry:" destination="BYZ-38-t0r" id="eUi-Qu-031"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="button" destination="ggE-CH-sBc" id="VG4-y3-glQ"/>
+                        <outlet property="removeButton" destination="ZgL-md-SqJ" id="0x8-7y-mDB"/>
                         <outlet property="textView" destination="Gur-e6-0gE" id="9Si-A6-JW2"/>
                         <outlet property="textViewBottomConstraint" destination="FFh-gb-KEV" id="Lp5-My-MJY"/>
                     </connections>
@@ -136,6 +145,9 @@
             <point key="canvasLocation" x="245.59999999999999" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="baseline_delete_white_24pt" width="24" height="24"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="uKl-s5-tzq"/>
     </inferredMetricsTieBreakers>
