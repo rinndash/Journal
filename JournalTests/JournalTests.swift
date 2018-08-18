@@ -31,7 +31,7 @@ class JournalTests: XCTestCase {
     
     func testAddEntryToJournal() {
         // Setup
-        let journal = InMemoryJournal()
+        let journal = InMemoryEntryRepository()
         let newEntry = Entry.today
         
         // Run
@@ -48,7 +48,7 @@ class JournalTests: XCTestCase {
     func testGetEntryWithId() {
         // Setup
         let oldEntry = Entry.yesterDay
-        let journal = InMemoryJournal(entries: [oldEntry])
+        let journal = InMemoryEntryRepository(entries: [oldEntry])
         
         // Run
         let entry = journal.entry(with: oldEntry.id)
@@ -61,7 +61,7 @@ class JournalTests: XCTestCase {
     func testUpdateEntry() {
         // Setup
         let oldEntry = Entry.yesterDay
-        let journal = InMemoryJournal(entries: [oldEntry])
+        let journal = InMemoryEntryRepository(entries: [oldEntry])
         
         // Run
         oldEntry.text = "일기 내용을 수정했습니다"
@@ -77,7 +77,7 @@ class JournalTests: XCTestCase {
     func testRemoveEntryFromJournal() {
         // Setup
         let oldEntry = Entry.yesterDay
-        let journal = InMemoryJournal(entries: [oldEntry])
+        let journal = InMemoryEntryRepository(entries: [oldEntry])
         
         // Run
         journal.remove(oldEntry)
@@ -93,7 +93,7 @@ class JournalTests: XCTestCase {
         let yesterDay = Entry.yesterDay
         let today = Entry.today
         
-        let journal = InMemoryJournal(entries: [dayBeforeYesterday, yesterDay, today])
+        let journal = InMemoryEntryRepository(entries: [dayBeforeYesterday, yesterDay, today])
         
         // Run
         let entries = journal.recentEntries(max: 3)
@@ -109,7 +109,7 @@ class JournalTests: XCTestCase {
         let yesterDay = Entry.yesterDay
         let today = Entry.today
         
-        let journal = InMemoryJournal(entries: [dayBeforeYesterday, yesterDay, today])
+        let journal = InMemoryEntryRepository(entries: [dayBeforeYesterday, yesterDay, today])
         
         // Run
         let entries = journal.recentEntries(max: 1)
@@ -125,7 +125,7 @@ class JournalTests: XCTestCase {
         let yesterDay = Entry.yesterDay
         let today = Entry.today
         
-        let journal = InMemoryJournal(entries: [dayBeforeYesterday, yesterDay, today])
+        let journal = InMemoryEntryRepository(entries: [dayBeforeYesterday, yesterDay, today])
         
         // Run
         let entries = journal.recentEntries(max: 10)
