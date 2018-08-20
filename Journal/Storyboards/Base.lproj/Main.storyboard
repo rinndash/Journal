@@ -15,7 +15,7 @@
         <!--설정-->
         <scene sceneID="fTI-pe-hP7">
             <objects>
-                <tableViewController title="설정" id="BD1-8w-0X9" sceneMemberID="viewController">
+                <tableViewController title="설정" id="BD1-8w-0X9" customClass="SettingsTableViewController" customModule="Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TQJ-v9-KYL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                         <sections>
                             <tableViewSection headerTitle="날짜 표시" id="rc4-B2-E0e">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="Qyq-t1-ZOx" style="IBUITableViewCellStyleDefault" id="hfn-pi-2B2">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" textLabel="Qyq-t1-ZOx" style="IBUITableViewCellStyleDefault" id="hfn-pi-2B2">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hfn-pi-2B2" id="k3j-4t-azG">
@@ -40,7 +40,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="qYU-wv-0qA" style="IBUITableViewCellStyleDefault" id="nBl-Jh-MbS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="qYU-wv-0qA" style="IBUITableViewCellStyleDefault" id="nBl-Jh-MbS">
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nBl-Jh-MbS" id="PUP-Bs-ltm">
@@ -61,7 +61,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="시간 표시" id="ALS-kC-8fX">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="2Sz-7H-XaX" style="IBUITableViewCellStyleDefault" id="i3n-oL-Qu0">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" textLabel="2Sz-7H-XaX" style="IBUITableViewCellStyleDefault" id="i3n-oL-Qu0">
                                         <rect key="frame" x="0.0" y="144" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i3n-oL-Qu0" id="bRo-d0-Jsk">
@@ -78,7 +78,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="0qc-Tp-k7s" style="IBUITableViewCellStyleDefault" id="8y9-h1-fJ7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="0qc-Tp-k7s" style="IBUITableViewCellStyleDefault" id="8y9-h1-fJ7">
                                         <rect key="frame" x="0.0" y="188" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8y9-h1-fJ7" id="pwE-yU-Um1">
