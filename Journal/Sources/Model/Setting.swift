@@ -11,14 +11,17 @@ import Foundation
 enum DateFormatOption: String {
     case `default` = "yyyy. M. dd. EEE"
     case western = "EEE, MMM d, yyyy"
+    
+    static var all: [DateFormatOption] { return [.default, .western] }
 }
 
 enum FontSizeOption: Double {
-    case small = 12
-    case medium = 14
-    case large = 16
+    case small = 14
+    case medium = 16
+    case large = 18
     
     static var `default`: FontSizeOption { return .medium }
+    static var all: [FontSizeOption] { return [.small, .medium, .large] }
 }
 
 protocol Settings {

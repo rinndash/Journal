@@ -28,6 +28,13 @@ class TimelineViewController: UIViewController {
                 vc.viewModel = viewModel.entryViewModel(for: selectedIP)
                 vc.delegate = self
             }
+            
+        case .some("showSetting"):
+            if
+                let vc = segue.destination as? SettingsTableViewController {
+                vc.viewModel = viewModel.settingsViewModel
+            }
+            
         default:
             break
         }
