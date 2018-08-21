@@ -9,12 +9,6 @@
 import Foundation
 
 extension DateFormatter {
-    static var entryDateFormatter: DateFormatter = {
-        let df = DateFormatter.init()
-        df.dateFormat = "yyyy. M. dd. EEE"
-        return df
-    }()
-    
     static var timeFormatter: DateFormatter = {
         let df = DateFormatter.init()
         df.dateFormat = "h:mm"

@@ -29,6 +29,14 @@ protocol Settings {
     var fontSize: FontSizeOption { get set }
 }
 
+extension Settings {
+    var dateFormatter: DateFormatter {
+        let df = DateFormatter()
+        df.dateFormat = dateFormat.rawValue
+        return df
+    }
+}
+
 private let dateFormatOptionKey: String = "dateFormatOptionKey"
 private let fontSizeOptionKey: String = "fontSizeOptionKey"
 

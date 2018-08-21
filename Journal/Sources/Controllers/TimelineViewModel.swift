@@ -39,7 +39,7 @@ class TimelineViewControllerModel {
     var numberOfDates: Int { return dates.count }
     
     func headerTitle(of section: Int) -> String {
-        return DateFormatter.entryDateFormatter.string(from: dates[section])
+        return environment.settings.dateFormatter.string(from: dates[section])
     }
     
     func numberOfItems(of section: Int) -> Int {
