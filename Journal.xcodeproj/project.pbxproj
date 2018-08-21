@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E040961212B0C8D008A9BA0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E040960212B0C8D008A9BA0 /* SettingsTableViewController.swift */; };
+		2E040963212C5717008A9BA0 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E040962212C5717008A9BA0 /* Setting.swift */; };
 		2E36730E211DEE4C00B026D5 /* UIKit+Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E36730D211DEE4C00B026D5 /* UIKit+Journal.swift */; };
 		2E367310211DF08F00B026D5 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E36730F211DF08F00B026D5 /* TimelineViewController.swift */; };
 		2E367312211DFA9100B026D5 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E367311211DFA9100B026D5 /* Environment.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		2E040960212B0C8D008A9BA0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		2E040962212C5717008A9BA0 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		2E36730D211DEE4C00B026D5 /* UIKit+Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Journal.swift"; sourceTree = "<group>"; };
 		2E36730F211DF08F00B026D5 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		2E367311211DFA9100B026D5 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				6910B22A210C4B8500135457 /* Entry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
+				2E040962212C5717008A9BA0 /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				2E040961212B0C8D008A9BA0 /* SettingsTableViewController.swift in Sources */,
 				2E367312211DFA9100B026D5 /* Environment.swift in Sources */,
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
+				2E040963212C5717008A9BA0 /* Setting.swift in Sources */,
 				2E76EB552125C86500FE8415 /* EntryViewControllerModel.swift in Sources */,
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
