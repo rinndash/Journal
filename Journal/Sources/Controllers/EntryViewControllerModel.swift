@@ -26,6 +26,9 @@ class EntryViewControllerModel {
     }
     
     var textViewText: String? { return entry?.text }
+    var textViewFont: UIFont {
+        return UIFont.systemFont(ofSize: CGFloat(environment.settings.fontSize.rawValue))
+    }
     
     private(set) var isEditing: Bool = false
     var textViewEditable: Bool { return isEditing }

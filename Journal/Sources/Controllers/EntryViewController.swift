@@ -36,6 +36,7 @@ class EntryViewController: UIViewController {
         super.viewDidLoad()
         
         textView.text = viewModel.textViewText
+        textView.font = viewModel.textViewFont
         title = viewModel.title
         
         if viewModel.hasEntry == false { viewModel.startEditing() }

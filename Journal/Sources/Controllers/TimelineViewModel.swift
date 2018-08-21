@@ -48,7 +48,7 @@ class TimelineViewControllerModel {
     
     func entryTableViewCellModel(for indexPath: IndexPath) -> EntryTableViewCellModel {
         let entry = self.entry(for: indexPath)
-        return EntryTableViewCellModel(entry: entry)
+        return EntryTableViewCellModel(entry: entry, environment: environment)
     }
     
     func newEntryViewViewModel() -> EntryViewControllerModel {

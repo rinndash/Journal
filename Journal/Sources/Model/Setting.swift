@@ -61,7 +61,7 @@ extension UserDefaults: Settings {
         
         get {
             let rawValue = object(forKey: fontSizeOptionKey) as? Double
-            return rawValue.flatMap(FontSizeOption.init) ?? FontSizeOption.default
+            return rawValue.flatMap(FontSizeOption.init) ?? .small //FontSizeOption.default
         }
     }
 }
