@@ -16,25 +16,47 @@ class RealmEntryRepository: EntryRepository {
         self.realm = realm
     }
     
-    var numberOfEntries: Int { return 0 }
+    var numberOfEntries: Int {
+        return realm.objects(RealmEntry.self).count
+    }
     
     func add(_ entry: Entry) {
-        
+        try! realm.write {
+            realm.add(entry.toRealmObject())
+        }
     }
     
     func update(_ entry: Entry) {
-        
+        try! realm.write {
+            realm.add(entry.toRealmObject(), update: true)
+        }
     }
     
     func remove(_ entry: Entry) {
+        guard let realmObject = realm.objects(RealmEntry.self)
+            .filter("uuidString == '\(entry.id.uuidString)'")
+            .first
+            else { return }
         
+        try! realm.write {
+            realm.delete(realmObject)
+        }
     }
     
     func entry(with id: UUID) -> Entry? {
-        return nil
+        return realm.objects(RealmEntry.self)
+            .filter("uuidString == '\(id.uuidString)'")
+            .first
+            .map { $0.toEntry() }
     }
     
     func recentEntries(max: Int) -> [Entry] {
-        return []
+        let results = realm.objects(RealmEntry.self)
+            .sorted(byKeyPath: "createdAt", ascending: true)
+            .prefix(max)
+            .map { $0.toEntry() }
+        
+        return Array(results)
+        
     }
 }

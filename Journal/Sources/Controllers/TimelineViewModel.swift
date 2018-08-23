@@ -29,14 +29,19 @@ class TimelineViewControllerModel {
     
     init(environment: Environment) {
         self.environment = environment
-        self.dates = environment.entryRepository.allEntries
-            .compactMap { $0.createdAt.hmsRemoved }
-            .unique()
+        self.dates = []
+        reload()
     }
     
     var title: String { return "Journal" }
     
     var numberOfDates: Int { return dates.count }
+    
+    func reload() {
+        dates = environment.entryRepository.allEntries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
+    }
     
     func headerTitle(of section: Int) -> String {
         return environment.settings.dateFormatter.string(from: dates[section])
@@ -46,6 +51,17 @@ class TimelineViewControllerModel {
         return entries(for: dates[section]).count
     }
     
+    func removeEntry(at indexPath: IndexPath) {
+        let isLastEntryInSection = numberOfItems(of: indexPath.section) == 1
+        let entryToRemove = entry(for: indexPath)
+        self.environment.entryRepository.remove(entryToRemove)
+        if isLastEntryInSection { self.dates = self.dates.filter { $0 != entryToRemove.createdAt.hmsRemoved } }
+    }
+    
+    lazy var settingsViewModel: SettingsTableViewViewModel = SettingsTableViewViewModel(environment: environment)
+}
+
+extension TimelineViewControllerModel {
     func entryTableViewCellModel(for indexPath: IndexPath) -> EntryTableViewCellModel {
         let entry = self.entry(for: indexPath)
         return EntryTableViewCellModel(entry: entry, environment: environment)
@@ -58,13 +74,4 @@ class TimelineViewControllerModel {
     func entryViewModel(for indexPath: IndexPath) -> EntryViewControllerModel {
         return EntryViewControllerModel(environment: environment, entry: entry(for: indexPath))
     }
-    
-    func removeEntry(at indexPath: IndexPath) {
-        let isLastEntryInSection = numberOfItems(of: indexPath.section) == 1
-        let entryToRemove = entry(for: indexPath)
-        self.environment.entryRepository.remove(entryToRemove)
-        if isLastEntryInSection { self.dates = self.dates.filter { $0 != entryToRemove.createdAt.hmsRemoved } }
-    }
-    
-    lazy var settingsViewModel: SettingsTableViewViewModel = SettingsTableViewViewModel(environment: environment)
 }

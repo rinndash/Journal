@@ -50,6 +50,7 @@ class TimelineViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.reload()
         tableview.reloadData()
     }
 }
