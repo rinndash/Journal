@@ -8,39 +8,37 @@
 
 import UIKit
 
-class SettingsViewViewModel {
-    let environment: Environment
-    
-    init(environment: Environment) {
-        self.environment = environment
-    }
-}
-
 class SettingsTableViewController: UITableViewController {
-    var viewModel: SettingsViewViewModel!
+    var viewModel: SettingsTableViewViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.reloadData()
-        
-        DateFormatOption.all.enumerated().forEach { idx, dateFormat in
-            let cell = tableView.cellForRow(at: IndexPath(row: idx, section: 0))
-            cell?.accessoryType = dateFormat == viewModel.environment.settings.dateFormat ? .checkmark : .none
-        }
-        
-        FontSizeOption.all.enumerated().forEach { idx, fontSize in
-            let cell = tableView.cellForRow(at: IndexPath(row: idx, section: 1))
-            cell?.accessoryType = fontSize == viewModel.environment.settings.fontSize ? .checkmark : .none
-        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let numberOfRows = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
-        
-        for row in (0..<numberOfRows) {
-            let cell = tableView.cellForRow(at: IndexPath(row: row, section: indexPath.section))
-            cell?.accessoryType = indexPath.row == row ? .checkmark : .none
-        }
+        viewModel.selectOption(at: indexPath)
+        tableView.reloadData()
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.sectionModels.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.sectionModels[section].title
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.sectionModels[section].cellModels.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath)
+        let cellModel = viewModel.sectionModels[indexPath.section].cellModels[indexPath.row]
+        cell.textLabel?.text = cellModel.title
+        cell.textLabel?.font = cellModel.titleFont
+        cell.accessoryType = cellModel.isChecked ? .checkmark : .none
+        return cell
     }
 }

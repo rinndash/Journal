@@ -6,20 +6,34 @@
 //  Copyright © 2018년 Jinseo Yoon. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-enum DateFormatOption: String {
+protocol SettingOption {
+    static var name: String { get }
+}
+
+enum DateFormatOption: String, SettingOption {
     case `default` = "yyyy. M. dd. EEE"
     case western = "EEE, MMM d, yyyy"
     
+    static var name: String { return "날짜 표시" }
     static var all: [DateFormatOption] { return [.default, .western] }
 }
 
-enum FontSizeOption: Double {
+enum FontSizeOption: CGFloat, SettingOption, CustomStringConvertible {
     case small = 14
     case medium = 16
     case large = 18
     
+    var description: String {
+        switch self {
+        case .small: return "Small"
+        case .medium: return "Medium"
+        case .large: return "Large"
+        }
+    }
+    
+    static var name: String { return "글자 크기" }
     static var `default`: FontSizeOption { return .medium }
     static var all: [FontSizeOption] { return [.small, .medium, .large] }
 }
@@ -34,34 +48,5 @@ extension Settings {
         let df = DateFormatter()
         df.dateFormat = dateFormat.rawValue
         return df
-    }
-}
-
-private let dateFormatOptionKey: String = "dateFormatOptionKey"
-private let fontSizeOptionKey: String = "fontSizeOptionKey"
-
-extension UserDefaults: Settings {
-    var dateFormat: DateFormatOption {
-        set {
-            set(newValue.rawValue, forKey: dateFormatOptionKey)
-            synchronize()
-        }
-        
-        get {
-            let rawValue = object(forKey: dateFormatOptionKey) as? String
-            return rawValue.flatMap(DateFormatOption.init) ?? DateFormatOption.default
-        }
-    }
-    
-    var fontSize: FontSizeOption {
-        set {
-            set(newValue.rawValue, forKey: fontSizeOptionKey)
-            synchronize()
-        }
-        
-        get {
-            let rawValue = object(forKey: fontSizeOptionKey) as? Double
-            return rawValue.flatMap(FontSizeOption.init) ?? .small //FontSizeOption.default
-        }
     }
 }

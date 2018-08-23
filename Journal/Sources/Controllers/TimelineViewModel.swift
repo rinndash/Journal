@@ -66,5 +66,5 @@ class TimelineViewControllerModel {
         if isLastEntryInSection { self.dates = self.dates.filter { $0 != entryToRemove.createdAt.hmsRemoved } }
     }
     
-    lazy var settingsViewModel: SettingsViewViewModel = SettingsViewViewModel(environment: environment)
+    lazy var settingsViewModel: SettingsTableViewViewModel = SettingsTableViewViewModel(environment: environment)
 }

@@ -9,17 +9,14 @@
 import Foundation
 
 extension DateFormatter {
-    static var timeFormatter: DateFormatter = {
+    static func formatter(with format: String) -> DateFormatter {
         let df = DateFormatter.init()
-        df.dateFormat = "h:mm"
+        df.dateFormat = format
         return df
-    }()
+    }
     
-    static var ampmFormatter: DateFormatter = {
-        let df = DateFormatter.init()
-        df.dateFormat = "a"
-        return df
-    }()
+    static var timeFormatter: DateFormatter = formatter(with: "h:mm")
+    static var ampmFormatter: DateFormatter = formatter(with: "a")
 }
 
 extension Date {
