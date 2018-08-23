@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,26 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let timelineViewController = navViewController.topViewController as? TimelineViewController
             else { return }
         
-        let entries: [Entry] = [
-            // 어제
-            Entry(createdAt: Date.before(1), text: "어제 일기"),
-            Entry(createdAt: Date.before(1), text: "어제 일기"),
-            Entry(createdAt: Date.before(1), text: "어제 일기"),
-            
-            // 2일 전
-            Entry(createdAt: Date.before(2), text: "2일 전 일기"),
-            Entry(createdAt: Date.before(2), text: "2일 전 일기"),
-            Entry(createdAt: Date.before(2), text: "2일 전 일기"),
-            Entry(createdAt: Date.before(2), text: "2일 전 일기"),
-            Entry(createdAt: Date.before(2), text: "2일 전 일기"),
-            Entry(createdAt: Date.before(2), text: "2일 전 일기"),
-            
-            // 3일 전
-            Entry(createdAt: Date.before(3), text: "3일 전 일기"),
-            Entry(createdAt: Date.before(3), text: "3일 전 일기")
-        ]
-        let entryRepo = InMemoryEntryRepository(entries: entries)
-        let env = Environment(entryRepository: entryRepo)
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "MyInMemoryRealm"))
+        let realmEntryRepo = RealmEntryRepository(realm: realm)
+        let env = Environment(entryRepository: realmEntryRepo)
         
         timelineViewController.viewModel = TimelineViewControllerModel(environment: env)
     }
