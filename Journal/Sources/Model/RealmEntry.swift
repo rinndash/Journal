@@ -14,7 +14,3 @@ class RealmEntry: Object {
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var text: String = ""
 }
-
-extension RealmEntry: EntryType {
-    var id: UUID { return UUID(uuidString: uuidString)! }
-}
