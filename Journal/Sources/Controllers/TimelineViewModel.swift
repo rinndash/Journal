@@ -29,9 +29,7 @@ class TimelineViewControllerModel {
     
     init(environment: Environment) {
         self.environment = environment
-        self.dates = environment.entryRepository.allEntries
-            .compactMap { $0.createdAt.hmsRemoved }
-            .unique()
+        self.dates = environment.entryRepository.uniqueDates
     }
     
     var title: String { return "Journal" }
@@ -73,13 +71,17 @@ class TimelineViewControllerModel {
 
 extension TimelineViewControllerModel: EntryViewViewModelDelegate {
     func didAddEntry(_ entry: Entry) {
-        self.dates = environment.entryRepository.allEntries
-            .compactMap { $0.createdAt.hmsRemoved }
-            .unique()
+        dates = environment.entryRepository.uniqueDates
     }
     
     func didRemoveEntry(_ entry: Entry) {
-        self.dates = environment.entryRepository.allEntries
+        dates = environment.entryRepository.uniqueDates
+    }
+}
+
+extension EntryRepository {
+    var uniqueDates: [Date] {
+        return allEntries
             .compactMap { $0.createdAt.hmsRemoved }
             .unique()
     }
