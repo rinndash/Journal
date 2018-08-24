@@ -9,7 +9,7 @@
 import Foundation
 
 extension EntryRepository {
-    var allEntries: [Entry] {
+    var allEntries: [EntryType] {
         return recentEntries(max: numberOfEntries)
     }
 }
@@ -18,12 +18,12 @@ class TimelineViewControllerModel {
     let environment: Environment
     
     private var dates: [Date]
-    private var entries: [Entry] { return environment.entryRepository.allEntries }
+    private var entries: [EntryType] { return environment.entryRepository.allEntries }
     
-    private func entries(for day: Date) -> [Entry] {
+    private func entries(for day: Date) -> [EntryType] {
         return entries.filter { $0.createdAt.hmsRemoved == day }
     }
-    private func entry(for indexPath: IndexPath) -> Entry {
+    private func entry(for indexPath: IndexPath) -> EntryType {
         return entries(for: dates[indexPath.section])[indexPath.row]
     }
     
@@ -81,11 +81,11 @@ extension TimelineViewControllerModel {
 }
 
 extension TimelineViewControllerModel: EntryViewViewModelDelegate {
-    func didAddEntry(_ entry: Entry) {
+    func didAddEntry(_ entry: EntryType) {
         dates = environment.entryRepository.uniqueDates
     }
     
-    func didRemoveEntry(_ entry: Entry) {
+    func didRemoveEntry(_ entry: EntryType) {
         dates = environment.entryRepository.uniqueDates
     }
 }

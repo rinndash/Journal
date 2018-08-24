@@ -9,7 +9,7 @@
 import UIKit
 
 struct EntryTableViewCellModel {
-    let entry: Entry
+    let entry: EntryType
     let environment: Environment
     
     var entryText: String { return entry.text }
