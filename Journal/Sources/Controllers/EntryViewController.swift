@@ -8,17 +8,11 @@
 
 import UIKit
 
-protocol EntryViewControllerDelegate: class {
-    func didRemoveEntry(_ entry: Entry)
-}
-
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIBarButtonItem!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var trashIcon: UIBarButtonItem!
-    
-    weak var delegate: EntryViewControllerDelegate?
     
     var viewModel: EntryViewControllerModel!
     
@@ -66,8 +60,8 @@ class EntryViewController: UIViewController {
         
         let alertController = UIAlertController.init(title: "일기를 제거하겠습니까?", message: "이 작업은 되돌릴 수 없습니다", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "확인", style: .destructive) { (action) in
-            guard let removedEntry = self.viewModel.removeEntry() else { return }
-            self.delegate?.didRemoveEntry(removedEntry)
+            _ = self.viewModel.removeEntry()
+            self.navigationController?.popViewController(animated: true)
         }
         alertController.addAction(deleteAction)
         

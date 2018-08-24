@@ -52,11 +52,15 @@ class TimelineViewControllerModel {
     }
     
     func newEntryViewViewModel() -> EntryViewControllerModel {
-        return EntryViewControllerModel(environment: environment)
+        let entryVM = EntryViewControllerModel(environment: environment)
+        entryVM.delegate = self
+        return entryVM
     }
     
     func entryViewModel(for indexPath: IndexPath) -> EntryViewControllerModel {
-        return EntryViewControllerModel(environment: environment, entry: entry(for: indexPath))
+        let entryVM = EntryViewControllerModel(environment: environment, entry: entry(for: indexPath))
+        entryVM.delegate = self
+        return entryVM
     }
     
     func removeEntry(at indexPath: IndexPath) {
@@ -64,5 +68,19 @@ class TimelineViewControllerModel {
         let entryToRemove = entry(for: indexPath)
         self.environment.entryRepository.remove(entryToRemove)
         if isLastEntryInSection { self.dates = self.dates.filter { $0 != entryToRemove.createdAt.hmsRemoved } }
+    }
+}
+
+extension TimelineViewControllerModel: EntryViewViewModelDelegate {
+    func didAddEntry(_ entry: Entry) {
+        self.dates = environment.entryRepository.allEntries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
+    }
+    
+    func didRemoveEntry(_ entry: Entry) {
+        self.dates = environment.entryRepository.allEntries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
     }
 }
