@@ -15,7 +15,7 @@ class Environment {
     
     init(
         entryRepository: EntryRepository = InMemoryEntryRepository(),
-        settings: Settings = UserDefaults.standard,
+        settings: Settings = InMemorySettings(),
         now: @escaping () -> Date = Date.init
         ) {
         self.entryRepository = entryRepository

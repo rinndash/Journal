@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "MyInMemoryRealm"))
         let realmEntryRepo = RealmEntryRepository(realm: realm)
-        let env = Environment(entryRepository: realmEntryRepo)
+        let env = Environment(entryRepository: realmEntryRepo, settings: UserDefaults.standard)
         
         timelineViewController.viewModel = TimelineViewControllerModel(environment: env)
     }

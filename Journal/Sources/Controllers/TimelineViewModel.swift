@@ -29,8 +29,7 @@ class TimelineViewControllerModel {
     
     init(environment: Environment) {
         self.environment = environment
-        self.dates = []
-        reload()
+        self.dates = environment.entryRepository.uniqueDates
     }
     
     var title: String { return "Journal" }
@@ -44,7 +43,8 @@ class TimelineViewControllerModel {
     }
     
     func headerTitle(of section: Int) -> String {
-        return environment.settings.dateFormatter.string(from: dates[section])
+        let df = DateFormatter.formatter(with: environment.settings.dateFormat.rawValue)
+        return df.string(from: dates[section])
     }
     
     func numberOfItems(of section: Int) -> Int {
@@ -68,10 +68,32 @@ extension TimelineViewControllerModel {
     }
     
     func newEntryViewViewModel() -> EntryViewControllerModel {
-        return EntryViewControllerModel(environment: environment)
+        let entryVM = EntryViewControllerModel(environment: environment)
+        entryVM.delegate = self
+        return entryVM
     }
     
     func entryViewModel(for indexPath: IndexPath) -> EntryViewControllerModel {
-        return EntryViewControllerModel(environment: environment, entry: entry(for: indexPath))
+        let entryVM = EntryViewControllerModel(environment: environment, entry: entry(for: indexPath))
+        entryVM.delegate = self
+        return entryVM
+    }
+}
+
+extension TimelineViewControllerModel: EntryViewViewModelDelegate {
+    func didAddEntry(_ entry: Entry) {
+        dates = environment.entryRepository.uniqueDates
+    }
+    
+    func didRemoveEntry(_ entry: Entry) {
+        dates = environment.entryRepository.uniqueDates
+    }
+}
+
+extension EntryRepository {
+    var uniqueDates: [Date] {
+        return allEntries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
     }
 }
