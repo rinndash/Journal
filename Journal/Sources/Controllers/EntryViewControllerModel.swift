@@ -29,7 +29,8 @@ class EntryViewControllerModel {
     
     var title: String {
         let date = entry?.createdAt ?? environment.now()
-        return self.environment.settings.dateFormatter.string(from: date)
+        let df = DateFormatter.formatter(with: environment.settings.dateFormat.rawValue)
+        return df.string(from: date)
     }
     
     var textViewText: String? { return entry?.text }

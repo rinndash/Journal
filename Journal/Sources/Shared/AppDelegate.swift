@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Entry(createdAt: Date.before(3), text: "3일 전 일기")
         ]
         let entryRepo = InMemoryEntryRepository(entries: entries)
-        let env = Environment(entryRepository: entryRepo)
+        let env = Environment(entryRepository: entryRepo, settings: UserDefaults.standard)
         
         timelineViewController.viewModel = TimelineViewControllerModel(environment: env)
     }
