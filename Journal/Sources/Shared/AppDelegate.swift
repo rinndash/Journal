@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let timelineViewController = navViewController.topViewController as? TimelineViewController
             else { return }
         
-        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "MyInMemoryRealm"))
+        let realm = try! Realm(configuration: Realm.Configuration())
         let realmEntryRepo = RealmEntryRepository(realm: realm)
         let env = Environment(
             entryRepository: realmEntryRepo,
