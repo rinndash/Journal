@@ -54,7 +54,8 @@ class TimelineViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "일기 검색"
         searchController.searchBar.tintColor = .white
-        searchController.searchBar.barStyle = .black
+        searchController.searchBar.autocapitalizationType = .none
+        
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -66,21 +67,31 @@ class TimelineViewController: UIViewController {
 }
 
 extension TimelineViewController: UITableViewDataSource {
+    var isSearchingEntries: Bool {
+        return searchController.isActive && searchController.searchBar.text?.isEmpty == false
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard isSearchingEntries == false else { return 1}
         return viewModel.numberOfDates
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard isSearchingEntries == false else { return nil }
         return viewModel.headerTitle(of: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard isSearchingEntries == false else { return viewModel.filteredEntryCellModels.count }
         return viewModel.numberOfItems(of: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
-        cell.viewModel = viewModel.entryTableViewCellModel(for: indexPath)
+        cell.viewModel = isSearchingEntries
+            ? viewModel.filteredEntryCellModels[indexPath.row]
+            : viewModel.entryTableViewCellModel(for: indexPath)
+        
         return cell
     }
 }
@@ -113,6 +124,8 @@ extension TimelineViewController: UITableViewDelegate {
 
 extension TimelineViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        guard let searchText = searchController.searchBar.text else { return }
+        viewModel.searchEntries(contains: searchText)
+        tableview.reloadData()
     }
 }

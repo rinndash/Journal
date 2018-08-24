@@ -22,7 +22,7 @@ class RealmEntryRepository: EntryRepository {
     
     func entries(contains string: String) -> [EntryType] {
         let results = realm.objects(RealmEntry.self)
-            .filter("text CONTAINS '\(string)'")
+            .filter("text CONTAINS[c] '\(string)'")
             .sorted(byKeyPath: "createdAt", ascending: false)
         
         return Array(results)

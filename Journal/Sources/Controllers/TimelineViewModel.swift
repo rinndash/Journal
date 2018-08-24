@@ -20,6 +20,7 @@ class TimelineViewControllerModel {
     private var dates: [Date]
     private var entries: [EntryType] { return environment.entryRepository.allEntries }
     
+    
     private func entries(for day: Date) -> [EntryType] {
         return entries.filter { $0.createdAt.hmsRemoved == day }
     }
@@ -56,6 +57,13 @@ class TimelineViewControllerModel {
         let entryToRemove = entry(for: indexPath)
         self.environment.entryRepository.remove(entryToRemove)
         if isLastEntryInSection { self.dates = self.dates.filter { $0 != entryToRemove.createdAt.hmsRemoved } }
+    }
+    
+    private(set) var filteredEntryCellModels: [EntryTableViewCellModel] = []
+    
+    func searchEntries(contains string: String) {
+        filteredEntryCellModels = environment.entryRepository.entries(contains: string)
+            .map { EntryTableViewCellModel(entry: $0, environment: environment) }
     }
     
     lazy var settingsViewModel: SettingsTableViewViewModel = SettingsTableViewViewModel(environment: environment)
