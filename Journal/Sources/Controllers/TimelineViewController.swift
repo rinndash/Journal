@@ -11,6 +11,7 @@ import UIKit
 class TimelineViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     
+    let searchController: UISearchController = UISearchController(searchResultsController: nil)
     var viewModel: TimelineViewControllerModel!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,6 +45,12 @@ class TimelineViewController: UIViewController {
         title = viewModel.title
         tableview.dataSource = self
         tableview.delegate = self
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "일기 검색"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,5 +102,11 @@ extension TimelineViewController: UITableViewDelegate {
         deleteAction.backgroundColor = UIColor.gradientEnd
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+extension TimelineViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
     }
 }
