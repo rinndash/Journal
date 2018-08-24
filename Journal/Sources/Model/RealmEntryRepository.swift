@@ -49,7 +49,7 @@ class RealmEntryRepository: EntryRepository {
     
     func recentEntries(max: Int) -> [EntryType] {
         let results = realm.objects(RealmEntry.self)
-            .sorted(byKeyPath: "createdAt", ascending: true)
+            .sorted(byKeyPath: "createdAt", ascending: false)
             .prefix(max)
         
         return Array(results)
