@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias EntryFactory = (String) -> EntryType
+
 protocol EntryRepository {
     var numberOfEntries: Int { get }
     

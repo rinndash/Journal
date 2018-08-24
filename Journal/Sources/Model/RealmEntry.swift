@@ -9,32 +9,14 @@
 import Foundation
 import RealmSwift
 
-class RealmEntry: Object {
+class RealmEntry: Object, EntryType {
+    var id: UUID { return UUID.init(uuidString: uuidString)! }
+    
     @objc dynamic var uuidString: String = ""
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var text: String = ""
     
     override static func primaryKey() -> String? {
         return "uuidString"
-    }
-}
-
-extension Entry {
-    func toRealmObject() -> RealmEntry {
-        let realmObject = RealmEntry()
-        realmObject.uuidString = id.uuidString
-        realmObject.createdAt = createdAt
-        realmObject.text = text
-        return realmObject
-    }
-}
-
-extension RealmEntry {
-    func toEntry() -> Entry {
-        return Entry(
-            id: UUID(uuidString: uuidString) ?? UUID(),
-            createdAt: createdAt,
-            text: text
-        )
     }
 }

@@ -51,7 +51,7 @@ class EntryViewControllerModel {
             oldEntry.text = text
             environment.entryRepository.update(oldEntry)
         } else {
-            let newEntry: Entry = Entry(text: text)
+            let newEntry: EntryType = environment.entryFactory(text)
             environment.entryRepository.add(newEntry)
             delegate?.didAddEntry(newEntry)
             entry = newEntry
