@@ -8,7 +8,20 @@
 
 import Foundation
 
-class Entry: Identifiable, Equatable {
+protocol EntryType: Identifiable, Equatable {
+    var createdAt: Date { get }
+    var text: String { set get }
+}
+
+extension EntryType {
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+            && lhs.createdAt == rhs.createdAt
+            && lhs.text == rhs.text
+    }
+}
+
+class Entry: EntryType {
     let id: UUID
     let createdAt: Date
     var text: String
@@ -19,12 +32,3 @@ class Entry: Identifiable, Equatable {
         self.text = text
     }
 }
-
-extension Entry {
-    static func ==(lhs: Entry, rhs: Entry) -> Bool {
-        return lhs.id == rhs.id
-            && lhs.createdAt == rhs.createdAt
-            && lhs.text == rhs.text
-    }
-}
-
