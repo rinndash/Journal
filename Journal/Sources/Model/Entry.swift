@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol EntryType: Identifiable, Equatable {
+protocol EntryType: Identifiable {
     var createdAt: Date { get }
     var text: String { set get }
 }
 
 extension EntryType {
-    static func ==(lhs: Self, rhs: Self) -> Bool {
+    static func ==(lhs: EntryType, rhs: EntryType) -> Bool {
         return lhs.id == rhs.id
             && lhs.createdAt == rhs.createdAt
             && lhs.text == rhs.text
