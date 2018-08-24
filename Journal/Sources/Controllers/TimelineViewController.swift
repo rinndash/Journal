@@ -18,7 +18,6 @@ class TimelineViewController: UIViewController {
         case .some("addEntry"):
             if let vc = segue.destination as? EntryViewController {
                 vc.viewModel = viewModel.newEntryViewViewModel()
-                vc.delegate = self
             }
             
         case .some("showEntry"):
@@ -26,7 +25,6 @@ class TimelineViewController: UIViewController {
                 let vc = segue.destination as? EntryViewController,
                 let selectedIP = tableview.indexPathForSelectedRow {
                 vc.viewModel = viewModel.entryViewModel(for: selectedIP)
-                vc.delegate = self
             }
             
         case .some("showSetting"):
@@ -51,12 +49,6 @@ class TimelineViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableview.reloadData()
-    }
-}
-
-extension TimelineViewController: EntryViewControllerDelegate {
-    func didRemoveEntry(_ entry: Entry) {
-        navigationController?.popViewController(animated: true)
     }
 }
 
