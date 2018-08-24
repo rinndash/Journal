@@ -25,6 +25,7 @@ class TimelineViewController: UIViewController {
             if
                 let vc = segue.destination as? EntryViewController,
                 let selectedIP = tableview.indexPathForSelectedRow {
+                
                 vc.viewModel = viewModel.entryViewModel(for: selectedIP)
             }
             
@@ -64,6 +65,15 @@ class TimelineViewController: UIViewController {
         super.viewWillAppear(animated)
         tableview.reloadData()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if viewModel.isSearching {
+            viewModel.searchText = nil
+            searchController.searchBar.text = nil
+            searchController.isActive = false
+        }
+    }
 }
 
 extension TimelineViewController: UITableViewDataSource {
@@ -72,25 +82,20 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard isSearchingEntries == false else { return 1}
-        return viewModel.numberOfDates
+        return viewModel.numberOfSections
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard isSearchingEntries == false else { return nil }
         return viewModel.headerTitle(of: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard isSearchingEntries == false else { return viewModel.filteredEntryCellModels.count }
         return viewModel.numberOfItems(of: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
-        cell.viewModel = isSearchingEntries
-            ? viewModel.filteredEntryCellModels[indexPath.row]
-            : viewModel.entryTableViewCellModel(for: indexPath)
+        cell.viewModel = viewModel.entryTableViewCellModel(for: indexPath)
         
         return cell
     }
@@ -125,7 +130,7 @@ extension TimelineViewController: UITableViewDelegate {
 extension TimelineViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
-        viewModel.searchEntries(contains: searchText)
+        viewModel.searchText = searchText
         tableview.reloadData()
     }
 }

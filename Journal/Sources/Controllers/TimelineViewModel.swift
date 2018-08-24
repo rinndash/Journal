@@ -20,12 +20,24 @@ class TimelineViewControllerModel {
     private var dates: [Date]
     private var entries: [EntryType] { return environment.entryRepository.allEntries }
     
+    var searchText: String? {
+        didSet {
+            guard let text = searchText else { return }
+            filteredEntries = environment.entryRepository.entries(contains: text)
+        }
+    }
+    var isSearching: Bool {
+        return searchText?.isEmpty == false
+    }
+    private var filteredEntries: [EntryType] = []
     
     private func entries(for day: Date) -> [EntryType] {
         return entries.filter { $0.createdAt.hmsRemoved == day }
     }
     private func entry(for indexPath: IndexPath) -> EntryType {
-        return entries(for: dates[indexPath.section])[indexPath.row]
+        return isSearching
+            ? filteredEntries[indexPath.row]
+            : entries(for: dates[indexPath.section])[indexPath.row]
     }
     
     init(environment: Environment) {
@@ -35,46 +47,38 @@ class TimelineViewControllerModel {
     
     var title: String { return "Journal" }
     
-    var numberOfDates: Int { return dates.count }
-    
-    func entryTableViewCellModel(contains string: String) -> [EntryTableViewCellModel] {
-        let entries = environment.entryRepository.entries(contains: string)
-            .map { EntryTableViewCellModel(entry: $0, environment: environment) }
-        return entries
+    var numberOfSections: Int {
+        return isSearching ? 1 : dates.count
     }
     
-    func headerTitle(of section: Int) -> String {
+    func headerTitle(of section: Int) -> String? {
+        guard isSearching == false else { return nil }
         let df = DateFormatter.formatter(with: environment.settings.dateFormat.rawValue)
         return df.string(from: dates[section])
     }
     
     func numberOfItems(of section: Int) -> Int {
-        return entries(for: dates[section]).count
+        return isSearching
+            ? filteredEntries.count
+            : entries(for: dates[section]).count
+    }
+    
+    func entryTableViewCellModel(for indexPath: IndexPath) -> EntryTableViewCellModel {
+        return EntryTableViewCellModel(entry: entry(for: indexPath), environment: environment)
     }
     
     func removeEntry(at indexPath: IndexPath) {
         let isLastEntryInSection = numberOfItems(of: indexPath.section) == 1
         let entryToRemove = entry(for: indexPath)
+        let dateToFilter = entryToRemove.createdAt.hmsRemoved
         self.environment.entryRepository.remove(entryToRemove)
-        if isLastEntryInSection { self.dates = self.dates.filter { $0 != entryToRemove.createdAt.hmsRemoved } }
-    }
-    
-    private(set) var filteredEntryCellModels: [EntryTableViewCellModel] = []
-    
-    func searchEntries(contains string: String) {
-        filteredEntryCellModels = environment.entryRepository.entries(contains: string)
-            .map { EntryTableViewCellModel(entry: $0, environment: environment) }
+        if isLastEntryInSection { self.dates = self.dates.filter { $0 != dateToFilter } }
     }
     
     lazy var settingsViewModel: SettingsTableViewViewModel = SettingsTableViewViewModel(environment: environment)
 }
 
 extension TimelineViewControllerModel {
-    func entryTableViewCellModel(for indexPath: IndexPath) -> EntryTableViewCellModel {
-        let entry = self.entry(for: indexPath)
-        return EntryTableViewCellModel(entry: entry, environment: environment)
-    }
-    
     func newEntryViewViewModel() -> EntryViewControllerModel {
         let entryVM = EntryViewControllerModel(environment: environment)
         entryVM.delegate = self
@@ -95,6 +99,7 @@ extension TimelineViewControllerModel: EntryViewViewModelDelegate {
     
     func didRemoveEntry(_ entry: EntryType) {
         dates = environment.entryRepository.uniqueDates
+        filteredEntries = filteredEntries.filter { $0.id != entry.id }
     }
 }
 

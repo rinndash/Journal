@@ -16,6 +16,10 @@ struct EntryTableViewCellModel {
     var entryTextFont: UIFont { return UIFont.systemFont(ofSize: environment.settings.fontSize.rawValue) }
     var createdDateText: String { return DateFormatter.timeFormatter.string(from: entry.createdAt) }
     var ampmText: String { return DateFormatter.ampmFormatter.string(from: entry.createdAt) }
+    
+    var entryViewModel: EntryViewControllerModel {
+        return EntryViewControllerModel(environment: environment, entry: entry)
+    }
 }
 
 class EntryTableViewCell: UITableViewCell {

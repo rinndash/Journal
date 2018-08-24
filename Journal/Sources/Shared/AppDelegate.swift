@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             },
             settings: UserDefaults.standard)
         
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print(Realm.Configuration.defaultConfiguration.fileURL!) // /Users/rinndash/Library/Developer/CoreSimulator/Devices/075DECA8-1562-4792-8D84-F9CAD42E33B1/data/Containers/Data/Application/3E42DEF9-D4FF-4465-A9C5-5E6561364699/Documents/default.realm
         
         timelineViewController.viewModel = TimelineViewControllerModel(environment: env)
     }
