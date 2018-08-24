@@ -20,6 +20,14 @@ class RealmEntryRepository: EntryRepository {
         return realm.objects(RealmEntry.self).count
     }
     
+    func entries(contains string: String) -> [EntryType] {
+        let results = realm.objects(RealmEntry.self)
+            .filter("text CONTAINS '\(string)'")
+            .sorted(byKeyPath: "createdAt", ascending: false)
+        
+        return Array(results)
+    }
+    
     func add(_ entry: EntryType) {
         guard let realmEntry = entry as? RealmEntry else { return }
         try! realm.write {

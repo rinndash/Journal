@@ -10,7 +10,10 @@ import Foundation
 import RealmSwift
 
 class RealmEntry: Object, EntryType {
-    var id: UUID { return UUID.init(uuidString: uuidString)! }
+    var id: UUID {
+        guard let uuid = UUID.init(uuidString: uuidString) else { fatalError() }
+        return uuid
+    }
     
     @objc dynamic var uuidString: String = ""
     @objc dynamic var createdAt: Date = Date()

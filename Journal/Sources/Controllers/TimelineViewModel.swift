@@ -36,10 +36,10 @@ class TimelineViewControllerModel {
     
     var numberOfDates: Int { return dates.count }
     
-    func reload() {
-        dates = environment.entryRepository.allEntries
-            .compactMap { $0.createdAt.hmsRemoved }
-            .unique()
+    func entryTableViewCellModel(contains string: String) -> [EntryTableViewCellModel] {
+        let entries = environment.entryRepository.entries(contains: string)
+            .map { EntryTableViewCellModel(entry: $0, environment: environment) }
+        return entries
     }
     
     func headerTitle(of section: Int) -> String {

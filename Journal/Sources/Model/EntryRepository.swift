@@ -16,6 +16,7 @@ protocol EntryRepository {
     func add(_ entry: EntryType)
     func update(_ entry: EntryType)
     func remove(_ entry: EntryType)
+    func entries(contains string: String) -> [EntryType]
     func entry(with id: UUID) -> EntryType?
     func recentEntries(max: Int) -> [EntryType]
 }
@@ -24,7 +25,7 @@ class InMemoryEntryRepository: EntryRepository {
     private var entries: [UUID: EntryType]
     
     init(entries: [Entry] = []) {
-        var result: [UUID: Entry] = [:]
+        var result: [UUID: EntryType] = [:]
         
         entries.forEach { entry in
             result[entry.id] = entry
@@ -34,6 +35,12 @@ class InMemoryEntryRepository: EntryRepository {
     }
     
     var numberOfEntries: Int { return entries.count }
+    
+    func entries(contains string: String) -> [EntryType] {
+        return entries.values
+            .filter { $0.text.contains(string) }
+            .sorted { $0.createdAt > $1.createdAt  }
+    }
     
     func add(_ entry: EntryType) {
         entries[entry.id] = entry
