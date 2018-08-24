@@ -39,6 +39,10 @@ class TimelineViewController: UIViewController {
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +53,8 @@ class TimelineViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "일기 검색"
+        searchController.searchBar.tintColor = .white
+        searchController.searchBar.barStyle = .black
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
