@@ -18,7 +18,7 @@ class Environment {
         entryRepository: EntryRepository = InMemoryEntryRepository(),
         entryFactory: @escaping EntryFactory = { Entry(text: $0) },
         settings: Settings = InMemorySettings(),
-        now: @escaping () -> Date = Date.init
+        now: @escaping () -> Date = { Date.before(3) }
         ) {
         self.entryRepository = entryRepository
         self.entryFactory = entryFactory

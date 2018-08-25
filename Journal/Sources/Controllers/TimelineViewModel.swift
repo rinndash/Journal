@@ -22,7 +22,10 @@ class TimelineViewControllerModel {
     
     var searchText: String? {
         didSet {
-            guard let text = searchText else { return }
+            guard let text = searchText else {
+                filteredEntries = []
+                return
+            }
             filteredEntries = environment.entryRepository.entries(contains: text)
         }
     }
@@ -99,7 +102,6 @@ extension TimelineViewControllerModel: EntryViewViewModelDelegate {
     
     func didRemoveEntry(_ entry: EntryType) {
         dates = environment.entryRepository.uniqueDates
-        filteredEntries = filteredEntries.filter { $0.id != entry.id }
     }
 }
 

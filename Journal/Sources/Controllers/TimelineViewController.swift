@@ -70,7 +70,7 @@ class TimelineViewController: UIViewController {
         super.viewWillDisappear(animated)
         if viewModel.isSearching {
             viewModel.searchText = nil
-            searchController.searchBar.text = nil
+            //searchController.searchBar.text = nil
             searchController.isActive = false
         }
     }
@@ -129,7 +129,11 @@ extension TimelineViewController: UITableViewDelegate {
 
 extension TimelineViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else { return }
+        guard
+            let searchText = searchController.searchBar.text,
+            searchText.isEmpty == false
+            else { return }
+        
         viewModel.searchText = searchText
         tableview.reloadData()
     }
