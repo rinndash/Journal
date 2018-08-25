@@ -12,6 +12,9 @@
 		699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3702130E62A001577D1 /* EntryViewViewModel.swift */; };
 		699BC3732130E6D1001577D1 /* EntryViewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3722130E6D1001577D1 /* EntryViewViewModelTests.swift */; };
 		699BC3752131014C001577D1 /* TimelineViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3742131014C001577D1 /* TimelineViewViewModel.swift */; };
+		699BC37721311BC9001577D1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC37621311BC9001577D1 /* SettingsTableViewController.swift */; };
+		699BC37921311D08001577D1 /* SettingsTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC37821311D08001577D1 /* SettingsTableViewViewModel.swift */; };
+		699BC37B21311FCF001577D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC37A21311FCF001577D1 /* Settings.swift */; };
 		69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */; };
 		69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* EntryRepository.swift */; };
 		69B8C0422115408B0052A28F /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C0412115408B0052A28F /* Identifiable.swift */; };
@@ -50,6 +53,9 @@
 		699BC3702130E62A001577D1 /* EntryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewViewModel.swift; sourceTree = "<group>"; };
 		699BC3722130E6D1001577D1 /* EntryViewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewViewModelTests.swift; sourceTree = "<group>"; };
 		699BC3742131014C001577D1 /* TimelineViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewViewModel.swift; sourceTree = "<group>"; };
+		699BC37621311BC9001577D1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		699BC37821311D08001577D1 /* SettingsTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewViewModel.swift; sourceTree = "<group>"; };
+		699BC37A21311FCF001577D1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Journal.swift"; sourceTree = "<group>"; };
 		69B8C03B21143B3F0052A28F /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		69B8C0412115408B0052A28F /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -104,6 +110,7 @@
 			children = (
 				6910B22A210C4B8500135457 /* Entry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
+				699BC37A21311FCF001577D1 /* Settings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -185,6 +192,8 @@
 				69D175EA2127AA2B00974BAE /* TimelineViewController.swift */,
 				699BC3742131014C001577D1 /* TimelineViewViewModel.swift */,
 				69D175F22127EF4800974BAE /* EntryTableViewCell.swift */,
+				699BC37621311BC9001577D1 /* SettingsTableViewController.swift */,
+				699BC37821311D08001577D1 /* SettingsTableViewViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -403,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69D175F52127F17D00974BAE /* Foundation+Journal.swift in Sources */,
+				699BC37721311BC9001577D1 /* SettingsTableViewController.swift in Sources */,
 				6910B22B210C4B8500135457 /* Entry.swift in Sources */,
 				69D175F12127B62000974BAE /* Environment.swift in Sources */,
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
@@ -410,7 +420,9 @@
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
 				69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */,
+				699BC37B21311FCF001577D1 /* Settings.swift in Sources */,
 				699BC3752131014C001577D1 /* TimelineViewViewModel.swift in Sources */,
+				699BC37921311D08001577D1 /* SettingsTableViewViewModel.swift in Sources */,
 				69D175F32127EF4800974BAE /* EntryTableViewCell.swift in Sources */,
 				69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */,
 				69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */,
