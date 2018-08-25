@@ -10,6 +10,7 @@
 		6910B22B210C4B8500135457 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B22A210C4B8500135457 /* Entry.swift */; };
 		6910B233210C57D700135457 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B232210C57D700135457 /* JournalTests.swift */; };
 		699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3702130E62A001577D1 /* EntryViewViewModel.swift */; };
+		699BC3732130E6D1001577D1 /* EntryViewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3722130E6D1001577D1 /* EntryViewViewModelTests.swift */; };
 		69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */; };
 		69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* EntryRepository.swift */; };
 		69B8C0422115408B0052A28F /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C0412115408B0052A28F /* Identifiable.swift */; };
@@ -46,6 +47,7 @@
 		6910B232210C57D700135457 /* JournalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalTests.swift; sourceTree = "<group>"; };
 		6910B234210C57D700135457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		699BC3702130E62A001577D1 /* EntryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewViewModel.swift; sourceTree = "<group>"; };
+		699BC3722130E6D1001577D1 /* EntryViewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewViewModelTests.swift; sourceTree = "<group>"; };
 		69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Journal.swift"; sourceTree = "<group>"; };
 		69B8C03B21143B3F0052A28F /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		69B8C0412115408B0052A28F /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				6910B232210C57D700135457 /* JournalTests.swift */,
 				69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */,
+				699BC3722130E6D1001577D1 /* EntryViewViewModelTests.swift */,
 				6910B234210C57D700135457 /* Info.plist */,
 			);
 			path = JournalTests;
@@ -388,6 +391,7 @@
 			files = (
 				6910B233210C57D700135457 /* JournalTests.swift in Sources */,
 				69D175EF2127B3A500974BAE /* TimelineViewControllerTests.swift in Sources */,
+				699BC3732130E6D1001577D1 /* EntryViewViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,8 +42,7 @@ class TimelineViewController: UIViewController {
             if 
                 let entryVC = segue.destination as? EntryViewController,
                 let selectedIndexPath = tableview.indexPathForSelectedRow {
-                entryVC.viewModel = EntryViewViewModel(environment: environment)
-                entryVC.editingEntry = entry(for: selectedIndexPath)
+                entryVC.viewModel = EntryViewViewModel(environment: environment, entry: entry(for: selectedIndexPath))
                 entryVC.delegate = self
             }
         

@@ -10,8 +10,13 @@ import Foundation
 
 class Environment {
     let entryRepository: EntryRepository
+    let now: () -> Date
     
-    init(entryRepository: EntryRepository = InMemoryEntryRepository()) {
+    init(
+        entryRepository: EntryRepository = InMemoryEntryRepository(),
+        now: @escaping () -> Date = Date.init
+        ) {
         self.entryRepository = entryRepository
+        self.now = now
     }
 }
