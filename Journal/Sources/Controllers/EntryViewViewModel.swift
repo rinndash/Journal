@@ -28,9 +28,14 @@ class EntryViewViewModel {
         return entry?.text
     }
     
+    var textViewFont: UIFont {
+        return UIFont.systemFont(ofSize: environment.settings.fontSizeOption.rawValue)
+    }
+    
     var title: String {
         let date: Date = entry?.createdAt ?? environment.now()
-        return DateFormatter.entryDateFormatter.string(from: date)
+        return DateFormatter.formatter(with: environment.settings.dateFormatOption.rawValue)
+            .string(from: date) 
     }
     
     var removeButtonEnabled: Bool {

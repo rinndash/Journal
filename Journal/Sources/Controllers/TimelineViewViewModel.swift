@@ -60,11 +60,12 @@ class TimelineViewViewModel {
         let entry = self.entry(for: indexPath)
         
         return EntryTableViewCellViewModel(
-            entryText: entry.text, 
-            timeText: DateFormatter.entryTimeFormatter.string(from: entry.createdAt), 
-            ampmText: DateFormatter.ampmFormatter.string(from: entry.createdAt)
+            entry: entry, 
+            environment: environment
         )
     }
+    
+    lazy var settingsViewModel: SettingsTableViewViewModel = SettingsTableViewViewModel(environment: environment)
 }
 
 extension TimelineViewViewModel {
@@ -72,7 +73,8 @@ extension TimelineViewViewModel {
     
     func title(for section: Int) -> String {
         let date = dates[section]
-        return DateFormatter.entryDateFormatter.string(from: date)
+        return DateFormatter.formatter(with: environment.settings.dateFormatOption.rawValue)
+            .string(from: date)
     }
     
     func numberOfRows(in section: Int) -> Int {

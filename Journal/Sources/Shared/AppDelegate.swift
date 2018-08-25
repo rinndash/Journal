@@ -34,7 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ]
             
             let repo = InMemoryEntryRepository(entries: entries)
-            let env = Environment(entryRepository: repo) 
+            let env = Environment(
+                entryRepository: repo,
+                settings: UserDefaults.standard
+            ) 
             
             timelineViewController.viewModel = TimelineViewViewModel(environment: env) 
         }
