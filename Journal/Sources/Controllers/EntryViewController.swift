@@ -18,6 +18,8 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var button: UIBarButtonItem!
     @IBOutlet weak var removeButton: UIBarButtonItem!
     
+    var viewModel: EntryViewViewModel!
+    
     var environment: Environment!
     weak var delegate: EntryViewControllerDelegate?
     
