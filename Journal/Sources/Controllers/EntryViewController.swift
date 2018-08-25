@@ -22,7 +22,10 @@ class EntryViewController: UIViewController {
         title = viewModel.title
         textView.text = viewModel.textViewText
         
-        updateSubviews(for: viewModel.hasEntry == false)
+        if viewModel.hasEntry == false { 
+            viewModel.startEditing() 
+        }
+        updateSubviews()
                         
         NotificationCenter.default
             .addObserver(self, 
@@ -66,18 +69,18 @@ class EntryViewController: UIViewController {
         
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if viewModel.hasEntry == false { textView.becomeFirstResponder() }
+        if viewModel.isEditing { textView.becomeFirstResponder() }
     }
     
     @objc func saveEntry(_ sender: Any) {
         viewModel.completeEditing(with: textView.text)        
-        updateSubviews(for: false)
+        updateSubviews()
         textView.resignFirstResponder()
     }
     
     @objc func editEntry(_ sender: Any) {
         viewModel.startEditing()
-        updateSubviews(for: true)
+        updateSubviews()
         textView.becomeFirstResponder()
     }
     
@@ -111,7 +114,7 @@ class EntryViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }    
     
-    fileprivate func updateSubviews(for isEditing: Bool) {
+    fileprivate func updateSubviews() {
         textView.isEditable = viewModel.textViewEditiable
         removeButton.isEnabled = viewModel.removeButtonEnabled
         button.image = viewModel.buttonImage
