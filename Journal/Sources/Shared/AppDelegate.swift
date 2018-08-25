@@ -16,7 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
         customizeNavigationBar()
+        injectEnvironment()        
         
+        return true
+    }
+    
+    private func injectEnvironment() {
         if 
             let navigationController = window?.rootViewController as? UINavigationController,
             let timelineViewController = navigationController.topViewController as? TimelineViewController {
@@ -29,14 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ]
             
             let repo = InMemoryEntryRepository(entries: entries)
+            let env = Environment(entryRepository: repo) 
             
-            timelineViewController.environment = Environment(
-                entryRepository: repo
-            )
-            
+            timelineViewController.viewModel = TimelineViewViewModel(environment: env) 
         }
-        
-        return true
     }
     
     private func customizeNavigationBar() {

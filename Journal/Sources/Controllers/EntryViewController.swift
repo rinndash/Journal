@@ -8,34 +8,24 @@
 
 import UIKit
 
-protocol EntryViewControllerDelegate: class {
-    func didRemoveEntry(_ entry: Entry)
-}
-
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var button: UIBarButtonItem!
     @IBOutlet weak var removeButton: UIBarButtonItem!
     
-    var environment: Environment!
-    weak var delegate: EntryViewControllerDelegate?
+    var viewModel: EntryViewViewModel!
     
-    var journal: EntryRepository { return environment.entryRepository }
-    var editingEntry: Entry?
-    var hasEntry: Bool {
-        return editingEntry != nil
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let date: Date = editingEntry?.createdAt ?? Date()
+        title = viewModel.title
+        textView.text = viewModel.textViewText
         
-        title = DateFormatter.entryDateFormatter.string(from: date)
-        textView.text = editingEntry?.text
-        
-        updateSubviews(for: hasEntry == false)
+        if viewModel.hasEntry == false { 
+            viewModel.startEditing() 
+        }
+        updateSubviews()
                         
         NotificationCenter.default
             .addObserver(self, 
@@ -79,30 +69,23 @@ class EntryViewController: UIViewController {
         
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if hasEntry == false { textView.becomeFirstResponder() }
+        if viewModel.isEditing { textView.becomeFirstResponder() }
     }
     
     @objc func saveEntry(_ sender: Any) {
-        if let editing = editingEntry {
-            editing.text = textView.text
-            journal.update(editing)
-        } else {
-            let entry: Entry = Entry(text: textView.text)
-            journal.add(entry)
-            editingEntry = entry
-        }
-        
-        updateSubviews(for: false)
+        viewModel.completeEditing(with: textView.text)        
+        updateSubviews()
         textView.resignFirstResponder()
     }
     
     @objc func editEntry(_ sender: Any) {
-        updateSubviews(for: true)
+        viewModel.startEditing()
+        updateSubviews()
         textView.becomeFirstResponder()
     }
     
     @IBAction func removeEntry(_ sender: Any) {
-        guard let entryToRemove = editingEntry else { return }
+        guard viewModel.hasEntry else { return }
         
         let alertController = UIAlertController(
             title: "현재 일기를 삭제할까요?", 
@@ -113,11 +96,11 @@ class EntryViewController: UIViewController {
         let removeAction: UIAlertAction = UIAlertAction(
             title: "삭제", 
             style: .destructive) { (_) in
-                self.environment.entryRepository.remove(entryToRemove)
-                self.editingEntry = nil
-                
+                guard 
+                    let _ = self.viewModel.removeEntry() 
+                    else { return }
                 // pop
-                self.delegate?.didRemoveEntry(entryToRemove)
+                self.navigationController?.popViewController(animated: true)
         }
         alertController.addAction(removeAction)
         
@@ -131,14 +114,12 @@ class EntryViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }    
     
-    fileprivate func updateSubviews(for isEditing: Bool) {
-        textView.isEditable = true
-        
-        removeButton.isEnabled = hasEntry
-        
-        button.image = isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
+    fileprivate func updateSubviews() {
+        textView.isEditable = viewModel.textViewEditiable
+        removeButton.isEnabled = viewModel.removeButtonEnabled
+        button.image = viewModel.buttonImage
         button.target = self
-        button.action = isEditing 
+        button.action = viewModel.isEditing 
             ? #selector(saveEntry(_:))
             : #selector(editEntry(_:))       
     }
