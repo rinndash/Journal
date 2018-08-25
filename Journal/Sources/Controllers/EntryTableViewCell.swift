@@ -8,10 +8,21 @@
 
 import UIKit
 
-struct EntryTableViewCellViewModel {
-    let entryText: String
-    let timeText: String
-    let ampmText: String
+class EntryTableViewCellViewModel {
+    let environment: Environment
+    let entry: Entry
+    
+    init(entry: Entry, environment: Environment) {
+        self.entry = entry
+        self.environment = environment
+    }
+    
+    var entryText: String { return entry.text }
+    var entryTextFont: UIFont { 
+        return UIFont.systemFont(ofSize: environment.settings.fontSizeOption.rawValue)
+    }
+    var timeText: String { return DateFormatter.entryTimeFormatter.string(from: entry.createdAt) }
+    var ampmText: String { return DateFormatter.ampmFormatter.string(from: entry.createdAt) }
 } 
 
 class EntryTableViewCell: UITableViewCell {
@@ -23,6 +34,7 @@ class EntryTableViewCell: UITableViewCell {
         didSet {
             guard let vm = viewModel else { return }
             entryTextLabel.text = vm.entryText
+            entryTextLabel.font = vm.entryTextFont
             timeLabel.text = vm.timeText
             ampmLabel.text = vm.ampmText
         }

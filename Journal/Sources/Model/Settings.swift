@@ -24,9 +24,9 @@ enum DateFormatOption: String, SettingOption {
 }
 
 enum FontSizeOption: CGFloat, SettingOption, CustomStringConvertible {
-    case small = 14
+    case small = 12
     case medium = 16
-    case large = 18
+    case large = 20
     
     static var name: String { return "글자 크기" }
     static var `default`: FontSizeOption { return .medium }

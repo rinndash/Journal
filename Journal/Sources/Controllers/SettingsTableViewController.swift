@@ -11,6 +11,11 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
     var viewModel: SettingsTableViewViewModel!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.sectionModels.count
     }
