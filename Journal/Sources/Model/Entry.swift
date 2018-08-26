@@ -10,7 +10,7 @@ import Foundation
 
 protocol EntryType: Identifiable {
     var createdAt: Date { get }
-    var text: String { get }
+    var text: String { get set }
 }
 
 extension EntryType {
