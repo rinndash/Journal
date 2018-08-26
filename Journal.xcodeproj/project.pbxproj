@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EC515932133033A00EEBCC7 /* RealmEntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */; };
 		6910B22B210C4B8500135457 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B22A210C4B8500135457 /* Entry.swift */; };
 		6910B233210C57D700135457 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B232210C57D700135457 /* JournalTests.swift */; };
 		699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3702130E62A001577D1 /* EntryViewViewModel.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntryRepository.swift; sourceTree = "<group>"; };
 		59E50C4E552C9DF409E1D18D /* Pods_JournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JournalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA70B66400EDEFFA300FDE /* Pods-Journal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Journal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Journal/Pods-Journal.release.xcconfig"; sourceTree = "<group>"; };
 		5C8F253A7E49CDAC4C3464CA /* Pods-JournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JournalTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JournalTests/Pods-JournalTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				6910B22A210C4B8500135457 /* Entry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
+				2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */,
 				699BC37A21311FCF001577D1 /* Settings.swift */,
 				699BC37C213131AA001577D1 /* UserDefaultsSettings.swift */,
 			);
@@ -426,6 +429,7 @@
 				699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */,
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
+				2EC515932133033A00EEBCC7 /* RealmEntryRepository.swift in Sources */,
 				69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */,
 				699BC37B21311FCF001577D1 /* Settings.swift in Sources */,
 				699BC3752131014C001577D1 /* TimelineViewViewModel.swift in Sources */,
