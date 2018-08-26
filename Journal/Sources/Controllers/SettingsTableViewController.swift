@@ -11,6 +11,11 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
     var viewModel: SettingsTableViewViewModel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("Setting Load: ", UserDefaults.standard.object(forKey: "fontSizeOptionKey"))
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()

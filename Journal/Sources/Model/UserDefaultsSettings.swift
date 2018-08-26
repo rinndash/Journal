@@ -15,21 +15,14 @@ extension UserDefaults: Settings {
     var dateFormatOption: DateFormatOption {
         get {
             let rawValue = object(forKey: dateFormatOptionKey) as? String
-            print("dateFormatOption rawValue: ", rawValue)
             return rawValue.flatMap(DateFormatOption.init) ?? .default
         }
-        set {
-            set(newValue.rawValue, forKey: dateFormatOptionKey)
-            print("-----")
-            print("save dateFormatOption: \(newValue)")
-            print(synchronize())
-        }
+        set { set(newValue.rawValue, forKey: dateFormatOptionKey) }
     }
     
     var fontSizeOption: FontSizeOption {
         get {
             let rawValue = object(forKey: fontSizeOptionKey) as? CGFloat
-            print("fontSizeOption rawValue: ", rawValue)
             if 
                 let rawValue = rawValue,
                 let option = FontSizeOption(rawValue: rawValue)
@@ -39,12 +32,6 @@ extension UserDefaults: Settings {
                 return FontSizeOption.default
             }
         }
-        set {
-            set(newValue.rawValue, forKey: fontSizeOptionKey)
-            
-            print("-----")
-            print("save fontSizeOption: \(newValue)")
-            print(synchronize())
-        }
+        set { set(newValue.rawValue, forKey: fontSizeOptionKey) }
     }
 }
