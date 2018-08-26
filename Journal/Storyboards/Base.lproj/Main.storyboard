@@ -113,44 +113,6 @@
             </objects>
             <point key="canvasLocation" x="-678" y="134"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="GVP-U3-amA">
-            <objects>
-                <viewController id="sLS-Mx-bII" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="whv-PL-Aop">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Content Compression Resistance Content Compression Resistance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0I7-OK-hDF">
-                                <rect key="frame" x="16" y="323" width="0.0" height="21"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Content Compression Resistance Content Compression Resistance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qtz-4s-P4M">
-                                <rect key="frame" x="24" y="323" width="335" height="21"/>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="0I7-OK-hDF" firstAttribute="centerY" secondItem="whv-PL-Aop" secondAttribute="centerY" id="25j-2s-CpN"/>
-                            <constraint firstItem="X7x-7J-vYz" firstAttribute="trailing" secondItem="Qtz-4s-P4M" secondAttribute="trailing" constant="16" id="3V8-E6-96e"/>
-                            <constraint firstItem="0I7-OK-hDF" firstAttribute="leading" secondItem="X7x-7J-vYz" secondAttribute="leading" constant="16" id="eWb-Rx-ILJ"/>
-                            <constraint firstItem="Qtz-4s-P4M" firstAttribute="centerY" secondItem="whv-PL-Aop" secondAttribute="centerY" id="iFY-v1-Nqt"/>
-                            <constraint firstItem="Qtz-4s-P4M" firstAttribute="leading" secondItem="0I7-OK-hDF" secondAttribute="trailing" constant="8" id="rS9-p1-IOl"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="X7x-7J-vYz"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p6t-yj-etF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-681" y="857"/>
-        </scene>
         <!--Timeline View Controller-->
         <scene sceneID="yxj-am-E3x">
             <objects>
