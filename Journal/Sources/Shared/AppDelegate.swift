@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = window?.rootViewController as? UINavigationController,
             let timelineViewController = navigationController.topViewController as? TimelineViewController {
             
-            let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "MyInMemoryRealm"))
+            let realm = try! Realm()
             let realmEntryRepo = RealmEntryRepository(realm: realm)
             let realmEntryFactory: (String) -> RealmEntry = { (text: String) -> RealmEntry in
                 let entry = RealmEntry()
