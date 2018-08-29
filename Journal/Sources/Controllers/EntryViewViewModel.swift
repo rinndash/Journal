@@ -60,7 +60,7 @@ class EntryViewViewModel {
             editingEntry.text = text
             environment.entryRepository.update(editingEntry)
         } else {
-            let newEntry = Entry(text: text)
+            let newEntry = environment.entryFactory(text)
             environment.entryRepository.add(newEntry)
             delegate?.didAddEntry(newEntry)
         }
