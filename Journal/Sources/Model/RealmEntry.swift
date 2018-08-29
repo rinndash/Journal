@@ -22,4 +22,12 @@ class RealmEntry: Object, EntryType {
     override static func primaryKey() -> String? {
         return "uuidString"
     }
+    
+    static func newEntry(with text: String) -> RealmEntry {
+        let entry = RealmEntry()
+        entry.uuidString = UUID().uuidString
+        entry.createdAt = Date()
+        entry.text = text
+        return entry
+    }
 }

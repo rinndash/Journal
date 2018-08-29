@@ -29,17 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let realm = try! Realm()
             let realmEntryRepo = RealmEntryRepository(realm: realm)
-            let realmEntryFactory: (String) -> RealmEntry = { (text: String) -> RealmEntry in
-                let entry = RealmEntry()
-                entry.uuidString = UUID().uuidString
-                entry.createdAt = Date()
-                entry.text = text
-                return entry
-            }
             
             let env = Environment(
                 entryRepository: realmEntryRepo,
-                entryFactory: realmEntryFactory,
+                entryFactory: RealmEntry.newEntry,
                 settings: UserDefaults.standard
             )
             timelineViewController.viewModel = TimelineViewViewModel(environment: env)
