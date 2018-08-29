@@ -23,6 +23,7 @@
 		69B8C0422115408B0052A28F /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C0412115408B0052A28F /* Identifiable.swift */; };
 		69BC9C91213760FE00F4288C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69BC9C90213760FD00F4288C /* GoogleService-Info.plist */; };
 		69BC9C932137628B00F4288C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC9C922137628B00F4288C /* LoginViewController.swift */; };
+		69BC9C95213767F100F4288C /* LoginViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC9C94213767F100F4288C /* LoginViewViewModel.swift */; };
 		69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EA2127AA2B00974BAE /* TimelineViewController.swift */; };
 		69D175EF2127B3A500974BAE /* TimelineViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */; };
 		69D175F12127B62000974BAE /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175F02127B62000974BAE /* Environment.swift */; };
@@ -69,6 +70,7 @@
 		69B8C0412115408B0052A28F /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		69BC9C90213760FD00F4288C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		69BC9C922137628B00F4288C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		69BC9C94213767F100F4288C /* LoginViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewViewModel.swift; sourceTree = "<group>"; };
 		69D175EA2127AA2B00974BAE /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewControllerTests.swift; sourceTree = "<group>"; };
 		69D175F02127B62000974BAE /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -139,6 +141,13 @@
 			path = JournalTests;
 			sourceTree = "<group>";
 		};
+		69BC9C97213768EC00F4288C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		69E2159F2102F1730075C96E = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +181,7 @@
 		69E215BD210304AB0075C96E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				69BC9C97213768EC00F4288C /* Services */,
 				69E215C1210305080075C96E /* Shared */,
 				6910B229210C4B4900135457 /* Model */,
 				69E215C0210304EE0075C96E /* Controllers */,
@@ -209,6 +219,7 @@
 				699BC37621311BC9001577D1 /* SettingsTableViewController.swift */,
 				699BC37821311D08001577D1 /* SettingsTableViewViewModel.swift */,
 				69BC9C922137628B00F4288C /* LoginViewController.swift */,
+				69BC9C94213767F100F4288C /* LoginViewViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -450,6 +461,7 @@
 				699BC37B21311FCF001577D1 /* Settings.swift in Sources */,
 				699BC3752131014C001577D1 /* TimelineViewViewModel.swift in Sources */,
 				699BC37921311D08001577D1 /* SettingsTableViewViewModel.swift in Sources */,
+				69BC9C95213767F100F4288C /* LoginViewViewModel.swift in Sources */,
 				69D175F32127EF4800974BAE /* EntryTableViewCell.swift in Sources */,
 				699BC37D213131AA001577D1 /* UserDefaultsSettings.swift in Sources */,
 				69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */,

@@ -14,6 +14,9 @@ class LoginViewController: UIViewController {
     private let titleLabel: UILabel = UILabel()
     private let subtitleLabel: UILabel = UILabel()
     private let loginWithFacebookButton: UIButton = UIButton()
+    private let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white) 
+    
+    var viewModel: LoginViewViewModel!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -34,6 +37,7 @@ class LoginViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(subtitleLabel)
         view.addSubview(loginWithFacebookButton)
+        loginWithFacebookButton.addSubview(loadingIndicator)
     }
     
     private func layout() {
@@ -51,9 +55,12 @@ class LoginViewController: UIViewController {
         
         loginWithFacebookButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(200)
             $0.height.equalTo(40)
             $0.bottom.equalToSuperview().offset(-40)
         }
+        
+        loadingIndicator.snp.makeConstraints { $0.center.equalToSuperview() }
     }
     
     private func style() {
@@ -69,11 +76,11 @@ class LoginViewController: UIViewController {
         loginWithFacebookButton.layer.cornerRadius = 20
         loginWithFacebookButton.layer.borderWidth = 1.0
         loginWithFacebookButton.layer.borderColor = UIColor.white.cgColor
-        
-        loginWithFacebookButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
     @objc private func loginWithFacebook(_ sender: UIButton) {
+        loginWithFacebookButton.setTitle(nil, for: .normal)
         
-    } 
+        loadingIndicator.startAnimating()
+    }
 }
