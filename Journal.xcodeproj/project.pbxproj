@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2EC515932133033A00EEBCC7 /* RealmEntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */; };
+		2ED52A40213731D00097D347 /* RealmEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED52A3F213731D00097D347 /* RealmEntry.swift */; };
 		6910B22B210C4B8500135457 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B22A210C4B8500135457 /* Entry.swift */; };
 		6910B233210C57D700135457 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6910B232210C57D700135457 /* JournalTests.swift */; };
 		699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BC3702130E62A001577D1 /* EntryViewViewModel.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntryRepository.swift; sourceTree = "<group>"; };
+		2ED52A3F213731D00097D347 /* RealmEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntry.swift; sourceTree = "<group>"; };
 		59E50C4E552C9DF409E1D18D /* Pods_JournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JournalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA70B66400EDEFFA300FDE /* Pods-Journal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Journal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Journal/Pods-Journal.release.xcconfig"; sourceTree = "<group>"; };
 		5C8F253A7E49CDAC4C3464CA /* Pods-JournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JournalTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JournalTests/Pods-JournalTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				6910B22A210C4B8500135457 /* Entry.swift */,
+				2ED52A3F213731D00097D347 /* RealmEntry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
 				2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */,
 				699BC37A21311FCF001577D1 /* Settings.swift */,
@@ -427,6 +430,7 @@
 				69D175F12127B62000974BAE /* Environment.swift in Sources */,
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
 				699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */,
+				2ED52A40213731D00097D347 /* RealmEntry.swift in Sources */,
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
 				2EC515932133033A00EEBCC7 /* RealmEntryRepository.swift in Sources */,
