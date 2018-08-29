@@ -21,6 +21,7 @@
 		69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */; };
 		69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* EntryRepository.swift */; };
 		69B8C0422115408B0052A28F /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C0412115408B0052A28F /* Identifiable.swift */; };
+		69BC9C91213760FE00F4288C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69BC9C90213760FD00F4288C /* GoogleService-Info.plist */; };
 		69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EA2127AA2B00974BAE /* TimelineViewController.swift */; };
 		69D175EF2127B3A500974BAE /* TimelineViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */; };
 		69D175F12127B62000974BAE /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175F02127B62000974BAE /* Environment.swift */; };
@@ -65,6 +66,7 @@
 		69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Journal.swift"; sourceTree = "<group>"; };
 		69B8C03B21143B3F0052A28F /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		69B8C0412115408B0052A28F /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		69BC9C90213760FD00F4288C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		69D175EA2127AA2B00974BAE /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewControllerTests.swift; sourceTree = "<group>"; };
 		69D175F02127B62000974BAE /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				69E215B22102F1740075C96E /* Assets.xcassets */,
 				69E215B72102F1740075C96E /* Info.plist */,
+				69BC9C90213760FD00F4288C /* GoogleService-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69E215B62102F1740075C96E /* LaunchScreen.storyboard in Resources */,
+				69BC9C91213760FE00F4288C /* GoogleService-Info.plist in Resources */,
 				69E215B32102F1740075C96E /* Assets.xcassets in Resources */,
 				69E215B12102F1730075C96E /* Main.storyboard in Resources */,
 			);
@@ -374,15 +378,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Journal/Pods-Journal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
