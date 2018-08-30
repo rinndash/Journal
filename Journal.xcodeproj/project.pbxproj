@@ -24,6 +24,7 @@
 		69BC9C91213760FE00F4288C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69BC9C90213760FD00F4288C /* GoogleService-Info.plist */; };
 		69BC9C932137628B00F4288C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC9C922137628B00F4288C /* LoginViewController.swift */; };
 		69BC9C95213767F100F4288C /* LoginViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC9C94213767F100F4288C /* LoginViewViewModel.swift */; };
+		69BC9C9B2137737E00F4288C /* FirebaseEntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC9C9A2137737E00F4288C /* FirebaseEntryRepository.swift */; };
 		69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EA2127AA2B00974BAE /* TimelineViewController.swift */; };
 		69D175EF2127B3A500974BAE /* TimelineViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */; };
 		69D175F12127B62000974BAE /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175F02127B62000974BAE /* Environment.swift */; };
@@ -71,6 +72,7 @@
 		69BC9C90213760FD00F4288C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		69BC9C922137628B00F4288C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69BC9C94213767F100F4288C /* LoginViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewViewModel.swift; sourceTree = "<group>"; };
+		69BC9C9A2137737E00F4288C /* FirebaseEntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEntryRepository.swift; sourceTree = "<group>"; };
 		69D175EA2127AA2B00974BAE /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewControllerTests.swift; sourceTree = "<group>"; };
 		69D175F02127B62000974BAE /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				2ED52A3F213731D00097D347 /* RealmEntry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
 				2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */,
+				69BC9C9A2137737E00F4288C /* FirebaseEntryRepository.swift */,
 				699BC37A21311FCF001577D1 /* Settings.swift */,
 				699BC37C213131AA001577D1 /* UserDefaultsSettings.swift */,
 			);
@@ -456,6 +459,7 @@
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
 				699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */,
 				2ED52A40213731D00097D347 /* RealmEntry.swift in Sources */,
+				69BC9C9B2137737E00F4288C /* FirebaseEntryRepository.swift in Sources */,
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
 				2EC515932133033A00EEBCC7 /* RealmEntryRepository.swift in Sources */,

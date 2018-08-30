@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let realm = try! Realm()
             let realmEntryRepo = RealmEntryRepository(realm: realm)
+            
+            let firebaseRef = Database.database().reference()
+            let repo = FirebaseEntryRepository(reference: firebaseRef)
             
             let env = Environment(
                 entryRepository: realmEntryRepo,
