@@ -43,9 +43,6 @@ class TimelineViewController: UIViewController {
         
         title = "Journal"
         tableview.delegate = self
-        
-        let loginViewController = LoginViewController()
-        present(loginViewController, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -6,6 +6,7 @@ target :Journal do
   pod 'SnapKit'
   pod 'RealmSwift'
   pod 'Firebase/Core'
+  pod 'Firebase/Database'
 
   target :JournalTests do
     inherit! :search_paths
