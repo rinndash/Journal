@@ -54,12 +54,22 @@ class TimelineViewController: UIViewController {
         searchController.searchResultsUpdater = self
         
         navigationItem.searchController = searchController
+        
+        definesPresentationContext = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
         tableview.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if viewModel.isSearching {
+            viewModel.searchText = nil
+            searchController.isActive = false
+        }
     }
 }
 
