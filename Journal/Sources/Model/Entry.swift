@@ -31,8 +31,10 @@ class Entry: EntryType, Encodable {
         self.createdAt = createdAt
         self.text = text
     }
-    
-    init?(dictionary: [String: Any]) {
+}
+
+extension Entry {
+    convenience init?(dictionary: [String: Any]) {
         guard
             let uuidString = dictionary["uuidString"] as? String,
             let uuid = UUID(uuidString: uuidString),
@@ -40,13 +42,9 @@ class Entry: EntryType, Encodable {
             let text = dictionary["text"] as? String
             else { return nil }
         
-        self.id = uuid
-        self.createdAt = Date(timeIntervalSince1970: createdAtTimeInterval)
-        self.text = text
+        self.init(id: uuid, createdAt: Date(timeIntervalSince1970: createdAtTimeInterval), text: text)
     }
-}
-
-extension Entry {
+    
     func toDitionary() -> [String: Any] {
         return [
             "uuidString": id.uuidString,

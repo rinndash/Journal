@@ -147,7 +147,6 @@ extension TimelineViewController: UISearchResultsUpdating {
             searchText.isEmpty == false,
             viewModel.isLoading == false
             else { return }
-        print("searchText: ", searchText)
         
         self.loadingIndicator.startAnimating()
         viewModel.searchText(text: searchText) { [weak self] in
