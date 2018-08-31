@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EB1C1A521398541006B8CCC /* FirebaseEntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB1C1A421398541006B8CCC /* FirebaseEntryRepository.swift */; };
 		2EC515932133033A00EEBCC7 /* RealmEntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */; };
 		2ED52A40213731D00097D347 /* RealmEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED52A3F213731D00097D347 /* RealmEntry.swift */; };
 		2EF74BDE213982070051092A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EF74BDD213982070051092A /* GoogleService-Info.plist */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2EB1C1A421398541006B8CCC /* FirebaseEntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEntryRepository.swift; sourceTree = "<group>"; };
 		2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntryRepository.swift; sourceTree = "<group>"; };
 		2ED52A3F213731D00097D347 /* RealmEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntry.swift; sourceTree = "<group>"; };
 		2EF74BDD213982070051092A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				2ED52A3F213731D00097D347 /* RealmEntry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
 				2EC515922133033A00EEBCC7 /* RealmEntryRepository.swift */,
+				2EB1C1A421398541006B8CCC /* FirebaseEntryRepository.swift */,
 				699BC37A21311FCF001577D1 /* Settings.swift */,
 				699BC37C213131AA001577D1 /* UserDefaultsSettings.swift */,
 			);
@@ -438,6 +441,7 @@
 				699BC37721311BC9001577D1 /* SettingsTableViewController.swift in Sources */,
 				6910B22B210C4B8500135457 /* Entry.swift in Sources */,
 				69D175F12127B62000974BAE /* Environment.swift in Sources */,
+				2EB1C1A521398541006B8CCC /* FirebaseEntryRepository.swift in Sources */,
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
 				699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */,
 				2ED52A40213731D00097D347 /* RealmEntry.swift in Sources */,

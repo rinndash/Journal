@@ -16,11 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    
+        FirebaseApp.configure()
+        
         customizeNavigationBar()
         injectEnvironment()
-        
-        FirebaseApp.configure()
         
         return true
     }
@@ -30,12 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = window?.rootViewController as? UINavigationController,
             let timelineViewController = navigationController.topViewController as? TimelineViewController {
             
-            let realm = try! Realm()
-            let realmEntryRepo = RealmEntryRepository(realm: realm)
+            let fbRepo = FirebaseEntryRepository()
             
             let env = Environment(
-                entryRepository: realmEntryRepo,
-                entryFactory: RealmEntry.newEntry,
+                entryRepository: fbRepo,
+                entryFactory: { Entry(text: $0) },
                 settings: UserDefaults.standard
             )
             timelineViewController.viewModel = TimelineViewViewModel(environment: env)

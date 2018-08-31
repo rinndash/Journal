@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class TimelineViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     
     private let searchController: UISearchController = UISearchController(searchResultsController: nil)
+    private let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     var viewModel: TimelineViewViewModel!
     
@@ -57,12 +59,20 @@ class TimelineViewController: UIViewController {
         navigationItem.searchController = searchController
         
         definesPresentationContext = true
+        
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { $0.center.equalToSuperview() }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
-        tableview.reloadData()
+        
+        loadingIndicator.startAnimating()
+        
+        viewModel.loadEntries { [weak self] in
+            self?.tableview.reloadData()
+            self?.loadingIndicator.stopAnimating()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

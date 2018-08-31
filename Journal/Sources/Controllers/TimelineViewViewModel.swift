@@ -120,3 +120,11 @@ extension EntryRepository {
             .unique()
     }
 }
+
+extension TimelineViewViewModel {
+    func loadEntries(completion: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3), execute: {
+            completion()
+        })
+    }
+}
