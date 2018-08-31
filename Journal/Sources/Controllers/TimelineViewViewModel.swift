@@ -52,14 +52,9 @@ class TimelineViewViewModel {
     }
     
     func removeEntry(at indexPath: IndexPath) {
-        let date = dates[indexPath.section]
-        let entries = self.entries(for: date)
-        let entry = entries[indexPath.row]
+        let entry = self.entry(for: indexPath)
         environment.entryRepository.remove(entry)
-        
-        if entries.count == 1 { 
-            dates = self.dates.filter { $0 != date }                 
-        }
+        dates = environment.entryRepository.uniqueDates
     }
     
     var newEntryViewViewModel: EntryViewViewModel {

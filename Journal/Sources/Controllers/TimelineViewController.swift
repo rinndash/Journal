@@ -52,6 +52,7 @@ class TimelineViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         
         searchController.searchResultsUpdater = self
+        searchController.delegate = self
         
         navigationItem.searchController = searchController
         
@@ -66,7 +67,7 @@ class TimelineViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if viewModel.isSearching {
+        if searchController.isActive {
             viewModel.searchText = nil
             searchController.isActive = false
         }
@@ -95,6 +96,8 @@ extension TimelineViewController: UITableViewDataSource {
 
 extension TimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard searchController.isActive == false else { return UISwipeActionsConfiguration(actions: []) }
+        
         let deleteAction = UIContextualAction(style: .normal, title:  nil) { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
             let isLastRowInSection = self.viewModel.numberOfRows(in: indexPath.section) == 1
@@ -136,5 +139,11 @@ extension TimelineViewController: UISearchResultsUpdating {
         
         viewModel.searchText = searchText
         tableview.reloadData()
+    }
+}
+
+extension TimelineViewController: UISearchControllerDelegate {
+    func willDismissSearchController(_ searchController: UISearchController) {
+        viewModel.searchText = nil
     }
 }
