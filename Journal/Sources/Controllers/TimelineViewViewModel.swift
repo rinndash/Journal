@@ -51,7 +51,9 @@ class TimelineViewViewModel {
     func removeEntry(at indexPath: IndexPath) {
         let entry = self.entry(for: indexPath)
         environment.entryRepository.remove(entry)
-        dates = []
+        dates = self.entries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
     }
     
     var newEntryViewViewModel: EntryViewViewModel {
@@ -98,18 +100,30 @@ extension TimelineViewViewModel {
 
 extension TimelineViewViewModel: EntryViewViewModelDelegate {
     func didAddEntry(_ entry: EntryType) {
-        dates = []
+        dates = self.entries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
     }
     
     func didRemoveEntry(_ entry: EntryType) {
-        dates = []
+        dates = self.entries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
     }
 }
 
 extension TimelineViewViewModel {
     func loadEntries(completion: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3), execute: {
+        entries = []
+        
+        environment.entryRepository.recentEntries(max: 10) { [weak self] (entries) in
+            guard let `self` = self else { return }
+            self.entries += entries
+            self.dates = self.entries
+                .compactMap { $0.createdAt.hmsRemoved }
+                .unique()
+            
             completion()
-        })
+        }
     }
 }

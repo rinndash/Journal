@@ -31,4 +31,18 @@ class Entry: EntryType {
         self.createdAt = createdAt
         self.text = text
     }
+    
+    init?(dictionary: [String: Any]) {
+        guard
+            let uuidString = dictionary["uuidString"] as? String,
+            let uuid = UUID(uuidString: uuidString),
+            let createdAtTimeInterval = dictionary["createdAt"] as? Double,
+            let text = dictionary["text"] as? String
+            else { return nil }
+        
+        self.id = uuid
+        self.createdAt = Date(timeIntervalSince1970: createdAtTimeInterval)
+        self.text = text
+    }
 }
+

@@ -14,13 +14,6 @@ class FirebaseEntryRepository: EntryRepository {
     
     init(reference: DatabaseReference = Database.database().reference()) {
         self.reference = reference.child("entries")
-        
-        let query = self.reference
-            .queryOrdered(byChild: "createdAt")
-            .queryLimited(toFirst: 10)
-            .observeSingleEvent(of: .value) {
-            print($0)
-        }
     }
     
     var numberOfEntries: Int { return 0 }
@@ -52,6 +45,20 @@ class FirebaseEntryRepository: EntryRepository {
     }
     
     func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void) {
-        
+        self.reference
+            .queryOrdered(byChild: "createdAt")
+            .queryLimited(toLast: UInt(max))
+            .observeSingleEvent(of: .value) { snapshot in
+                let entries: [Entry] = snapshot.children.compactMap {
+                    guard
+                        let childSnapshot = $0 as? DataSnapshot,
+                        let dict = childSnapshot.value as? [String: Any],
+                        let entry = Entry(dictionary: dict)
+                        else { return nil }
+                    print(childSnapshot)
+                    return entry
+                }
+                completion(entries.reversed())
+            }
     }
 }
