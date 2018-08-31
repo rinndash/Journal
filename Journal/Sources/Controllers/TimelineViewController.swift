@@ -78,7 +78,7 @@ class TimelineViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if searchController.isActive {
-            viewModel.searchText = nil
+            viewModel.endSearching()
             searchController.isActive = false
         }
     }
@@ -144,16 +144,26 @@ extension TimelineViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard
             let searchText = searchController.searchBar.text,
-            searchText.isEmpty == false
+            searchText.isEmpty == false,
+            viewModel.isLoading == false
             else { return }
+        print("searchText: ", searchText)
         
-        viewModel.searchText = searchText
-        tableview.reloadData()
+        self.loadingIndicator.startAnimating()
+        viewModel.searchText(text: searchText) { [weak self] in
+            self?.tableview.reloadData()
+            self?.loadingIndicator.stopAnimating()
+        }
     }
 }
 
 extension TimelineViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
-        viewModel.searchText = nil
+        self.viewModel.endSearching()
+        self.loadingIndicator.startAnimating()
+        viewModel.loadEntries { [weak self] in
+            self?.tableview.reloadData()
+            self?.loadingIndicator.stopAnimating()
+        }
     }
 }

@@ -34,19 +34,24 @@ class TimelineViewViewModel {
         dates = []
     }
     
-    var searchText: String? {
-        didSet {
-            guard let text = searchText else {
-                filteredEntries = []
-                return
-            }
-            filteredEntries = environment.entryRepository.entries(contains: text)
-        }
+    private var isSearching: Bool = false
+    
+    func searchText(text: String, completion: @escaping () -> Void) {
+        isSearching = true
+        isLoading = true
+        
+        environment.entryRepository.entries(contains: text, completion: { [weak self] entries in
+            self?.filteredEntries = entries
+            self?.isLoading = false
+            completion()
+        })
     }
     
-    var isSearching: Bool {
-        return searchText?.isEmpty == false
+    func endSearching() {
+        isSearching = false
     }
+    
+    private(set) var isLoading: Bool = false
     
     func removeEntry(at indexPath: IndexPath) {
         let entry = self.entry(for: indexPath)
@@ -114,10 +119,12 @@ extension TimelineViewViewModel: EntryViewViewModelDelegate {
 
 extension TimelineViewViewModel {
     func loadEntries(completion: @escaping () -> Void) {
+        isLoading = true
         entries = []
         
         environment.entryRepository.recentEntries(max: 10) { [weak self] (entries) in
             guard let `self` = self else { return }
+            self.isLoading = false
             self.entries += entries
             self.dates = self.entries
                 .compactMap { $0.createdAt.hmsRemoved }

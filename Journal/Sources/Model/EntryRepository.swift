@@ -13,7 +13,7 @@ protocol EntryRepository {
     func update(_ entry: EntryType)
     func remove(_ entry: EntryType)
     
-    func entries(contains string: String) -> [EntryType]
+    func entries(contains string: String, completion: @escaping ([EntryType]) -> Void)
     func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void)
 }
 
@@ -47,11 +47,13 @@ class InMemoryEntryRepository: EntryRepository {
         entries[entry.id] = nil
     }
     
-    func entries(contains string: String) -> [EntryType] {
-        return entries
+    func entries(contains string: String, completion: @escaping ([EntryType]) -> Void) {
+        let result = entries
             .values
             .filter { $0.text.contains(string) }
             .sorted { $0.createdAt > $1.createdAt  }
+        
+        completion(result)
     }
     
     func entry(with id: UUID) -> EntryType? {
