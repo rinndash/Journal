@@ -69,7 +69,7 @@ class TimelineViewController: UIViewController {
         
         loadingIndicator.startAnimating()
         
-        viewModel.loadEntries { [weak self] in
+        viewModel.refreshEntries { [weak self] in
             self?.tableview.reloadData()
             self?.loadingIndicator.stopAnimating()
         }
@@ -113,7 +113,7 @@ extension TimelineViewController: UITableViewDelegate {
         guard scrollPosition > threshold && viewModel.isLoading == false && viewModel.isLastPage == false else { return }
         
         loadingIndicator.startAnimating()
-        viewModel.loadEntries { [weak self] in
+        viewModel.loadMoreEntries { [weak self] in
             self?.tableview.reloadData()
             self?.loadingIndicator.stopAnimating()
         }
@@ -174,7 +174,7 @@ extension TimelineViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
         self.viewModel.endSearching()
         self.loadingIndicator.startAnimating()
-        viewModel.loadEntries { [weak self] in
+        viewModel.refreshEntries { [weak self] in
             self?.tableview.reloadData()
             self?.loadingIndicator.stopAnimating()
         }

@@ -51,6 +51,8 @@ class FirebaseEntryRepository: EntryRepository {
     private var oldestEntryCreatedAt: Double?
     
     func recentEntries(max: Int, page: Int, completion: @escaping ([EntryType], Bool) -> Void) {
+        if page == 0 { oldestEntryCreatedAt = nil }
+        
         var query = self.reference
             .queryOrdered(byChild: "createdAt")
         

@@ -121,10 +121,30 @@ extension TimelineViewViewModel: EntryViewViewModelDelegate {
 }
 
 extension TimelineViewViewModel {
-    func loadEntries(completion: @escaping () -> Void) {
+    func refreshEntries(completion: @escaping () -> Void) {
+        isLoading = true
+        currentPage = 0
+        isLastPage = false
+        
+        environment.entryRepository.recentEntries(max: 10, page: currentPage) { [weak self] (entries, isLastPage) in
+            guard let `self` = self else { return }
+            self.isLoading = false
+            self.entries = entries
+            self.dates = self.entries
+                .compactMap { $0.createdAt.hmsRemoved }
+                .unique()
+            
+            self.currentPage += 1
+            self.isLastPage = isLastPage
+            
+            completion()
+        }
+    }
+    
+    func loadMoreEntries(completion: @escaping () -> Void) {
         isLoading = true
         
-        environment.entryRepository.recentEntries(max: 3, page: currentPage) { [weak self] (entries, isLastPage) in
+        environment.entryRepository.recentEntries(max: 10, page: currentPage) { [weak self] (entries, isLastPage) in
             guard let `self` = self else { return }
             self.isLoading = false
             self.entries += entries
