@@ -17,7 +17,7 @@ class FirebaseEntryRepository: EntryRepository {
         
         let query = self.reference
             .queryOrdered(byChild: "createdAt")
-            .queryLimited(toFirst: 10)    
+            .queryLimited(toFirst: 10)
             .observeSingleEvent(of: .value) {
             print($0)
         }
@@ -51,7 +51,7 @@ class FirebaseEntryRepository: EntryRepository {
         return nil
     }
     
-    func recentEntries(max: Int) -> [EntryType] {
-        return []
+    func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void) {
+        
     }
 }
