@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import ESPullToRefresh
 
 class TimelineViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
@@ -62,6 +63,14 @@ class TimelineViewController: UIViewController {
         
         view.addSubview(loadingIndicator)
         loadingIndicator.snp.makeConstraints { $0.center.equalToSuperview() }
+        
+        tableview.es.addInfiniteScrolling { [weak self] in
+            self?.viewModel.loadEntries {
+                self?.tableview.es.stopLoadingMore()
+                self?.tableview.reloadData()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

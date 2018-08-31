@@ -120,7 +120,6 @@ extension TimelineViewViewModel: EntryViewViewModelDelegate {
 extension TimelineViewViewModel {
     func loadEntries(completion: @escaping () -> Void) {
         isLoading = true
-        entries = []
         
         environment.entryRepository.recentEntries(max: 10) { [weak self] (entries) in
             guard let `self` = self else { return }
