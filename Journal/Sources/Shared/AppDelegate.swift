@@ -37,8 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 settings: UserDefaults.standard
             )
             timelineViewController.viewModel = TimelineViewViewModel(environment: env)
-            
-            timelineViewController.viewModel = TimelineViewViewModel(environment: env) 
         }
     }
     

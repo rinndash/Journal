@@ -21,7 +21,7 @@ extension EntryType {
     }
 }
 
-class Entry: EntryType {
+class Entry: EntryType, Encodable {
     let id: UUID
     let createdAt: Date
     var text: String
@@ -46,3 +46,12 @@ class Entry: EntryType {
     }
 }
 
+extension Entry {
+    func toDitionary() -> [String: Any] {
+        return [
+            "uuidString": id.uuidString,
+            "createdAt": createdAt.timeIntervalSince1970,
+            "text": text
+        ]
+    }
+}

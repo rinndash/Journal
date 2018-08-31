@@ -17,13 +17,8 @@ class FirebaseEntryRepository: EntryRepository {
     }
     
     func add(_ entry: EntryType) {
-        reference.child(entry.id.uuidString).setValue(
-            [
-                "uuidString": entry.id.uuidString,
-                "createdAt": entry.createdAt.timeIntervalSince1970,
-                "text": entry.text
-            ]
-        )
+        guard let entry = entry as? Entry else { fatalError() }
+        reference.child(entry.id.uuidString).setValue(entry.toDitionary())
     }
     
     func update(_ entry: EntryType) {
