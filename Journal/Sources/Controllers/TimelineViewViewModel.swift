@@ -33,6 +33,8 @@ class TimelineViewViewModel {
         dates = environment.entryRepository.uniqueDates
     }
     
+    var searchText: String?
+    
     func removeEntry(at indexPath: IndexPath) {
         let date = dates[indexPath.section]
         let entries = self.entries(for: date)

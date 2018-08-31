@@ -51,6 +51,8 @@ class TimelineViewController: UIViewController {
         searchController.searchBar.autocapitalizationType = .none
         searchController.obscuresBackgroundDuringPresentation = false
         
+        searchController.searchResultsUpdater = self
+        
         navigationItem.searchController = searchController
     }
     
@@ -112,5 +114,17 @@ extension TimelineViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: 
             [deleteAction]
         )
+    }
+}
+
+extension TimelineViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard
+            let searchText = searchController.searchBar.text,
+            searchText.isEmpty == false
+            else { return }
+        
+        viewModel.searchText = searchText
+        tableview.reloadData()
     }
 }
