@@ -16,8 +16,6 @@ class FirebaseEntryRepository: EntryRepository {
         self.reference = reference.child("entries")
     }
     
-    var numberOfEntries: Int { return 0 }
-    
     func add(_ entry: EntryType) {
         reference.child(entry.id.uuidString).setValue(
             [
@@ -40,10 +38,6 @@ class FirebaseEntryRepository: EntryRepository {
         return []
     }
     
-    func entry(with id: UUID) -> EntryType? {
-        return nil
-    }
-    
     func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void) {
         self.reference
             .queryOrdered(byChild: "createdAt")
@@ -55,7 +49,6 @@ class FirebaseEntryRepository: EntryRepository {
                         let dict = childSnapshot.value as? [String: Any],
                         let entry = Entry(dictionary: dict)
                         else { return nil }
-                    print(childSnapshot)
                     return entry
                 }
                 completion(entries.reversed())

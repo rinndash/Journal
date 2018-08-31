@@ -9,15 +9,11 @@
 import Foundation
 
 protocol EntryRepository {
-    var numberOfEntries: Int { get }
-    
     func add(_ entry: EntryType)
     func update(_ entry: EntryType)
     func remove(_ entry: EntryType)
     
     func entries(contains string: String) -> [EntryType]
-    func entry(with id: UUID) -> EntryType?
-    
     func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void)
 }
 
@@ -38,10 +34,6 @@ class InMemoryEntryRepository: EntryRepository {
         let repository = InMemoryEntryRepository()
         return repository
     }()
-    
-    var numberOfEntries: Int { 
-        return entries.count
-    }
     
     func add(_ entry: EntryType) {
         entries[entry.id] = entry
