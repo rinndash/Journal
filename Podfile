@@ -7,7 +7,6 @@ target :Journal do
   pod 'RealmSwift'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
-  pod "ESPullToRefresh"
 
   target :JournalTests do
     inherit! :search_paths

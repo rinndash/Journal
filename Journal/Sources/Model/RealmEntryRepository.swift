@@ -45,10 +45,10 @@ class RealmEntryRepository: EntryRepository {
         completion(Array(results))
     }
     
-    func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void) {
+    func recentEntries(max: Int, page: Int, completion: @escaping ([EntryType], Bool) -> Void) {
         let results = realm.objects(RealmEntry.self)
             .sorted(byKeyPath: "createdAt", ascending: false)
             .prefix(max)
-        completion(Array(results))
+        completion(Array(results), true)
     }
 }

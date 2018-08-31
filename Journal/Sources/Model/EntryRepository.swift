@@ -14,7 +14,7 @@ protocol EntryRepository {
     func remove(_ entry: EntryType)
     
     func entries(contains string: String, completion: @escaping ([EntryType]) -> Void)
-    func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void)
+    func recentEntries(max: Int, page: Int, completion: @escaping ([EntryType], Bool) -> Void)
 }
 
 class InMemoryEntryRepository: EntryRepository {
@@ -60,12 +60,12 @@ class InMemoryEntryRepository: EntryRepository {
         return entries[id]
     }
     
-    func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void) {
+    func recentEntries(max: Int, page: Int, completion: @escaping ([EntryType], Bool) -> Void) {
         let result = entries
             .values
             .sorted { $0.createdAt > $1.createdAt  }
             .prefix(max)
         
-        completion(Array(result))
+        completion(Array(result), true)
     }
 }

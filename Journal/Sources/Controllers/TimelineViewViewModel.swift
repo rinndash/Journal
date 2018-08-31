@@ -15,6 +15,9 @@ class TimelineViewViewModel {
     private var entries: [EntryType] = []
     private var filteredEntries: [EntryType] = []
     
+    private var currentPage: Int = 0
+    var isLastPage: Bool = false
+    
     private func entries(for date: Date) -> [EntryType] {
         return entries.filter { $0.createdAt.hmsRemoved == date }
     }
@@ -121,13 +124,16 @@ extension TimelineViewViewModel {
     func loadEntries(completion: @escaping () -> Void) {
         isLoading = true
         
-        environment.entryRepository.recentEntries(max: 10) { [weak self] (entries) in
+        environment.entryRepository.recentEntries(max: 3, page: currentPage) { [weak self] (entries, isLastPage) in
             guard let `self` = self else { return }
             self.isLoading = false
             self.entries += entries
             self.dates = self.entries
                 .compactMap { $0.createdAt.hmsRemoved }
                 .unique()
+            
+            self.currentPage += 1
+            self.isLastPage = isLastPage
             
             completion()
         }

@@ -48,9 +48,17 @@ class FirebaseEntryRepository: EntryRepository {
             }
     }
     
-    func recentEntries(max: Int, completion: @escaping ([EntryType]) -> Void) {
-        self.reference
+    private var oldestEntryCreatedAt: Double?
+    
+    func recentEntries(max: Int, page: Int, completion: @escaping ([EntryType], Bool) -> Void) {
+        var query = self.reference
             .queryOrdered(byChild: "createdAt")
+        
+        if let endAt = oldestEntryCreatedAt {
+            query = query.queryEnding(atValue: endAt - 0.000001, childKey: "createdAt")
+        }
+        
+        query
             .queryLimited(toLast: UInt(max))
             .observeSingleEvent(of: .value) { snapshot in
                 let entries: [Entry] = snapshot.children.compactMap {
@@ -60,8 +68,12 @@ class FirebaseEntryRepository: EntryRepository {
                         let entry = Entry(dictionary: dict)
                         else { return nil }
                     return entry
-                }
-                completion(entries.reversed())
+                }.reversed()
+                
+                self.oldestEntryCreatedAt = entries.last?.createdAt.timeIntervalSince1970
+                let isLastPage = entries.count < max
+                
+                completion(entries, isLastPage)
             }
     }
 }

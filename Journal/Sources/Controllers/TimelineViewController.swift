@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import ESPullToRefresh
 
 class TimelineViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
@@ -63,14 +62,6 @@ class TimelineViewController: UIViewController {
         
         view.addSubview(loadingIndicator)
         loadingIndicator.snp.makeConstraints { $0.center.equalToSuperview() }
-        
-        tableview.es.addInfiniteScrolling { [weak self] in
-            self?.viewModel.loadEntries {
-                self?.tableview.es.stopLoadingMore()
-                self?.tableview.reloadData()
-            }
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +105,20 @@ extension TimelineViewController: UITableViewDataSource {
 }
 
 extension TimelineViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollPosition: CGFloat = scrollView.contentOffset.y
+        let cellHeight: CGFloat = 80
+        let threshold: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height - cellHeight
+        
+        guard scrollPosition > threshold && viewModel.isLoading == false && viewModel.isLastPage == false else { return }
+        
+        loadingIndicator.startAnimating()
+        viewModel.loadEntries { [weak self] in
+            self?.tableview.reloadData()
+            self?.loadingIndicator.stopAnimating()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard searchController.isActive == false else { return UISwipeActionsConfiguration(actions: []) }
         
