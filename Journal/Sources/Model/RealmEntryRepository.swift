@@ -45,6 +45,14 @@ class RealmEntryRepository: EntryRepository {
         return realm.objects(RealmEntry.self).count 
     }
     
+    func entries(contains string: String) -> [EntryType] {
+        let result = realm.objects(RealmEntry.self)
+            .filter("text CONTAINS[c] '\(string)'")
+            .sorted(byKeyPath: "createdAt", ascending: false)
+                        
+        return Array(result)
+    }
+    
     func entry(with id: UUID) -> EntryType? {
         return realm.objects(RealmEntry.self)
             .filter("uuidString == '\(id.uuidString)'")
