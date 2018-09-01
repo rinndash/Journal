@@ -19,6 +19,8 @@
 		69A6B8B3211EBF1B004E8C6B /* UIKit+Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */; };
 		69B8C03C21143B3F0052A28F /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C03B21143B3F0052A28F /* EntryRepository.swift */; };
 		69B8C0422115408B0052A28F /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8C0412115408B0052A28F /* Identifiable.swift */; };
+		69BE79E2213A2056007395C0 /* RealmEntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BE79E1213A2056007395C0 /* RealmEntryRepository.swift */; };
+		69BE79E4213A225D007395C0 /* RealmEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BE79E3213A225D007395C0 /* RealmEntry.swift */; };
 		69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EA2127AA2B00974BAE /* TimelineViewController.swift */; };
 		69D175EF2127B3A500974BAE /* TimelineViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */; };
 		69D175F12127B62000974BAE /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D175F02127B62000974BAE /* Environment.swift */; };
@@ -61,6 +63,8 @@
 		69A6B8B2211EBF1B004E8C6B /* UIKit+Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Journal.swift"; sourceTree = "<group>"; };
 		69B8C03B21143B3F0052A28F /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		69B8C0412115408B0052A28F /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		69BE79E1213A2056007395C0 /* RealmEntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntryRepository.swift; sourceTree = "<group>"; };
+		69BE79E3213A225D007395C0 /* RealmEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntry.swift; sourceTree = "<group>"; };
 		69D175EA2127AA2B00974BAE /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		69D175EE2127B3A500974BAE /* TimelineViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewControllerTests.swift; sourceTree = "<group>"; };
 		69D175F02127B62000974BAE /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -111,7 +115,9 @@
 			isa = PBXGroup;
 			children = (
 				6910B22A210C4B8500135457 /* Entry.swift */,
+				69BE79E3213A225D007395C0 /* RealmEntry.swift */,
 				69B8C03B21143B3F0052A28F /* EntryRepository.swift */,
+				69BE79E1213A2056007395C0 /* RealmEntryRepository.swift */,
 				699BC37A21311FCF001577D1 /* Settings.swift */,
 				699BC37C213131AA001577D1 /* UserDefaultsSettings.swift */,
 			);
@@ -424,8 +430,10 @@
 				69D175F12127B62000974BAE /* Environment.swift in Sources */,
 				69E215AE2102F1730075C96E /* EntryViewController.swift in Sources */,
 				699BC3712130E62A001577D1 /* EntryViewViewModel.swift in Sources */,
+				69BE79E4213A225D007395C0 /* RealmEntry.swift in Sources */,
 				69E215AC2102F1730075C96E /* AppDelegate.swift in Sources */,
 				69B8C0422115408B0052A28F /* Identifiable.swift in Sources */,
+				69BE79E2213A2056007395C0 /* RealmEntryRepository.swift in Sources */,
 				69D175EB2127AA2B00974BAE /* TimelineViewController.swift in Sources */,
 				699BC37B21311FCF001577D1 /* Settings.swift in Sources */,
 				699BC3752131014C001577D1 /* TimelineViewViewModel.swift in Sources */,

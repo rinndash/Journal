@@ -56,11 +56,10 @@ class EntryViewViewModel {
     func completeEditing(with text: String) {
         isEditing = false
         
-        if var editingEntry = entry {
-            editingEntry.text = text
-            environment.entryRepository.update(editingEntry)
+        if let editingEntry = entry {
+            environment.entryRepository.update(editingEntry, text: text)
         } else {
-            let newEntry = Entry(text: text)
+            let newEntry = environment.entryFactory(text)
             environment.entryRepository.add(newEntry)
             delegate?.didAddEntry(newEntry)
         }
