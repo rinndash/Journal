@@ -17,7 +17,9 @@ extension UserDefaults: Settings {
             let rawValue = object(forKey: dateFormatOptionKey) as? String
             return rawValue.flatMap(DateFormatOption.init) ?? .default
         }
-        set { set(newValue.rawValue, forKey: dateFormatOptionKey) }
+        set { 
+            set(newValue.rawValue, forKey: dateFormatOptionKey)
+        }
     }
     
     var fontSizeOption: FontSizeOption {
