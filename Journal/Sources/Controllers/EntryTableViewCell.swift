@@ -10,9 +10,9 @@ import UIKit
 
 class EntryTableViewCellViewModel {
     let environment: Environment
-    let entry: Entry
+    let entry: EntryType
     
-    init(entry: Entry, environment: Environment) {
+    init(entry: EntryType, environment: Environment) {
         self.entry = entry
         self.environment = environment
     }

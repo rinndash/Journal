@@ -12,16 +12,36 @@ class TimelineViewViewModel {
     let environment: Environment
     
     private var dates: [Date] = []
-    private var entries: [Entry] {
+    private var entries: [EntryType] {
         return environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
     }
+    private var filtedEntries: [EntryType] = []
     
-    private func entries(for date: Date) -> [Entry] {
+    var searchText: String? {
+        didSet {
+            guard let text = searchText else {
+                filtedEntries = []
+                return
+            }
+            
+            filtedEntries = environment.entryRepository.entries(contains: text)
+        }
+    }
+    
+    var isSearching: Bool {
+        return searchText?.isEmpty == false
+    }
+    
+    private func entries(for date: Date) -> [EntryType] {
         return entries
             .filter { $0.createdAt.hmsRemoved == date }
     }
     
-    private func entry(for indexPath: IndexPath) -> Entry {
+    private func entry(for indexPath: IndexPath) -> EntryType {
+        guard 
+            isSearching == false 
+            else { return filtedEntries[indexPath.row] }
+        
         let date = dates[indexPath.section]
         let entriesOfDate = entries(for: date)
         let entry = entriesOfDate[indexPath.row]
@@ -69,32 +89,38 @@ class TimelineViewViewModel {
 }
 
 extension TimelineViewViewModel {
-    var numberOfSections: Int { return dates.count }
+    var numberOfSections: Int {
+        return isSearching ? 1 : dates.count 
+    }
     
-    func title(for section: Int) -> String {
+    func title(for section: Int) -> String? {
+        guard isSearching == false else { return nil }
+        
         let date = dates[section]
         return DateFormatter.formatter(with: environment.settings.dateFormatOption.rawValue)
             .string(from: date)
     }
     
     func numberOfRows(in section: Int) -> Int {
+        guard isSearching == false else { return filtedEntries.count }
+        
         let date = dates[section] 
         return entries(for: date).count
     }
 }
 
 extension TimelineViewViewModel: EntryViewViewModelDelegate {
-    func didAddEntry(_ entry: Entry) {
+    func didAddEntry(_ entry: EntryType) {
         dates = environment.entryRepository.uniqueDates
     }
     
-    func didRemoveEntry(_ entry: Entry) {
+    func didRemoveEntry(_ entry: EntryType) {
         dates = environment.entryRepository.uniqueDates
     }
 }
 
 extension EntryRepository {
-    var allEntries: [Entry] {
+    var allEntries: [EntryType] {
         return recentEntries(max: numberOfEntries)
     }
     
