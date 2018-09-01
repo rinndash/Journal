@@ -12,9 +12,7 @@ class TimelineViewViewModel {
     let environment: Environment
     
     private var dates: [Date] = []
-    private var entries: [EntryType] {
-        return environment.entryRepository.recentEntries(max: environment.entryRepository.numberOfEntries)
-    }
+    private var entries: [EntryType] = []
     private var filtedEntries: [EntryType] = []
     
     var searchText: String? {
@@ -27,6 +25,11 @@ class TimelineViewViewModel {
             filtedEntries = environment.entryRepository.entries(contains: text)
         }
     }
+    
+    private(set) var isLoading: Bool = false
+    
+    private var currentPage: Int = 0
+    var isLastPage: Bool = false
     
     var isSearching: Bool {
         return searchText?.isEmpty == false
@@ -50,7 +53,7 @@ class TimelineViewViewModel {
 
     init(environment: Environment) {
         self.environment = environment
-        dates = environment.entryRepository.uniqueDates
+        dates = []
     }
     
     func removeEntry(at indexPath: IndexPath) {
@@ -111,22 +114,53 @@ extension TimelineViewViewModel {
 
 extension TimelineViewViewModel: EntryViewViewModelDelegate {
     func didAddEntry(_ entry: EntryType) {
-        dates = environment.entryRepository.uniqueDates
+        dates = entries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
+
     }
     
     func didRemoveEntry(_ entry: EntryType) {
-        dates = environment.entryRepository.uniqueDates
+        dates = entries
+            .compactMap { $0.createdAt.hmsRemoved }
+            .unique()
     }
 }
 
-extension EntryRepository {
-    var allEntries: [EntryType] {
-        return recentEntries(max: numberOfEntries)
+extension TimelineViewViewModel {
+    func loadMoreEntries(completion: @escaping () -> Void) {
+        isLoading = true
+        
+        environment.entryRepository.recentEntries(max: 5, page: currentPage) { [weak self] entries, isLastPage in
+            self?.entries += entries
+            self?.dates = entries
+                .compactMap { $0.createdAt.hmsRemoved }
+                .unique()
+            
+            self?.currentPage += 1
+            self?.isLastPage = isLastPage
+            self?.isLoading = false
+            
+            completion()
+        }
     }
     
-    var uniqueDates: [Date] {
-        return allEntries
-            .compactMap { $0.createdAt.hmsRemoved }
-            .unique()
+    func refreshEntries(completion: @escaping () -> Void) {
+        isLoading = true
+        currentPage = 0
+        isLastPage = false
+        
+        environment.entryRepository.recentEntries(max: 5, page: currentPage) { [weak self] entries, isLastPage in
+            self?.entries = entries
+            self?.dates = entries
+                .compactMap { $0.createdAt.hmsRemoved }
+                .unique()
+            
+            self?.currentPage += 1
+            self?.isLastPage = isLastPage
+            self?.isLoading = false
+            
+            completion()
+        }
     }
 }
