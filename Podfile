@@ -8,6 +8,9 @@ target :Journal do
 
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+
+  pod 'RxSwift'
+  pod 'RxCocoa'
   
   target :JournalTests do
     inherit! :search_paths
