@@ -28,6 +28,17 @@ class EntryViewController: UIViewController {
         
         updateSubviews()
         
+        button.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let `self` = self else { return }
+                if self.viewModel.isEditing {
+                    self.saveEntry(self)
+                } else {
+                    self.editEntry(self)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         Observable.merge(
             NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
             NotificationCenter.default.rx.notification(.UIKeyboardWillHide)
@@ -88,10 +99,6 @@ class EntryViewController: UIViewController {
         textView.isEditable = viewModel.textViewEditiable
         removeButton.isEnabled = viewModel.removeButtonEnabled
         button.image = viewModel.buttonImage
-        button.target = self
-        button.action = viewModel.isEditing 
-            ? #selector(saveEntry(_:))
-            : #selector(editEntry(_:))       
     }
 }
 
