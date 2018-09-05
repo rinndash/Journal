@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class EntryViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
@@ -15,6 +17,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var removeButton: UIBarButtonItem!
     
     var viewModel: EntryViewViewModel!
+    private let disposeBag: DisposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,51 +26,17 @@ class EntryViewController: UIViewController {
         textView.text = viewModel.textViewText
         textView.font = viewModel.textViewFont
         
-        if viewModel.hasEntry == false { 
-            viewModel.startEditing() 
-        }
         updateSubviews()
-                        
-        NotificationCenter.default
-            .addObserver(self, 
-                         selector: #selector(handleKeyboardAppearance(_:)), 
-                         name: NSNotification.Name.UIKeyboardWillShow, 
-                         object: nil)
         
-        NotificationCenter.default
-            .addObserver(self, 
-                         selector: #selector(handleKeyboardAppearance(_:)), 
-                         name: NSNotification.Name.UIKeyboardWillHide, 
-                         object: nil)
+        Observable.merge(
+            NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
+            NotificationCenter.default.rx.notification(.UIKeyboardWillHide)
+            ).subscribe(onNext: { [weak self] note in
+                self?.handleKeyboardAppearance(note)
+            })
+            .disposed(by: disposeBag)
     }
     
-    @objc func handleKeyboardAppearance(_ note: Notification) {
-        guard 
-            let userInfo = note.userInfo,
-            let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue),
-            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval),
-            let curve = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt)
-            else { return }
-        
-        let isKeyboardWillShow: Bool = note.name == Notification.Name.UIKeyboardWillShow 
-        let keyboardHeight = isKeyboardWillShow  
-            ? keyboardFrame.cgRectValue.height
-            : 0
-        
-        let animationOption = UIViewAnimationOptions.init(rawValue: curve)
-        
-        UIView.animate(
-            withDuration: duration, 
-            delay: 0.0, 
-            options: animationOption, 
-            animations: {
-                self.textViewBottomConstraint.constant = -keyboardHeight
-                self.view.layoutIfNeeded()
-            }, 
-            completion: nil
-        )
-    }
-        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if viewModel.isEditing { textView.becomeFirstResponder() }
@@ -126,3 +95,33 @@ class EntryViewController: UIViewController {
     }
 }
 
+// MARK - Keyboard 컨트롤
+
+extension EntryViewController {
+    private func handleKeyboardAppearance(_ note: Notification) {
+        guard
+            let userInfo = note.userInfo,
+            let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue),
+            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval),
+            let curve = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt)
+            else { return }
+        
+        let isKeyboardWillShow: Bool = note.name == Notification.Name.UIKeyboardWillShow
+        let keyboardHeight = isKeyboardWillShow
+            ? keyboardFrame.cgRectValue.height
+            : 0
+        
+        let animationOption = UIViewAnimationOptions.init(rawValue: curve)
+        
+        UIView.animate(
+            withDuration: duration,
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.textViewBottomConstraint.constant = -keyboardHeight
+                self.view.layoutIfNeeded()
+        },
+            completion: nil
+        )
+    }
+}

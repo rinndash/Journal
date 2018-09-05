@@ -45,6 +45,7 @@ class EntryViewViewModel {
     init(environment: Environment, entry: EntryType? = nil) {
         self.environment = environment
         self.entry = entry
+        self.isEditing = entry != nil
     }
     
     private(set) var isEditing: Bool = false
