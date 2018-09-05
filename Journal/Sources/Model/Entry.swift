@@ -32,3 +32,28 @@ class Entry: EntryType {
         self.text = text
     }
 }
+
+extension Entry {
+    convenience init?(dictionary: [String: Any]) {
+        guard 
+            let uuidString = dictionary["uuidString"] as? String,
+            let uuid = UUID(uuidString: uuidString),
+            let createdAtTimeInterval = dictionary["createdAt"] as? Double,
+            let text = dictionary["text"] as? String
+            else { return nil }
+        
+        self.init(id: uuid, createdAt: Date(timeIntervalSince1970: createdAtTimeInterval), text: text)
+    }
+}
+
+extension EntryType {
+    
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "uuidString": id.uuidString,
+            "createdAt": createdAt.timeIntervalSince1970,
+            "text": text
+        ]
+    }
+}

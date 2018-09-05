@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class TimelineViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     
+    private let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private let searchController: UISearchController = UISearchController(searchResultsController: nil)
     
     var viewModel: TimelineViewViewModel!
@@ -55,12 +57,24 @@ class TimelineViewController: UIViewController {
         navigationItem.searchController = searchController
         
         definesPresentationContext = true
+        
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { 
+            $0.center.equalToSuperview()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
         tableview.reloadData()
+        
+        loadingIndicator.startAnimating()
+        
+        viewModel.refreshEntries { [weak self] in
+            self?.tableview.reloadData()
+            self?.loadingIndicator.stopAnimating()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -94,6 +108,21 @@ extension TimelineViewController: UITableViewDataSource {
 }
 
 extension TimelineViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollPosition = scrollView.contentOffset.y
+        let cellHeight: CGFloat = 80
+        let threshold: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height - cellHeight
+        
+        if scrollPosition > threshold && viewModel.isLoading == false && viewModel.isLastPage == false {
+            loadingIndicator.startAnimating()
+            
+            viewModel.loadMoreEntries { [weak self] in
+                self?.tableview.reloadData()
+                self?.loadingIndicator.stopAnimating()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard searchController.isActive == false else { return UISwipeActionsConfiguration(actions: []) }
         
