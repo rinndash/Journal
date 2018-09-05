@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol EntryViewViewModelDelegate: class {
     func didAddEntry(_ entry: EntryType)
@@ -17,20 +18,29 @@ class EntryViewViewModel {
     let environment: Environment
     weak var delegate: EntryViewViewModelDelegate? 
     
-    private var entry: EntryType?
-    private(set) var isEditing: Bool = false
-    var hasEntry: Bool { return entry != nil }
+    private let _entry: Variable<EntryType?>
+    private let _isEditing: Variable<Bool>
     
     init(environment: Environment, entry: EntryType? = nil) {
         self.environment = environment
-        self.entry = entry
-        self.isEditing = entry == nil
+        _entry = Variable(entry)
+        _isEditing = Variable(entry == nil)
+    }
+}
+
+extension EntryViewViewModel {
+    var isEditing: Observable<Bool> { return _isEditing.asObservable() }
+    
+    var textViewEditiable: Observable<Bool> { return isEditing }
+    var buttonImage: Observable<UIImage> { return isEditing.map { $0 ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt") } }
+    var removeButtonEnabled: Observable<Bool> {
+        return _entry.asObservable().map { $0 != nil }
     }
 }
 
 extension EntryViewViewModel {
     var textViewText: String? {
-        return entry?.text
+        return _entry.value?.text
     }
     
     var textViewFont: UIFont {
@@ -38,33 +48,21 @@ extension EntryViewViewModel {
     }
     
     var title: String {
-        let date: Date = entry?.createdAt ?? environment.now()
+        let date: Date = _entry.value?.createdAt ?? environment.now()
         return DateFormatter.formatter(with: environment.settings.dateFormatOption.rawValue)
             .string(from: date)
-    }
-    
-    var textViewEditiable: Bool {
-        return isEditing
-    }
-    
-    var buttonImage: UIImage {
-        return isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
-    }
-    
-    var removeButtonEnabled: Bool {
-        return hasEntry
     }
 }
 
 extension EntryViewViewModel {
     func startEditing() {
-        isEditing = true
+        _isEditing.value = true
     }
     
     func completeEditing(with text: String) {
-        isEditing = false
+        _isEditing.value = false
         
-        if let editingEntry = entry {
+        if let editingEntry = _entry.value {
             environment.entryRepository.update(editingEntry, text: text)
         } else {
             let newEntry = environment.entryFactory(text)
@@ -74,9 +72,9 @@ extension EntryViewViewModel {
     }
     
     func removeEntry() -> EntryType? {
-        guard let entryToRemove = entry else { return nil }
+        guard let entryToRemove = _entry.value else { return nil }
         environment.entryRepository.remove(entryToRemove)
-        self.entry = nil
+        _entry.value = nil
         delegate?.didRemoveEntry(entryToRemove)
         return entryToRemove
     }

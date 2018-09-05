@@ -26,48 +26,32 @@ class EntryViewController: UIViewController {
         textView.text = viewModel.textViewText
         textView.font = viewModel.textViewFont
         
-        updateSubviews()
-        
         button.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .withLatestFrom(viewModel.isEditing)
+            .subscribe(onNext: { [weak self] isEditing in
                 guard let `self` = self else { return }
-                if self.viewModel.isEditing {
-                    self.saveEntry(self)
+                if isEditing {
+                    self.viewModel.completeEditing(with: self.textView.text)
                 } else {
-                    self.editEntry(self)
+                    self.viewModel.startEditing()
                 }
             })
             .disposed(by: disposeBag)
         
-        Observable.merge(
-            NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
-            NotificationCenter.default.rx.notification(.UIKeyboardWillHide)
-            ).subscribe(onNext: { [weak self] note in
-                self?.handleKeyboardAppearance(note)
+        removeButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.removeEntry()
             })
             .disposed(by: disposeBag)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if viewModel.isEditing { textView.becomeFirstResponder() }
-    }
-    
-    @objc func saveEntry(_ sender: Any) {
-        viewModel.completeEditing(with: textView.text)        
-        updateSubviews()
-        textView.resignFirstResponder()
-    }
-    
-    @objc func editEntry(_ sender: Any) {
-        viewModel.startEditing()
-        updateSubviews()
-        textView.becomeFirstResponder()
-    }
-    
-    @IBAction func removeEntry(_ sender: Any) {
-        guard viewModel.hasEntry else { return }
         
+        updateSubviewsWhenViewModelChanged()
+        
+        showHideKeyboardWhenIsEditingChanged()
+        
+        adjustTextViewHeightWhenKeyboardAppearanceChanged()
+    }
+    
+    private func removeEntry() {
         let alertController = UIAlertController(
             title: "현재 일기를 삭제할까요?", 
             message: "이 동작은 되돌릴 수 없습니다", 
@@ -95,16 +79,52 @@ class EntryViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }    
     
-    fileprivate func updateSubviews() {
-        textView.isEditable = viewModel.textViewEditiable
-        removeButton.isEnabled = viewModel.removeButtonEnabled
-        button.image = viewModel.buttonImage
+    fileprivate func updateSubviewsWhenViewModelChanged() {
+        viewModel.textViewEditiable
+            .subscribe(onNext: { [weak self]  in
+                self?.textView.isEditable = $0
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.buttonImage
+            .subscribe(onNext: { [weak self] in
+                self?.button.image = $0
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.removeButtonEnabled
+            .subscribe(removeButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK - Keyboard 컨트롤
-
 extension EntryViewController {
+    private func showHideKeyboardWhenIsEditingChanged() {
+        rx.methodInvoked(#selector(viewDidAppear(_:)))
+            .take(1)
+            .flatMap { [unowned self] _ in self.viewModel.isEditing }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isEditing in
+                if isEditing {
+                    self?.textView.becomeFirstResponder()
+                } else {
+                    self?.textView.resignFirstResponder()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func adjustTextViewHeightWhenKeyboardAppearanceChanged() {
+        Observable.merge(
+            NotificationCenter.default.rx.notification(.UIKeyboardWillShow),
+            NotificationCenter.default.rx.notification(.UIKeyboardWillHide)
+            ).subscribe(onNext: { [weak self] note in
+                self?.handleKeyboardAppearance(note)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func handleKeyboardAppearance(_ note: Notification) {
         guard
             let userInfo = note.userInfo,
