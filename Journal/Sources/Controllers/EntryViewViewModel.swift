@@ -15,11 +15,19 @@ protocol EntryViewViewModelDelegate: class {
 }
 
 class EntryViewViewModel {
+    enum Event {
+        case didTapEdit
+        case didTapSave(String)
+        case didTapRemove
+    }
+    
     let environment: Environment
     weak var delegate: EntryViewViewModelDelegate? 
     
     private let _entry: Variable<EntryType?>
     private let _isEditing: Variable<Bool>
+    
+    private let _event: PublishSubject<Event> = PublishSubject()
     
     init(environment: Environment, entry: EntryType? = nil) {
         self.environment = environment
