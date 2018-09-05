@@ -15,16 +15,21 @@ protocol EntryViewViewModelDelegate: class {
 
 class EntryViewViewModel {
     let environment: Environment
-    
     weak var delegate: EntryViewViewModelDelegate? 
     
     private var entry: EntryType?
+    private(set) var isEditing: Bool = false
+    var hasEntry: Bool { return entry != nil }
     
-    var hasEntry: Bool {
-        return entry != nil
+    init(environment: Environment, entry: EntryType? = nil) {
+        self.environment = environment
+        self.entry = entry
+        self.isEditing = entry == nil
     }
-    
-    var textViewText: String? { 
+}
+
+extension EntryViewViewModel {
+    var textViewText: String? {
         return entry?.text
     }
     
@@ -35,21 +40,23 @@ class EntryViewViewModel {
     var title: String {
         let date: Date = entry?.createdAt ?? environment.now()
         return DateFormatter.formatter(with: environment.settings.dateFormatOption.rawValue)
-            .string(from: date) 
+            .string(from: date)
+    }
+    
+    var textViewEditiable: Bool {
+        return isEditing
+    }
+    
+    var buttonImage: UIImage {
+        return isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
     }
     
     var removeButtonEnabled: Bool {
         return hasEntry
     }
-    
-    init(environment: Environment, entry: EntryType? = nil) {
-        self.environment = environment
-        self.entry = entry
-        self.isEditing = entry == nil
-    }
-    
-    private(set) var isEditing: Bool = false
-    
+}
+
+extension EntryViewViewModel {
     func startEditing() {
         isEditing = true
     }
@@ -72,13 +79,5 @@ class EntryViewViewModel {
         self.entry = nil
         delegate?.didRemoveEntry(entryToRemove)
         return entryToRemove
-    }
-    
-    var textViewEditiable: Bool {
-        return isEditing
-    }
-    
-    var buttonImage: UIImage {
-        return isEditing ? #imageLiteral(resourceName: "baseline_save_white_24pt") : #imageLiteral(resourceName: "baseline_edit_white_24pt")
     }
 }
